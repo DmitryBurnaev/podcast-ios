@@ -2,7 +2,7 @@
 //  podcastUITests.swift
 //  podcastUITests
 //
-//  Created by Dmitry Burnaev on 12.06.2021.
+//  Created by Dmitry Burnaev on 18.06.2021.
 //
 
 import XCTest
