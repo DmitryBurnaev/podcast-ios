@@ -36,7 +36,7 @@ struct ContentView: View {
     
     
     let tabBarImageNames = ["house",  "filemenu.and.selection", "plus.app.fill", "play.rectangle", "person"]
-    @State var selectednIndex = 0
+    @State var selectednIndex = "podcasts"
     @State var shouldShowModal = false
         
     var body: some View {
@@ -49,12 +49,13 @@ struct ContentView: View {
                         })
                     })
                 
-                
                 switch selectednIndex{
+                
                 case "home":
                     NavigationView{
                         Text("Home tab")
                     }
+                    
                 case "podcasts":
                     NavigationView{
                         List {
@@ -63,6 +64,7 @@ struct ContentView: View {
                             }
                         }.navigationBarTitle(Text("Podcasts"))
                     }
+                    
                 case "playlist":
                     NavigationView{
                         ScrollView{
@@ -72,14 +74,17 @@ struct ContentView: View {
                             }
                         }.navigationBarTitle(Text("Episodes"))
                     }
+                case "profile":
+                    NavigationView{
+                        Text("User profile")
+                    }
+
                 default:
                     NavigationView{
                         Text("Remining tabs")
                     }
                 }
             }
-            
-            Spacer()
             
             Divider().padding(.bottom, 8)
             
@@ -106,8 +111,8 @@ struct ContentView: View {
                     })
                 }
             }
+
         }
-        
 
     }
 }
