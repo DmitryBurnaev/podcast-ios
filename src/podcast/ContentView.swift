@@ -7,6 +7,11 @@ struct Podcast: Identifiable{
     let name, description, imageURL: String
 }
 
+struct NavigationItem: Identifiable{
+    var id: Int
+    
+    let name, icon, value: String
+}
 
 struct ContentView: View {
     
@@ -21,7 +26,16 @@ struct ContentView: View {
         .init(id: 8, name: "Test podcast", description: "SwiftUI gives us five built-in shapes that are commonly used: rectangle, rounded rectangle, circle, ellipse, and capsule. The last three in particular are subtly different in how they behave based on what sizes you provide, but we can demonstrate all the options with a single example", imageURL: "podcast-98765f61b45b1503"),
 
     ]
-    let tabBarImageNames = ["person", "gear", "plus.app.fill", "pencil", "lasso"]
+    let navigationItems: [NavigationItem] = [
+        .init(id: 1, name: "Home", icon: "house", value: "home"),
+        .init(id: 2, name: "Podcasts", icon: "filemenu.and.selection", value: "podcasts"),
+        .init(id: 3, name: "Add Episode", icon: "plus.app.fill", value: "add"),
+        .init(id: 4, name: "Playlist", icon: "play.rectangle", value: "playlist"),
+        .init(id: 5, name: "Profile", icon: "person", value: "profile"),
+    ]
+    
+    
+    let tabBarImageNames = ["house",  "filemenu.and.selection", "plus.app.fill", "play.rectangle", "person"]
     @State var selectednIndex = 0
     @State var shouldShowModal = false
         
@@ -37,7 +51,11 @@ struct ContentView: View {
                 
                 
                 switch selectednIndex{
-                case 0:
+                case "home":
+                    NavigationView{
+                        Text("Home tab")
+                    }
+                case "podcasts":
                     NavigationView{
                         List {
                             ForEach(podcasts, id: \.id){ podcast in
@@ -45,7 +63,7 @@ struct ContentView: View {
                             }
                         }.navigationBarTitle(Text("Podcasts"))
                     }
-                case 1:
+                case "playlist":
                     NavigationView{
                         ScrollView{
                             Divider()
@@ -54,19 +72,10 @@ struct ContentView: View {
                             }
                         }.navigationBarTitle(Text("Episodes"))
                     }
-                case 2:
-                    NavigationView{
-                        ScrollView{
-                            ForEach(0..<100){ num in
-                                Text("Episode #\(num)")
-                            }
-                        }.navigationTitle("Episodes")
-                    }
                 default:
                     NavigationView{
                         Text("Remining tabs")
                     }
-                    
                 }
             }
             
@@ -75,27 +84,24 @@ struct ContentView: View {
             Divider().padding(.bottom, 8)
             
             HStack{
-                ForEach(0..<5){ num in
+                ForEach(navigationItems, id: \.id){ navigation in
                     Button(action: {
-                        if num == 2 {
+                        if navigation.value == "add" {
                             shouldShowModal.toggle()
                             return
                         }
-                        
-                        selectednIndex = num
+                        selectednIndex = navigation.value
                     }, label: {
                         Spacer()
-                        
-                        if num == 2 {
-                            Image(systemName: tabBarImageNames[num])
+                        if navigation.value == "add" {
+                            Image(systemName: navigation.icon)
                                 .font(.system(size: 44))
                                 .foregroundColor(.red)
                         } else {
-                            Image(systemName: tabBarImageNames[num])
+                            Image(systemName: navigation.icon)
                                 .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(selectednIndex == num ? Color(.label) : .init(white: 0.8))
+                                .foregroundColor(selectednIndex == navigation.value ? Color(.label) : .init(white: 0.8))
                         }
-                        
                         Spacer()
                     })
                 }
