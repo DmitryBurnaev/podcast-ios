@@ -27,7 +27,7 @@ struct PodcastListView: View {
                 ForEach(podcasts, id: \.id){ podcast in
                     PodcastRow(podcast: podcast)
                 }
-            }.navigationBarTitle(Text("Podcasts"))                    
+            }.navigationBarTitle(Text("Podcasts"), displayMode: .inline)
         }
     }
 }
@@ -35,6 +35,7 @@ struct PodcastListView: View {
 struct PodcastListView_Previews: PreviewProvider {
     static var previews: some View {
         PodcastListView()
+            .previewLayout(.sizeThatFits)
     }
 }
 
