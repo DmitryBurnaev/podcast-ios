@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AAFBD292681B0A5007E3063 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD282681B0A5007E3063 /* TabView.swift */; };
+		0AAFBD292681B0A5007E3063 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD282681B0A5007E3063 /* TabBarView.swift */; };
 		0AAFBD2B2681B5A1007E3063 /* PodcastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */; };
 		0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2C2681B672007E3063 /* HomeView.swift */; };
 		0AAFBD2F2681B6CE007E3063 /* PlayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */; };
@@ -38,7 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AAFBD282681B0A5007E3063 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		0AAFBD282681B0A5007E3063 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastListView.swift; sourceTree = "<group>"; };
 		0AAFBD2C2681B672007E3063 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListView.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 				0AB10D152674B5A600EC4B51 /* Assets.xcassets */,
 				0AB10D1A2674B5A600EC4B51 /* Info.plist */,
 				0AB10D172674B5A600EC4B51 /* Preview Content */,
-				0AAFBD282681B0A5007E3063 /* TabView.swift */,
+				0AAFBD282681B0A5007E3063 /* TabBarView.swift */,
 				0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */,
 				0AAFBD2C2681B672007E3063 /* HomeView.swift */,
 				0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */,
@@ -277,7 +277,7 @@
 				0AAFBD2F2681B6CE007E3063 /* PlayListView.swift in Sources */,
 				0AB10D142674B5A500EC4B51 /* ContentView.swift in Sources */,
 				0AAFBD2B2681B5A1007E3063 /* PodcastListView.swift in Sources */,
-				0AAFBD292681B0A5007E3063 /* TabView.swift in Sources */,
+				0AAFBD292681B0A5007E3063 /* TabBarView.swift in Sources */,
 				0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */,
 				0AAFBD312681B701007E3063 /* ProfileView.swift in Sources */,
 				0AB10D122674B5A500EC4B51 /* podcastApp.swift in Sources */,

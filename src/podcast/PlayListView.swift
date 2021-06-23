@@ -15,7 +15,7 @@ struct PlayListView: View {
                 ForEach(0..<100){ num in
                     Text("Episode #\(num)")
                 }
-            }.navigationBarTitle(Text("Episodes"))
+            }.navigationBarTitle(Text("Episodes"), displayMode: .inline)
         }
     }
 }
@@ -23,5 +23,6 @@ struct PlayListView: View {
 struct PlayListView_Previews: PreviewProvider {
     static var previews: some View {
         PlayListView()
+            .previewLayout(.sizeThatFits)
     }
 }
