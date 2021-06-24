@@ -51,13 +51,3 @@ struct ContentView_Previews: PreviewProvider {
             .previewDevice("iPhone 11")
     }
 }
-
-//            TabView (selection: $selectedTab){
-//                HomeView().tag("home").navigationBarTitle(Text("Home"))
-//                PodcastListView().tag("podcasts")
-//                PlayListView().tag("playlist")
-//                ProfileView().tag("profile")
-//            }
-//            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-
-

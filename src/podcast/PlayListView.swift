@@ -10,12 +10,13 @@ import SwiftUI
 struct PlayListView: View {
     var body: some View {
         NavigationView{
-            ScrollView{
-                Divider()
-                ForEach(0..<100){ num in
-                    Text("Episode #\(num)")
-                }
-            }.navigationBarTitle(Text("Episodes"), displayMode: .inline)
+            Text("Playlist")
+//            ScrollView{
+//                Divider()
+//                ForEach(0..<100){ num in
+//                    Text("Episode #\(num)")
+//                }
+//            }
         }
     }
 }

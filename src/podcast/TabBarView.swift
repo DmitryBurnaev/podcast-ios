@@ -19,7 +19,8 @@ let tabs: [Tab] = [
 struct TabBarView: View {
     @Binding var selectedTab: String
     @Binding var shouldShowModal: Bool
-
+    @Namespace private var currentTab
+    
     var body: some View {
         HStack(alignment: .bottom){
             ForEach(tabs, id: \.id){ tab in
@@ -29,9 +30,8 @@ struct TabBarView: View {
                             Color(.label)
                                 .frame(height: 2)
                                 .offset(y: -8)
-//                                .matchedGeometryEffect(id: "selectedTab", in: selectedTab)
+                                .matchedGeometryEffect(id: "currentTab", in: currentTab)
                         }
-                        
                         if (tab.id == "add"){
                             Image(systemName: tab.icon)
                                 .frame(height: 44).font(.system(size: 34))

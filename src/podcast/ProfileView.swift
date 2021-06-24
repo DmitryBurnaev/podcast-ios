@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     var body: some View {
         NavigationView{
-            Text("User profile").navigationBarTitle(Text("Profile"), displayMode: .inline)
+            Text("User profile")
         }        
     }
 }
