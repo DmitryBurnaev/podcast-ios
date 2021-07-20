@@ -6,7 +6,7 @@ struct PodcastsList: Decodable{
 }
 
 struct PodcastItem: Decodable, Hashable {
-    let id: Int
+    let id, episodes_count: Int
     let name, image_url: String
 }
 
@@ -29,7 +29,7 @@ class GridViewModel: ObservableObject{
                 let res = try JSONDecoder().decode(PodcastsList.self, from: data)
                 self.payload = res.payload
             } catch {
-                print("Failed to decode: \(err) \(data)")
+                print("Failed to decode: \(error) \(data)")
             }
         }.resume()
     
@@ -48,17 +48,18 @@ struct HomeView: View {
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
                     GridItem(.flexible(minimum: 100, maximum: 200)),
                 ], spacing: 12, content: {
-                    ForEach(vm.payload, id: \.self){ num in
+                    ForEach(vm.payload, id: \.self){ podcast in
                         VStack(alignment: .leading){
                             Spacer()
-                                .frame(width: 90, height: 90)
+                                .frame(width: 100, height: 100)
                                 .background(Color.blue)
-                            Text("Podcast name")
+                            Text(podcast.name)
                                 .font(.system(size: 10, weight: .semibold))
+                            Text("Episodes: \(podcast.episodes_count)")
+                                .font(.system(size: 9, weight: .regular))
+                                .foregroundColor(.gray)
                         }
                         .padding()
-                        .background(Color.gray)
-
                     }
                 }).padding(.horizontal, 15)
             }.navigationTitle("Your podcasts")
