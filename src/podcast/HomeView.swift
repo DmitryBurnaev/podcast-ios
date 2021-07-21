@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 
 struct PodcastsList: Decodable{
@@ -16,10 +17,6 @@ class GridViewModel: ObservableObject{
     
 
     init() {
-//        Timer.scheduledTimer(withTimeInterval: 2, repeats: false){(_) in
-//            self.podcasts = 0..<15
-//        }
-//
         guard let url = URL(string: "http://192.168.1.6:8001/api/podcasts/") else {
             return
         }
@@ -46,13 +43,15 @@ struct HomeView: View {
                 LazyVGrid(columns: [
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
                     GridItem(.flexible(minimum: 100, maximum: 200), spacing: 12),
-                    GridItem(.flexible(minimum: 100, maximum: 200)),
-                ], spacing: 12, content: {
+                    GridItem(.flexible(minimum: 100, maximum: 200), alignment: .top),
+                ], spacing: 2, content: {
                     ForEach(vm.payload, id: \.self){ podcast in
                         VStack(alignment: .leading){
-                            Spacer()
-                                .frame(width: 100, height: 100)
-                                .background(Color.blue)
+                            KFImage(URL(string: podcast.image_url))
+                                .resizable()
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 0.5))
+                                .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                             Text(podcast.name)
                                 .font(.system(size: 10, weight: .semibold))
                             Text("Episodes: \(podcast.episodes_count)")
