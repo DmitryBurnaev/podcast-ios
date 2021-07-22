@@ -7,10 +7,34 @@
 
 import SwiftUI
 
+struct TaskRow: View {
+    var body: some View {
+        Text("Task data goes here")
+    }
+}
+
 struct PlayListView: View {
     var body: some View {
         NavigationView{
+
+            List {
+                
+                Section(header: Text("Other tasks")) {
+                    TaskRow()
+                    TaskRow()
+                    TaskRow()
+                }
+
+                Section(header: Text("Other tasks")) {
+                    TaskRow()
+                    TaskRow()
+                    TaskRow()
+                }
+                
+            }
             Text("Playlist")
+
+
 //            ScrollView{
 //                Divider()
 //                ForEach(0..<100){ num in
