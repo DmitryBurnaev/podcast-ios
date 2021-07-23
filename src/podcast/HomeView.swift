@@ -55,7 +55,7 @@ struct Episode: Identifiable{
 let episodes: [Episode] = [
     .init(id: 1, title: "Роберт Хайнлайн - ТОННЕЛЬ В НЕБЕ. Часть 3 из 3 (окончание). Аудиокнига. Фантастика.", image_url: "https://s1.livelib.ru/boocover/1001456680/o/5f47/Robert_Hajnlajn__Tunnel_v_nebe.jpeg"),
     .init(id: 2, title: "ASGI — не еще один gateway / Сергей Халецкий / EPAM [Python Meetup 28.11.2019]", image_url: "https://i.ytimg.com/vi/HGcv9WAKkPM/maxresdefault.jpg"),
-    .init(id: 3, title: "Mikhail Kashkin \"aiohttp.web: Применение сервера и клиента\" Dnepr.py #5.", image_url: "https://i.ytimg.com/vi/8wvQGRJiKdY/default.jpg"),
+    .init(id: 3, title: "Mikhail Kashkin \"aiohttp.web: Применение сервера и клиента\" Dnepr.py #5.", image_url: "https://miro.medium.com/max/1400/0*l7AJ7Y9X3bAbkvfs"),
     .init(id: 4, title: "Джеймс Кори - \"Врата Абаддона\" Глава 48 Бык", image_url: "https://static.librebook.me/uploads/pics/02/19/349.jpg"),
     .init(id: 5, title: "Patterns for asyncio applications / Николай Новик [Python Meetup 28.10.2016]", image_url: "https://i.ytimg.com/vi/z4gKgEN3v2Q/default.jpg"),
 ]
@@ -69,47 +69,49 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView{
-            VStack(alignment: .leading){
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack(spacing: 22){
-                        ForEach(vm.payload, id: \.self){ podcast in
-                            VStack(alignment: .leading){
-                                Image(podcast.image_url)
-//                                KFImage(URL(string: podcast.image_url))
-                                    .resizable()
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                    .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 0.5))
-                                    .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                Text(podcast.name)
-                                    .font(.system(size: 10, weight: .semibold))
-                                Text("Episodes: \(podcast.episodes_count)")
-                                    .font(.system(size: 9, weight: .regular))
-                                    .foregroundColor(.gray)
+            ScrollView(showsIndicators: false){
+                VStack(alignment: .leading){
+                    ScrollView(.horizontal, showsIndicators: false){
+                        HStack(spacing: 22){
+                            ForEach(vm.payload, id: \.self){ podcast in
+                                VStack(alignment: .leading){
+                                    Image(podcast.image_url)
+    //                                KFImage(URL(string: podcast.image_url))
+                                        .resizable()
+                                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 0.5))
+                                        .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                    Text(podcast.name)
+                                        .font(.system(size: 10, weight: .semibold))
+                                    Text("Episodes: \(podcast.episodes_count)")
+                                        .font(.system(size: 9, weight: .regular))
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
-                    }
-                }.padding()
-                Text("Recent episodes")
-                    .font(.system(size: 20, weight: .semibold))
-                    .padding()
-                List {
-                    ForEach(episodes, id: \.id){ episode in
-                        HStack{
-                            KFImage(URL(string: episode.image_url))
-                                .resizable()
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 1))
-                                .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            VStack (alignment: .leading){
-                                Text(episode.title)
-                                    .font(.system(size: 12, weight: .regular))
-                                    .foregroundColor(.gray)
-                            }.padding(.leading, 8)
-                        }.padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    }
+                    }.padding()
+                    Text("Recent episodes")
+                        .font(.system(size: 20, weight: .semibold))
+                        .padding()
+//                    List {
+                        ForEach(episodes, id: \.id){ episode in
+                            HStack{
+                                KFImage(URL(string: episode.image_url))
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 1))
+                                    .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                VStack (alignment: .leading){
+                                    Text(episode.title)
+                                        .font(.system(size: 12, weight: .regular))
+                                        .foregroundColor(.gray)
+                                }.padding(.leading, 8)
+                            }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
+                        }
+//                    }
                 }
-            }.navigationTitle("Your podcasts")
 
+            }.navigationTitle("Your podcasts")
         }
     }
 }
