@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A7D0E8A26B2B0780029068C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8926B2B0780029068C /* LoginView.swift */; };
+		0A7D0E8D26B2B21B0029068C /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8C26B2B21B0029068C /* WebService.swift */; };
+		0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */; };
 		0AAFBD292681B0A5007E3063 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD282681B0A5007E3063 /* TabBarView.swift */; };
 		0AAFBD2B2681B5A1007E3063 /* PodcastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */; };
 		0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2C2681B672007E3063 /* HomeView.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A7D0E8926B2B0780029068C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = podcast/LoginView.swift; sourceTree = SOURCE_ROOT; };
+		0A7D0E8C26B2B21B0029068C /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0AAFBD282681B0A5007E3063 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastListView.swift; sourceTree = "<group>"; };
 		0AAFBD2C2681B672007E3063 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -84,6 +90,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A7D0E8826B2ACFA0029068C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A7D0E8926B2B0780029068C /* LoginView.swift */,
+				0AAFBD302681B701007E3063 /* ProfileView.swift */,
+				0AAFBD2C2681B672007E3063 /* HomeView.swift */,
+				0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */,
+				0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A7D0E8B26B2B19C0029068C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0A7D0E8C26B2B21B0029068C /* WebService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0A7D0E8E26B2B8DD0029068C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		0AB10D052674B5A500EC4B51 = {
 			isa = PBXGroup;
 			children = (
@@ -107,16 +141,15 @@
 		0AB10D102674B5A500EC4B51 /* podcast */ = {
 			isa = PBXGroup;
 			children = (
+				0A7D0E8826B2ACFA0029068C /* Views */,
+				0A7D0E8B26B2B19C0029068C /* Services */,
+				0A7D0E8E26B2B8DD0029068C /* ViewModels */,
 				0AB10D112674B5A500EC4B51 /* podcastApp.swift */,
 				0AB10D132674B5A500EC4B51 /* ContentView.swift */,
+				0AAFBD282681B0A5007E3063 /* TabBarView.swift */,
 				0AB10D152674B5A600EC4B51 /* Assets.xcassets */,
 				0AB10D1A2674B5A600EC4B51 /* Info.plist */,
 				0AB10D172674B5A600EC4B51 /* Preview Content */,
-				0AAFBD282681B0A5007E3063 /* TabBarView.swift */,
-				0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */,
-				0AAFBD2C2681B672007E3063 /* HomeView.swift */,
-				0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */,
-				0AAFBD302681B701007E3063 /* ProfileView.swift */,
 			);
 			path = podcast;
 			sourceTree = "<group>";
@@ -282,12 +315,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A7D0E8D26B2B21B0029068C /* WebService.swift in Sources */,
 				0AAFBD2F2681B6CE007E3063 /* PlayListView.swift in Sources */,
 				0AB10D142674B5A500EC4B51 /* ContentView.swift in Sources */,
 				0AAFBD2B2681B5A1007E3063 /* PodcastListView.swift in Sources */,
 				0AAFBD292681B0A5007E3063 /* TabBarView.swift in Sources */,
 				0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */,
 				0AAFBD312681B701007E3063 /* ProfileView.swift in Sources */,
+				0A7D0E8A26B2B0780029068C /* LoginView.swift in Sources */,
+				0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */,
 				0AB10D122674B5A500EC4B51 /* podcastApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
