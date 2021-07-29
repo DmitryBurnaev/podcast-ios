@@ -26,7 +26,8 @@ struct ContentView: View {
                     PlayListView()
 
                 case "profile":
-                    ProfileView()
+                    LoginView()
+//                    ProfileView()
 
                 default:
                     NavigationView{
