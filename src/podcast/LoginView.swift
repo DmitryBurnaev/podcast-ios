@@ -3,7 +3,8 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject private var loginVM = LoginViewModel()
-    
+    @State private var showAlert = false
+
     var body: some View {
         VStack{
             Form{
@@ -17,6 +18,12 @@ struct LoginView: View {
                     Spacer()
                     Button("Login"){
                         loginVM.login()
+                        showAlert = true
+                    }.alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Got access token"),
+                            message: Text("Access token: \(loginVM.token)")
+                        )
                     }
                     Spacer()
                 }
