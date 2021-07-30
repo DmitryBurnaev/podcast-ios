@@ -2,7 +2,7 @@ import SwiftUI
 import Kingfisher
 
 
-struct PodcastsList: Decodable{
+struct PodcastsListResponse: Decodable{
     let payload: [PodcastItem]
 }
 
@@ -36,32 +36,32 @@ class GridViewModel: ObservableObject{
         guard let url = URL(string: "http://192.168.1.6:8001/api/podcasts/") else {
             return
         }
-        URLSession.shared.dataTask(with: url){ (data, resp, err) in
-            guard let data = data else { return }
-            do {
-                let res = try JSONDecoder().decode(PodcastsList.self, from: data)
-                // TODO: fix warning: "Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates."
-                self.podcasts = res.payload
-            } catch {
-                print("Failed to decode: \(error) \(data)")
-            }
-        }.resume()
-        
-        
-        guard let url = URL(string: "http://192.168.1.6:8001/api/episodes/?limit=5") else {
-            return
-        }
-        URLSession.shared.dataTask(with: url){ (data, resp, err) in
-            guard let data = data else { return }
-            do {
-                let res = try JSONDecoder().decode(EpisodesResponse.self, from: data)
-                // TODO: fix warning: "Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates."
-                self.episodes = res.payload.items
-            } catch {
-                print("Failed to decode: \(error) \(data)")
-            }
-        }.resume()
-        
+//        URLSession.shared.dataTask(with: url){ (data, resp, err) in
+//            guard let data = data else { return }
+//            do {
+//                let res = try JSONDecoder().decode(PodcastsList.self, from: data)
+//                // TODO: fix warning: "Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates."
+//                self.podcasts = res.payload
+//            } catch {
+//                print("Failed to decode: \(error) \(data)")
+//            }
+//        }.resume()
+//        
+//        
+//        guard let url = URL(string: "http://192.168.1.6:8001/api/episodes/?limit=5") else {
+//            return
+//        }
+//        URLSession.shared.dataTask(with: url){ (data, resp, err) in
+//            guard let data = data else { return }
+//            do {
+//                let res = try JSONDecoder().decode(EpisodesResponse.self, from: data)
+//                // TODO: fix warning: "Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates."
+//                self.episodes = res.payload.items
+//            } catch {
+//                print("Failed to decode: \(error) \(data)")
+//            }
+//        }.resume()
+//        
 
         
         
@@ -71,6 +71,7 @@ class GridViewModel: ObservableObject{
 struct HomeView: View {
     
     @ObservedObject var vm = GridViewModel()
+    @StateObject private var podcastVM = PodcastListViewModel()
     
     var body: some View {
         NavigationView{
