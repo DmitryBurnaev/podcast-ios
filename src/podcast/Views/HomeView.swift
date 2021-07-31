@@ -31,47 +31,17 @@ class GridViewModel: ObservableObject{
     @Published var podcasts = [PodcastItem]()
     @Published var episodes = [Episode]()
 
-
     init() {
-        guard let url = URL(string: "http://192.168.1.6:8001/api/podcasts/") else {
-            return
+        let podcastVM = PodcastListViewModel()
+        podcastVM.getPodcasts()
+        DispatchQueue.main.async {
+            self.podcasts = podcastVM.podcasts
         }
-//        URLSession.shared.dataTask(with: url){ (data, resp, err) in
-//            guard let data = data else { return }
-//            do {
-//                let res = try JSONDecoder().decode(PodcastsList.self, from: data)
-//                // TODO: fix warning: "Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates."
-//                self.podcasts = res.payload
-//            } catch {
-//                print("Failed to decode: \(error) \(data)")
-//            }
-//        }.resume()
-//        
-//        
-//        guard let url = URL(string: "http://192.168.1.6:8001/api/episodes/?limit=5") else {
-//            return
-//        }
-//        URLSession.shared.dataTask(with: url){ (data, resp, err) in
-//            guard let data = data else { return }
-//            do {
-//                let res = try JSONDecoder().decode(EpisodesResponse.self, from: data)
-//                // TODO: fix warning: "Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates."
-//                self.episodes = res.payload.items
-//            } catch {
-//                print("Failed to decode: \(error) \(data)")
-//            }
-//        }.resume()
-//        
-
-        
-        
     }
 }
 
 struct HomeView: View {
-    
-    @ObservedObject var vm = GridViewModel()
-    @StateObject private var podcastVM = PodcastListViewModel()
+    @ObservedObject var podcastVM = PodcastListViewModel()
     
     var body: some View {
         NavigationView{
@@ -79,9 +49,8 @@ struct HomeView: View {
                 VStack(alignment: .leading){
                     ScrollView(.horizontal, showsIndicators: false){
                         HStack(spacing: 22){
-                            ForEach(vm.podcasts, id: \.self){ podcast in
+                            ForEach(podcastVM.podcasts, id: \.self){ podcast in
                                 VStack(alignment: .leading){
-//                                    Image(podcast.image_url)
                                     KFImage(URL(string: podcast.image_url))
                                         .resizable()
                                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -99,7 +68,7 @@ struct HomeView: View {
                     Text("Recent episodes")
                         .font(.system(size: 20, weight: .semibold))
                         .padding()
-                    ForEach(vm.episodes, id: \.id){ episode in
+                    ForEach(podcastVM.episodes, id: \.id){ episode in
                         HStack{
                             KFImage(URL(string: episode.image_url))
                                 .resizable()

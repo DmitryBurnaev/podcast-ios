@@ -24,7 +24,6 @@ class LoginViewModel: ObservableObject {
                         self.notifyUserIsAuthenticated = true
                         self.token = token
                     }
-//                    self.token = token
                 case .failure(let error):
                     print("Auth problems: \(error.localizedDescription)")
             }

@@ -27,9 +27,11 @@ struct TokenPayload: Codable {
 
 
 class WebService{
+    let APIUrl: String = "http://192.168.1.6:8001/api"
+    
     
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
-        guard let url = URL(string: "http://192.168.1.6:8001/api/auth/sign-in/") else {
+        guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
             return
         }
         let body = LoginRequestBody(email: email, password: password)
@@ -60,15 +62,15 @@ class WebService{
     
     
     func getPodcasts(limit: Int = 20, token: String, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
-        guard let url = URL(string: "http://192.168.1.6:8001/api/podcasts/?limit=\(limit)") else {
+        guard let url = URL(string: "\(APIUrl)/podcasts/?limit=\(limit)") else {
             completion(.failure(.invalidURL))
             return
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Authorization", forHTTPHeaderField: "Bearer \(token)")
-
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
         URLSession.shared.dataTask(with: request){ (data, resp, error) in
             guard let data = data, error == nil else {
                 completion(.failure(.noData))
@@ -83,5 +85,38 @@ class WebService{
         }.resume()
         
     }
+        
+    func getEpisodes(limit: Int = 20, podcastID: Int? = nil, token: String, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
+        var url: String = ""
+        if (podcastID != nil){
+            url = "\(APIUrl)/podcasts/\(podcastID ?? 0)/episodes/?limit=\(limit)"
+        } else {
+            url = "\(APIUrl)/episodes/?limit=\(limit)"
+        }
+        guard let url = URL(string: url) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request){ (data, resp, error) in
+            guard let data = data, error == nil else {
+                completion(.failure(.noData))
+                return
+            }
+            guard let episodesResponse = try? JSONDecoder().decode(EpisodesResponse.self, from: data) else {
+                completion(.failure(.decodingError))
+                return
+            }
+            let episodes = episodesResponse.payload.items
+            completion(.success(episodes))
+        }.resume()
+        
+    }
+
     
 }
