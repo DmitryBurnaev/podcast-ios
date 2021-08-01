@@ -41,30 +41,57 @@ class GridViewModel: ObservableObject{
 }
 
 struct HomeView: View {
-    @ObservedObject var podcastVM = PodcastListViewModel()
-    
+    @StateObject private var loginVM = LoginViewModel()
+//    @StateObject var podcastVM = PodcastListViewModel()
+    @StateObject private var podcastVM = PodcastListViewModel()
+
     var body: some View {
         NavigationView{
             ScrollView(showsIndicators: false){
                 VStack(alignment: .leading){
                     ScrollView(.horizontal, showsIndicators: false){
                         HStack(spacing: 22){
-                            ForEach(podcastVM.podcasts, id: \.self){ podcast in
-                                VStack(alignment: .leading){
-                                    KFImage(URL(string: podcast.image_url))
-                                        .resizable()
-                                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 0.5))
-                                        .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                    Text(podcast.name)
-                                        .font(.system(size: 10, weight: .semibold))
-                                    Text("Episodes: \(podcast.episodes_count)")
-                                        .font(.system(size: 9, weight: .regular))
-                                        .foregroundColor(.gray)
+                            if podcastVM.podcasts.count > 0 {
+                                ForEach(podcastVM.podcasts, id: \.self){ podcast in
+                                    VStack(alignment: .leading){
+                                        KFImage(URL(string: podcast.image_url))
+                                            .resizable()
+                                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                            .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 0.5))
+                                            .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        Text(podcast.name)
+                                            .font(.system(size: 10, weight: .semibold))
+                                        Text("Episodes: \(podcast.episodes_count)")
+                                            .font(.system(size: 9, weight: .regular))
+                                            .foregroundColor(.gray)
+                                    }
                                 }
+                            } else {
+                                Image("cover-default")
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 1))
+                                    .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                             }
                         }
                     }.padding()
+                    
+                    VStack{
+                        Spacer()
+                        if podcastVM.podcasts.count > 0{
+                            List(podcastVM.podcasts, id:\.id){ podcast in
+                                HStack{
+                                    Text("\(podcast.name)")
+                                }
+                            }
+                        } else {
+                            Text("No podcasts found")
+                        }
+                    }
+                    Button("GetPodcasts"){
+                        podcastVM.getPodcasts()
+                    }.padding().background(Color.blue)
+                    
                     Text("Recent episodes")
                         .font(.system(size: 20, weight: .semibold))
                         .padding()

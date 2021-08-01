@@ -5,7 +5,7 @@ import Foundation
 class PodcastListViewModel: ObservableObject {
     var podcasts: [PodcastItem] = []
     var episodes: [Episode] = []
-    
+//    
     init() {
         self.getPodcasts()
         self.getAllEpisodes(limit: 5)
@@ -22,11 +22,13 @@ class PodcastListViewModel: ObservableObject {
         WebService().getPodcasts(token: token){ result in
             switch result{
                 case .success(let podcasts):
-                    DispatchQueue.main.async {
-                        self.podcasts = podcasts
-                        print("Found podcasts \(self.podcasts)")
-
-                    }
+                    self.podcasts = podcasts
+                    print("Found podcasts \(self.podcasts)")
+//                    DispatchQueue.main.async {
+//                        self.podcasts = podcasts
+//                        print("Found podcasts \(self.podcasts)")
+//
+//                    }
                 case .failure(let error):
                     print("API problems: \(error.localizedDescription)")
             }
