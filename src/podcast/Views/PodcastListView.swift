@@ -1,30 +1,13 @@
 import SwiftUI
-
-
-struct Podcast: Identifiable{
-    var id: Int
-    
-    let name, description, imageURL: String
-}
-
-let podcasts: [Podcast] = [
-    .init(id: 1, name: "Audio Books", description: "Audio books for everyone", imageURL: "podcast-cax7j52Xha3f"),
-    .init(id: 2, name: "Listen later", description: "Only interesting audios", imageURL: "podcast-75fc068c8ecbca77"),
-    .init(id: 3, name: "Lighting talks", description: "Some audio for listening after difficult day", imageURL: "cover-default"),
-    .init(id: 4, name: "Test podcast", description: "SwiftUI gives us five built-in shapes that are commonly used: rectangle, rounded rectangle, circle, ellipse, and capsule. The last three in particular are subtly different in how they behave based on what sizes you provide, but we can demonstrate all the options with a single example", imageURL: "podcast-98765f61b45b1503"),
-    .init(id: 5, name: "Audio Books", description: "Audio books for everyone", imageURL: "podcast-cax7j52Xha3f"),
-    .init(id: 6, name: "Listen later", description: "Only interesting audios", imageURL: "podcast-75fc068c8ecbca77"),
-    .init(id: 7, name: "Lighting talks", description: "Some audio for listening after difficult day", imageURL: "cover-default"),
-    .init(id: 8, name: "Test podcast", description: "SwiftUI gives us five built-in shapes that are commonly used: rectangle, rounded rectangle, circle, ellipse, and capsule. The last three in particular are subtly different in how they behave based on what sizes you provide, but we can demonstrate all the options with a single example", imageURL: "podcast-98765f61b45b1503"),
-
-]
-
+import Kingfisher
 
 struct PodcastListView: View {
+    @StateObject private var podcastVM = PodcastListViewModel()
+    
     var body: some View {
         NavigationView{
             List {
-                ForEach(podcasts, id: \.id){ podcast in
+                ForEach(podcastVM.podcasts, id: \.id){ podcast in
                     PodcastRow(podcast: podcast)
                 }
             }.navigationBarTitle(Text("Podcasts"), displayMode: .inline)
@@ -41,11 +24,11 @@ struct PodcastListView_Previews: PreviewProvider {
 
 
 struct PodcastRow: View {
-    let podcast: Podcast
+    let podcast: PodcastItem
     
     var body: some View{
         HStack{
-            Image(podcast.imageURL)
+            KFImage(URL(string: podcast.image_url ?? ""))
                 .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 1))

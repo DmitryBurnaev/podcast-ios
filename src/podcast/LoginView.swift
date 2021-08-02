@@ -3,31 +3,50 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject private var loginVM = LoginViewModel()
-    @State private var showAlert = false
+    @StateObject private var podcastVM = PodcastListViewModel()
 
+    
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
             Form{
                 HStack{
                     Spacer()
-                    Image(systemName: "lock.fill")
+                    Image(systemName: loginVM.isAuthenticated ? "lock.open" : "lock.fill")
                 }
-                TextField("Email", text: $loginVM.email).keyboardType(.emailAddress)
+                TextField("Email", text: $loginVM.email).keyboardType(.emailAddress).autocapitalization(.none)
                 SecureField("Password", text: $loginVM.password)
                 HStack{
                     Spacer()
                     Button("Login"){
                         loginVM.login()
-                        showAlert = true
-                    }.alert(isPresented: $showAlert) {
+                    }.alert(isPresented: $loginVM.notifyUserIsAuthenticated) {
                         Alert(
                             title: Text("Got access token"),
-                            message: Text("Access token: \(loginVM.token)")
+                            message: Text("Access token: \(loginVM.token)"),
+                            dismissButton: .default(Text("Got it!"))
                         )
                     }
                     Spacer()
                 }
-            }.buttonStyle(PlainButtonStyle())
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            VStack{
+                Spacer()
+                if podcastVM.podcasts.count > 0{
+                    List(podcastVM.podcasts, id:\.id){ podcast in
+                        HStack{
+                            Text("\(podcast.name)")
+                        }
+                    }
+                } else {
+                    Text("No podcasts found")
+                }
+            }
+            Button("Get podcasts"){
+                podcastVM.getPodcasts()
+            }.padding().background(Color.blue)
+            
         }
     }
 }
