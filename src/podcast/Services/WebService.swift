@@ -26,9 +26,33 @@ struct TokenPayload: Codable {
 }
 
 
+struct PodcastsListResponse: Decodable{
+    let payload: [PodcastItem]
+}
+
+struct PodcastItem: Decodable, Hashable {
+    let id, episodes_count: Int
+    let name, description: String
+    let image_url: String?
+}
+
+struct EpisodesResponse: Decodable{
+    let payload: EpisodesList
+}
+
+struct EpisodesList: Decodable{
+    let items: [Episode]
+}
+
+struct Episode: Decodable, Hashable{
+    var id: Int
+    let title, image_url: String
+}
+
+
 class WebService{
     let APIUrl: String = "http://192.168.1.6:8001/api"
-    
+
     
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
@@ -62,7 +86,7 @@ class WebService{
     
     
     func getPodcasts(limit: Int = 20, token: String, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
-        guard let url = URL(string: "\(APIUrl)/podcasts/?limit=\(limit)") else {
+        guard let url = URL(string: "\(APIUrl)/podcasts/") else {
             completion(.failure(.invalidURL))
             return
         }
