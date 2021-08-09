@@ -1,4 +1,5 @@
 import Foundation
+import KeychainAccess
 
 
 class PodcastListViewModel: ObservableObject {
@@ -11,13 +12,11 @@ class PodcastListViewModel: ObservableObject {
     }
     
     func getPodcasts(){
-        
-        let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: "accessToken") else {
+        let keychain = Keychain(service: "com.podcast")
+        guard let token = try? keychain.get("accessToken") else {
             print("No access token found")
             return
         }
-        
         WebService().getPodcasts(token: token){ result in
             switch result{
                 case .success(let podcasts):
@@ -33,8 +32,9 @@ class PodcastListViewModel: ObservableObject {
 
     func getAllEpisodes(limit: Int = 5){
         
-        let defaults = UserDefaults.standard
-        guard let token = defaults.string(forKey: "accessToken") else {
+//        let defaults = UserDefaults.standard
+        let keychain = Keychain(service: "com.podcast")
+        guard let token = try? keychain.get("accessToken") else {
             print("No access token found")
             return
         }

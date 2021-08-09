@@ -15,6 +15,7 @@
 		0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2C2681B672007E3063 /* HomeView.swift */; };
 		0AAFBD2F2681B6CE007E3063 /* PlayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */; };
 		0AAFBD312681B701007E3063 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD302681B701007E3063 /* ProfileView.swift */; };
+		0AAFBD4B26C1A21F002C228E /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0AAFBD4A26C1A21F002C228E /* KeychainAccess */; };
 		0AB10D122674B5A500EC4B51 /* podcastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB10D112674B5A500EC4B51 /* podcastApp.swift */; };
 		0AB10D142674B5A500EC4B51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB10D132674B5A500EC4B51 /* ContentView.swift */; };
 		0AB10D162674B5A600EC4B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AB10D152674B5A600EC4B51 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AAFBD4B26C1A21F002C228E /* KeychainAccess in Frameworks */,
 				0AB2BF3F26A8405D00C2F1A3 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +203,7 @@
 			name = podcast;
 			packageProductDependencies = (
 				0AB2BF3E26A8405D00C2F1A3 /* Kingfisher */,
+				0AAFBD4A26C1A21F002C228E /* KeychainAccess */,
 			);
 			productName = podcast;
 			productReference = 0AB10D0E2674B5A500EC4B51 /* podcast.app */;
@@ -275,6 +278,7 @@
 			mainGroup = 0AB10D052674B5A500EC4B51;
 			packageReferences = (
 				0AB2BF3D26A8405D00C2F1A3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0AAFBD4926C1A21F002C228E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 0AB10D0F2674B5A500EC4B51 /* Products */;
 			projectDirPath = "";
@@ -646,6 +650,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0AAFBD4926C1A21F002C228E /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
 		0AB2BF3D26A8405D00C2F1A3 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -657,6 +669,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0AAFBD4A26C1A21F002C228E /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AAFBD4926C1A21F002C228E /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		0AB2BF3E26A8405D00C2F1A3 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0AB2BF3D26A8405D00C2F1A3 /* XCRemoteSwiftPackageReference "Kingfisher" */;

@@ -1,5 +1,5 @@
 import Foundation
-
+import KeychainAccess
 
 
 class LoginViewModel: ObservableObject {
@@ -12,13 +12,22 @@ class LoginViewModel: ObservableObject {
     
     func login(){
         
-        let defaults = UserDefaults.standard
+//        let defaults = UserDefaults.standard
         
         WebService().login(email: self.email, password: self.password){ result in
             switch result{
                 case .success(let token):
                     print("Access token \(token)")
-                    defaults.setValue(token, forKey: "accessToken")
+//                    defaults.setValue(token, forKey: "accessToken")
+                    
+                    let keychain = Keychain(service: "com.podcast")
+                    do {
+                        try keychain.set(token, key: "accessToken")
+                    }
+                    catch let error {
+                        print(error)
+                    }
+                    
                     DispatchQueue.main.async {
                         self.isAuthenticated = true
                         self.notifyUserIsAuthenticated = true

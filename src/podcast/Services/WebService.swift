@@ -51,8 +51,10 @@ struct Episode: Decodable, Hashable{
 
 
 class WebService{
-    let APIUrl: String = "http://192.168.1.6:8001/api"
+//    let APIUrl: String = "http://192.168.1.6:8001/api"
+    let APIUrl: String = "https://podcast-service.devpython.ru/api"
 
+    
     
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
