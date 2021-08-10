@@ -12,12 +12,7 @@ class PodcastListViewModel: ObservableObject {
     }
     
     func getPodcasts(){
-        let keychain = Keychain(service: "com.podcast")
-        guard let token = try? keychain.get("accessToken") else {
-            print("No access token found")
-            return
-        }
-        WebService().getPodcasts(token: token){ result in
+        WebService().getPodcasts(){ result in
             switch result{
                 case .success(let podcasts):
                     DispatchQueue.main.async {
@@ -31,15 +26,7 @@ class PodcastListViewModel: ObservableObject {
     }
 
     func getAllEpisodes(limit: Int = 5){
-        
-//        let defaults = UserDefaults.standard
-        let keychain = Keychain(service: "com.podcast")
-        guard let token = try? keychain.get("accessToken") else {
-            print("No access token found")
-            return
-        }
-        
-        WebService().getEpisodes(limit: limit, token: token){ result in
+        WebService().getEpisodes(limit: limit){ result in
             switch result{
                 case .success(let episodes):
                     DispatchQueue.main.async {

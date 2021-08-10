@@ -1,4 +1,6 @@
 import Foundation
+import KeychainAccess
+
 
 enum AuthenticationError: Error {
     case invalidCredentials
@@ -54,7 +56,14 @@ class WebService{
 //    let APIUrl: String = "http://192.168.1.6:8001/api"
     let APIUrl: String = "https://podcast-service.devpython.ru/api"
 
-    
+    func getToken() -> String?{
+        let keychain = Keychain(service: "com.podcast")
+        guard let token = try? keychain.get("accessToken") else {
+            print("No access token found")
+            return nil
+        }
+        return token
+    }
     
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
@@ -80,19 +89,32 @@ class WebService{
 //                completion(.failure(.invalidCredentials))
 //                return
 //            }
-            let token = loginResponse.payload.access_token
-            completion(.success(token))
+            
+            let accessToken = loginResponse.payload.access_token
+            let refreshToken = loginResponse.payload.refresh_token
+            let keychain = Keychain(service: "com.podcast")
+            do {
+                try keychain.set(accessToken, key: "accessToken")
+                try keychain.set(refreshToken, key: "refreshToken")
+            }
+            catch let error {
+                print("Couldn't save access/refresh tokens: \(error)")
+            }
+
+            completion(.success(accessToken))
             
         }.resume()
     }
     
     
-    func getPodcasts(limit: Int = 20, token: String, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
+    func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
         guard let url = URL(string: "\(APIUrl)/podcasts/") else {
             completion(.failure(.invalidURL))
             return
         }
         var request = URLRequest(url: url)
+        guard let token = self.getToken() else { return }
+        
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -112,7 +134,7 @@ class WebService{
         
     }
         
-    func getEpisodes(limit: Int = 20, podcastID: Int? = nil, token: String, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
+    func getEpisodes(limit: Int = 20, podcastID: Int? = nil, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
         var url: String = ""
         if (podcastID != nil){
             url = "\(APIUrl)/podcasts/\(podcastID ?? 0)/episodes/?limit=\(limit)"
@@ -123,7 +145,8 @@ class WebService{
             completion(.failure(.invalidURL))
             return
         }
-        
+        guard let token = self.getToken() else { return }
+
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
