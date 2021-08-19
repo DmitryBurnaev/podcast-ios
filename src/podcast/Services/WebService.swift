@@ -65,6 +65,19 @@ class WebService{
         return token
     }
     
+    func getResourse(url: String, decoder: Any) -> Any?{
+        guard let url = URL(string: "\(APIUrl)\(url)") else {
+            return ""
+        }
+        // TODO: try to get response in common method
+        guard let token = self.getToken() else { return }
+        guard let decoder = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
+            completion(.failure(.decodingError))
+            return ""
+        }
+        
+    }
+    
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
             return
