@@ -1,6 +1,6 @@
 import Foundation
 import KeychainAccess
-
+import Alamofire
 
 enum AuthenticationError: Error {
     case invalidCredentials
@@ -52,6 +52,35 @@ struct Episode: Decodable, Hashable{
 }
 
 
+class AccessTokenAdapter: RequestAdapter {
+    private let accessToken: String
+
+    init(accessToken: String) {
+        self.accessToken = accessToken
+    }
+
+//    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+//        var urlRequest = urlRequest
+//
+//        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix("https://httpbin.org") {
+//            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+//        }
+//
+//        return urlRequest
+//    }
+    
+    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        var urlRequest = urlRequest
+
+        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix("https://httpbin.org") {
+            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+        }
+
+        return urlRequest
+    }
+}
+
+
 class WebService{
 //    let APIUrl: String = "http://192.168.1.6:8001/api"
     let APIUrl: String = "https://podcast-service.devpython.ru/api"
@@ -65,18 +94,18 @@ class WebService{
         return token
     }
     
-    func getResourse(url: String, decoder: Any) -> Any?{
-        guard let url = URL(string: "\(APIUrl)\(url)") else {
-            return ""
-        }
-        // TODO: try to get response in common method
-        guard let token = self.getToken() else { return }
-        guard let decoder = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-            completion(.failure(.decodingError))
-            return ""
-        }
-        
-    }
+//    func getResourse(url: String, decoder: Any) -> Any?{
+//        guard let url = URL(string: "\(APIUrl)\(url)") else {
+//            return ""
+//        }
+//        // TODO: try to get response in common method
+//        guard let token = self.getToken() else { return }
+//        guard let decoder = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
+//            completion(.failure(.decodingError))
+//            return ""
+//        }
+//        
+//    }
     
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
