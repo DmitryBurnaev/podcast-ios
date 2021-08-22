@@ -3,6 +3,8 @@ import KeychainAccess
 import Alamofire
 
 let API_URL: String = "https://podcast-service.devpython.ru/api"
+//let API_URL: String = "http://192.168.1.3:8001/api"
+
 
 enum AuthenticationError: Error {
     case invalidCredentials
@@ -72,7 +74,7 @@ class AccessTokenInterceprot: RequestInterceptor{
 
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
-        guard let url = URL(string: "\(API_URL)/auth/sign-in/") else {
+        guard let url = URL(string: "\(API_URL)/auth/refresh-token/") else {
             return
         }
         // todo: using AF.request instead
@@ -131,40 +133,7 @@ class AccessTokenInterceprot: RequestInterceptor{
 
 }
 
-
-//class AccessTokenAdapter: RequestAdapter {
-//    private let accessToken: String
-//
-//    init(accessToken: String) {
-//        self.accessToken = accessToken
-//    }
-//
-////    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
-////        var urlRequest = urlRequest
-////
-////        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix("https://httpbin.org") {
-////            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-////        }
-////
-////        return urlRequest
-////    }
-//
-//    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-//        var urlRequest = urlRequest
-//
-//        if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix("https://httpbin.org") {
-//            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-//        }
-//
-//        return urlRequest
-//    }
-//}
-
-
 class WebService{
-//    let APIUrl: String = "http://192.168.1.6:8001/api"
-    let APIUrl: String = "https://podcast-service.devpython.ru/api"
-
     func getToken() -> String?{
         let keychain = Keychain(service: "com.podcast")
         guard let token = try? keychain.get("accessToken") else {
@@ -174,21 +143,8 @@ class WebService{
         return token
     }
     
-//    func getResourse(url: String, decoder: Any) -> Any?{
-//        guard let url = URL(string: "\(APIUrl)\(url)") else {
-//            return ""
-//        }
-//        // TODO: try to get response in common method
-//        guard let token = self.getToken() else { return }
-//        guard let decoder = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-//            completion(.failure(.decodingError))
-//            return ""
-//        }
-//        
-//    }
-    
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
-        guard let url = URL(string: "\(APIUrl)/auth/sign-in/") else {
+        guard let url = URL(string: "\(API_URL)/auth/sign-in/") else {
             return
         }
         let body = LoginRequestBody(email: email, password: password)
@@ -230,19 +186,41 @@ class WebService{
     
     func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
         let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
-        AF.request("\(API_URL)/podcasts/", interceptor: interceptor).response { response in
-            debugPrint(response)
-            guard let data = response.data else {
-                completion(.failure(.noData))
-                return
+        AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
+            switch response.result {
+                case .success:
+                    guard let data = response.data else {
+                        debugPrint(response)
+                        completion(.failure(.noData))
+                        return
+                    }
+                    guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
+                        debugPrint(response)
+                        completion(.failure(.decodingError))
+                        return
+                    }
+                    completion(.success(podcastResponse.payload))
+                case .failure(let err):
+                    debugPrint(response)
+                    print(err.localizedDescription)
+                    completion(.failure(.noData))
             }
-            guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-                completion(.failure(.decodingError))
-                return
-            }
-            let podcasts = podcastResponse.payload
-            completion(.success(podcasts))
-
+//
+//
+//
+//            debugPrint(response)
+//            guard let data = response.data else {
+//                completion(.failure(.noData))
+//                return
+//            }
+//            guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
+//                completion(.failure(.decodingError))
+//                return
+//            }
+//            if ()
+//            let podcasts = podcastResponse.payload
+//            completion(.success(podcasts))
+//
 
         }
     }
@@ -278,9 +256,9 @@ class WebService{
     func getEpisodes(limit: Int = 20, podcastID: Int? = nil, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
         var url: String = ""
         if (podcastID != nil){
-            url = "\(APIUrl)/podcasts/\(podcastID ?? 0)/episodes/?limit=\(limit)"
+            url = "\(API_URL)/podcasts/\(podcastID ?? 0)/episodes/?limit=\(limit)"
         } else {
-            url = "\(APIUrl)/episodes/?limit=\(limit)"
+            url = "\(API_URL)/episodes/?limit=\(limit)"
         }
         guard let url = URL(string: url) else {
             completion(.failure(.invalidURL))
