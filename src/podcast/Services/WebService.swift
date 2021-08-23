@@ -11,6 +11,25 @@ enum AuthenticationError: Error {
     case custom(errorMessage: String)
 }
 
+enum APIError: Error {
+    case invalidCredentials
+    case noData
+    case decodingError
+    case invalidStatusCode
+    case custom(errorMessage: String)
+    case errorCode(code: String)
+}
+
+struct ErrorResponsePayload: Codable{
+    let error: String
+    let details: String
+}
+
+struct ErrorResponse: Codable{
+    let status: String
+    let payload: TokenPayload
+}
+
 enum NetworkError: Error{
     case invalidURL
     case noData
@@ -26,7 +45,7 @@ struct RefreshTokenRequestBody: Codable{
     let refresh_token: String
 }
 
-struct LoginResponseBody: Codable{
+struct ResponstWithTokens: Codable{
     let status: String
     let payload: TokenPayload
 }
@@ -74,38 +93,73 @@ class AccessTokenInterceprot: RequestInterceptor{
 
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
-        guard let url = URL(string: "\(API_URL)/auth/refresh-token/") else {
-            return
-        }
-        // todo: using AF.request instead
-        let body = RefreshTokenRequestBody(refresh_token: refreshToken)
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONEncoder().encode(body)
-        
-        URLSession.shared.dataTask(with: request){ (data, resp, error) in
-            guard let data = data, error == nil else {
-                print("\nRefresh token failed: 'No data in response'")
-                completion(false)
-                return
+        let parameters = ["refresh_token": refreshToken]
+        AF.request("\(API_URL)/auth/refresh-token/", method: .post, parameters: parameters).validate(statusCode: 200..<300).responseJSON { response in
+            switch response.result {
+                case .success:
+                    guard let data = response.data else {
+                        print("\nRefresh token failed: 'No data in response'")
+                        debugPrint(response)
+                        completion(false)
+                        return
+                    }
+                    guard let response = try? JSONDecoder().decode(ResponstWithTokens.self, from: data) else {
+                        print("\nRefresh token failed: 'Unable to decode response JSON'")
+                        debugPrint(response)
+                        completion(false)
+                        return
+                    }
+                    let keychain = Keychain(service: "com.podcast")
+                    do {
+                        try keychain.set(response.payload.access_token, key: "accessToken")
+                        try keychain.set(response.payload.refresh_token, key: "refreshToken")
+                    }
+                    catch let error {
+                        print("\nCouldn't save access/refresh tokens: \(error)")
+                    }
+                    completion(true)
+                    
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    debugPrint(response)
+                    completion(false)
             }
-            guard let response = try? JSONDecoder().decode(LoginResponseBody.self, from: data) else {
-                print("\nRefresh token failed: 'Unable to decode response JSON'")
-                completion(false)
-                return
-            }
-            let keychain = Keychain(service: "com.podcast")
-            do {
-                try keychain.set(response.payload.access_token, key: "accessToken")
-                try keychain.set(response.payload.refresh_token, key: "refreshToken")
-            }
-            catch let error {
-                print("Couldn't save access/refresh tokens: \(error)")
-            }
-            completion(true)
             
-        }.resume()
+        }
+
+        
+        
+        
+//
+//        // todo: using AF.request instead
+//        let body = RefreshTokenRequestBody(refresh_token: refreshToken)
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.httpBody = try? JSONEncoder().encode(body)
+//
+//        URLSession.shared.dataTask(with: request){ (data, resp, error) in
+//            guard let data = data, error == nil else {
+//                print("\nRefresh token failed: 'No data in response'")
+//                completion(false)
+//                return
+//            }
+//            guard let response = try? JSONDecoder().decode(LoginResponseBody.self, from: data) else {
+//                print("\nRefresh token failed: 'Unable to decode response JSON'")
+//                completion(false)
+//                return
+//            }
+//            let keychain = Keychain(service: "com.podcast")
+//            do {
+//                try keychain.set(response.payload.access_token, key: "accessToken")
+//                try keychain.set(response.payload.refresh_token, key: "refreshToken")
+//            }
+//            catch let error {
+//                print("Couldn't save access/refresh tokens: \(error)")
+//            }
+//            completion(true)
+//
+//        }.resume()
         
     }
     
@@ -119,13 +173,19 @@ class AccessTokenInterceprot: RequestInterceptor{
     }
     
         
-    func retry(_ request: Request, for session: Session, dueTo error: Error,
+    func retry(_ request: Request, for session: Session, dueTo error: APIError,
                   completion: @escaping (RetryResult) -> Void) {
         guard request.retryCount < retryLimit else {
             completion(.doNotRetry)
             return
         }
-        print("\nretried; retry count: \(request.retryCount)\n")
+//        if error.
+        
+        print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
+        debugPrint(request.response)
+        if (request.response?.statusCode == 401){
+            
+        }
         refreshToken { isSuccess in
             isSuccess ? completion(.retry) : completion(.doNotRetry)
         }
@@ -158,7 +218,7 @@ class WebService{
                 completion(.failure(.custom(errorMessage: "No data in response")))
                 return
             }
-            guard let loginResponse = try? JSONDecoder().decode(LoginResponseBody.self, from: data) else {
+            guard let loginResponse = try? JSONDecoder().decode(ResponstWithTokens.self, from: data) else {
                 completion(.failure(.custom(errorMessage: "Unable to decode response JSON")))
                 return
             }
@@ -184,26 +244,33 @@ class WebService{
         }.resume()
     }
     
-    func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
+    func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], APIError>) -> Void){
         let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
         AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
+//            guard let data = response.data else {
+////                debugPrint(response)
+//                completion(.failure(.noData))
+////                completion(.failure(.custom(errorMessage: "Podcasts | error response returned")))
+//                return
+//            }
+
             switch response.result {
                 case .success:
                     guard let data = response.data else {
-                        debugPrint(response)
+//                        debugPrint(response)
                         completion(.failure(.noData))
                         return
                     }
                     guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-                        debugPrint(response)
+//                        debugPrint(response)
                         completion(.failure(.decodingError))
                         return
                     }
                     completion(.success(podcastResponse.payload))
-                case .failure(let err):
-                    debugPrint(response)
-                    print(err.localizedDescription)
-                    completion(.failure(.noData))
+                case .failure:
+//                    debugPrint(response)
+//                    print(err.localizedDescription)
+                    completion(.failure(.invalidStatusCode))
             }
 //
 //
