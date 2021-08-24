@@ -27,7 +27,7 @@ struct ErrorResponsePayload: Codable{
 
 struct ErrorResponse: Codable{
     let status: String
-    let payload: TokenPayload
+    let payload: ErrorResponsePayload
 }
 
 enum NetworkError: Error{
@@ -182,16 +182,31 @@ class AccessTokenInterceprot: RequestInterceptor{
 //        if error.
         
         print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
-        debugPrint(request.response)
+        debugPrint(request.response ?? "[empty response]")
         if (request.response?.statusCode == 401){
-            
-        }
-        refreshToken { isSuccess in
-            isSuccess ? completion(.retry) : completion(.doNotRetry)
+            let lastRequestURL = request.lastRequest?.url?.absoluteString
+            guard let request = request as? DataRequest else { fatalError() }
+                request.responseData { response in
+                    guard let data = response.data else {
+                        print("RETRY: no data in response found!")
+                        completion(.doNotRetry)
+                        return
+                    }
+                    guard let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
+                        print("RETRY: no valid response data!")
+                        completion(.doNotRetry)
+                        return
+                    }
+                    if (errorResponse.status == "SIGNATURE_EXPIRED" && !(lastRequestURL?.contains("refresh") ?? false)){
+                        self.refreshToken { isSuccess in
+                            isSuccess ? completion(.retry) : completion(.doNotRetry)
+                        }
+                    }
+                }
+            }
         }
     }
 
-}
 
 class WebService{
     func getToken() -> String?{
