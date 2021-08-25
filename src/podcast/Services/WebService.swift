@@ -2,8 +2,8 @@ import Foundation
 import KeychainAccess
 import Alamofire
 
-let API_URL: String = "https://podcast-service.devpython.ru/api"
-//let API_URL: String = "http://192.168.1.3:8001/api"
+//let API_URL: String = "https://podcast-service.devpython.ru/api"
+let API_URL: String = "http://192.168.1.3:8001/api"
 
 
 enum AuthenticationError: Error {
@@ -175,13 +175,13 @@ class AccessTokenInterceprot: RequestInterceptor{
         
     func retry(_ request: Request, for session: Session, dueTo error: APIError,
                   completion: @escaping (RetryResult) -> Void) {
+        print("Retry starts")
         guard request.retryCount < retryLimit else {
+            print("Too many retries skip retry actions.")
             completion(.doNotRetry)
             return
         }
-//        if error.
-        
-        print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
+        print("\nFound API error! | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
         debugPrint(request.response ?? "[empty response]")
         if (request.response?.statusCode == 401){
             let lastRequestURL = request.lastRequest?.url?.absoluteString
@@ -198,11 +198,16 @@ class AccessTokenInterceprot: RequestInterceptor{
                         return
                     }
                     if (errorResponse.status == "SIGNATURE_EXPIRED" && !(lastRequestURL?.contains("refresh") ?? false)){
+                        print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode))\n")
                         self.refreshToken { isSuccess in
                             isSuccess ? completion(.retry) : completion(.doNotRetry)
                         }
                     }
                 }
+            }
+        else{
+            print("No auth problem. Skip to retry. statusCode \(String(describing: request.response?.statusCode))")
+            completion(.doNotRetry)
             }
         }
     }
@@ -282,10 +287,10 @@ class WebService{
                         return
                     }
                     completion(.success(podcastResponse.payload))
-                case .failure:
+                case .failure(let err):
 //                    debugPrint(response)
-//                    print(err.localizedDescription)
-                    completion(.failure(.invalidStatusCode))
+                    print("Found API problem here: \(err.localizedDescription)")
+                    completion(.failure(.noData))
             }
 //
 //
