@@ -173,7 +173,7 @@ class AccessTokenInterceprot: RequestInterceptor{
     }
     
         
-    func retry(_ request: Request, for session: Session, dueTo error: APIError,
+    func retry(_ request: Request, for session: Session, dueTo error: Error,
                   completion: @escaping (RetryResult) -> Void) {
         print("Retry starts")
         guard request.retryCount < retryLimit else {
@@ -183,10 +183,26 @@ class AccessTokenInterceprot: RequestInterceptor{
         }
         print("\nFound API error! | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
         debugPrint(request.response ?? "[empty response]")
+//        print(request.response?.statusCode)
+        if let httpStatusCode = request.response?.statusCode {
+            switch(httpStatusCode) {
+                case 401:
+                    print("Unauth status code 401")
+            default:
+                print("Unknown status code \(httpStatusCode)")
+            }
+        } else {
+            print("NO status code \(request.response?.statusCode)")
+        }
+        
+    
         if (request.response?.statusCode == 401){
+            print("RETRY: flow (step 1)")
             let lastRequestURL = request.lastRequest?.url?.absoluteString
             guard let request = request as? DataRequest else { fatalError() }
+            print("RETRY: flow (step 2)")
                 request.responseData { response in
+                    print("RETRY: flow (step 3)")
                     guard let data = response.data else {
                         print("RETRY: no data in response found!")
                         completion(.doNotRetry)
@@ -197,6 +213,7 @@ class AccessTokenInterceprot: RequestInterceptor{
                         completion(.doNotRetry)
                         return
                     }
+                    print("RETRY: status \(errorResponse.status) | \(String(describing: lastRequestURL))")
                     if (errorResponse.status == "SIGNATURE_EXPIRED" && !(lastRequestURL?.contains("refresh") ?? false)){
                         print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode))\n")
                         self.refreshToken { isSuccess in
@@ -264,7 +281,7 @@ class WebService{
         }.resume()
     }
     
-    func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], APIError>) -> Void){
+    func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
         let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
         AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
 //            guard let data = response.data else {
