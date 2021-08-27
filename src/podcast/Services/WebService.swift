@@ -2,8 +2,8 @@ import Foundation
 import KeychainAccess
 import Alamofire
 
-//let API_URL: String = "https://podcast-service.devpython.ru/api"
-let API_URL: String = "http://192.168.1.3:8001/api"
+let API_URL: String = "https://podcast-service.devpython.ru/api"
+//let API_URL: String = "http://192.168.1.3:8001/api"
 
 
 enum AuthenticationError: Error {
@@ -94,7 +94,9 @@ class AccessTokenInterceprot: RequestInterceptor{
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
         let parameters = ["refresh_token": refreshToken]
-        AF.request("\(API_URL)/auth/refresh-token/", method: .post, parameters: parameters).validate(statusCode: 200..<300).responseJSON { response in
+        print("Token refreshing ... \(API_URL)/auth/refresh-token/")
+        debugPrint(parameters)
+        AF.request("\(API_URL)/auth/refresh-token/", method: .post, parameters: parameters, encoder: JSONParameterEncoder()).validate(statusCode: 200..<300).responseJSON { response in
             switch response.result {
                 case .success:
                     guard let data = response.data else {
@@ -184,42 +186,44 @@ class AccessTokenInterceprot: RequestInterceptor{
         print("\nFound API error! | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
         debugPrint(request.response ?? "[empty response]")
 //        print(request.response?.statusCode)
-        if let httpStatusCode = request.response?.statusCode {
-            switch(httpStatusCode) {
-                case 401:
-                    print("Unauth status code 401")
-            default:
-                print("Unknown status code \(httpStatusCode)")
-            }
-        } else {
-            print("NO status code \(request.response?.statusCode)")
-        }
-        
+//        if let httpStatusCode = request.response?.statusCode {
+//            switch(httpStatusCode) {
+//                case 401:
+//                    print("Unauth status code 401")
+//            default:
+//                print("Unknown status code \(httpStatusCode)")
+//            }
+//        } else {
+//            print("NO status code \(request.response?.statusCode)")
+//        }
+//
     
         if (request.response?.statusCode == 401){
             print("RETRY: flow (step 1)")
             let lastRequestURL = request.lastRequest?.url?.absoluteString
             guard let request = request as? DataRequest else { fatalError() }
             print("RETRY: flow (step 2)")
-                request.responseData { response in
-                    print("RETRY: flow (step 3)")
-                    guard let data = response.data else {
-                        print("RETRY: no data in response found!")
-                        completion(.doNotRetry)
-                        return
-                    }
-                    guard let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                        print("RETRY: no valid response data!")
-                        completion(.doNotRetry)
-                        return
-                    }
-                    print("RETRY: status \(errorResponse.status) | \(String(describing: lastRequestURL))")
-                    if (errorResponse.status == "SIGNATURE_EXPIRED" && !(lastRequestURL?.contains("refresh") ?? false)){
-                        print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode))\n")
-                        self.refreshToken { isSuccess in
-                            isSuccess ? completion(.retry) : completion(.doNotRetry)
-                        }
-                    }
+            print("response \(String(describing: request.data))")
+//                request.responseData { response in
+            print("RETRY: flow (step 3)")
+            
+            guard let data = request.data else {
+                print("RETRY: no data in response found!")
+                completion(.doNotRetry)
+                return
+            }
+            guard let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
+                print("RETRY: no valid response data!")
+                completion(.doNotRetry)
+                return
+            }
+            print("RETRY: status \(errorResponse.status) | \(String(describing: lastRequestURL))")
+            if (errorResponse.status == "SIGNATURE_EXPIRED" && !(lastRequestURL?.contains("refresh") ?? false)){
+                print("\nretried; retry count: \(request.retryCount) | statusCode \(String(describing: request.response?.statusCode))\n")
+                self.refreshToken { isSuccess in
+                    isSuccess ? completion(.retry) : completion(.doNotRetry)
+                }
+//                    }
                 }
             }
         else{
@@ -284,48 +288,21 @@ class WebService{
     func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
         let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
         AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
-//            guard let data = response.data else {
-////                debugPrint(response)
-//                completion(.failure(.noData))
-////                completion(.failure(.custom(errorMessage: "Podcasts | error response returned")))
-//                return
-//            }
-
             switch response.result {
                 case .success:
                     guard let data = response.data else {
-//                        debugPrint(response)
                         completion(.failure(.noData))
                         return
                     }
                     guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-//                        debugPrint(response)
                         completion(.failure(.decodingError))
                         return
                     }
                     completion(.success(podcastResponse.payload))
                 case .failure(let err):
-//                    debugPrint(response)
                     print("Found API problem here: \(err.localizedDescription)")
                     completion(.failure(.noData))
             }
-//
-//
-//
-//            debugPrint(response)
-//            guard let data = response.data else {
-//                completion(.failure(.noData))
-//                return
-//            }
-//            guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-//                completion(.failure(.decodingError))
-//                return
-//            }
-//            if ()
-//            let podcasts = podcastResponse.payload
-//            completion(.success(podcasts))
-//
-
         }
     }
     
@@ -356,7 +333,7 @@ class WebService{
         }.resume()
         
     }
-        
+
     func getEpisodes(limit: Int = 20, podcastID: Int? = nil, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
         var url: String = ""
         if (podcastID != nil){
