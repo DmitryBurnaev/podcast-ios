@@ -128,41 +128,6 @@ class AccessTokenInterceprot: RequestInterceptor{
             }
             
         }
-
-        
-        
-        
-//
-//        // todo: using AF.request instead
-//        let body = RefreshTokenRequestBody(refresh_token: refreshToken)
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = try? JSONEncoder().encode(body)
-//
-//        URLSession.shared.dataTask(with: request){ (data, resp, error) in
-//            guard let data = data, error == nil else {
-//                print("\nRefresh token failed: 'No data in response'")
-//                completion(false)
-//                return
-//            }
-//            guard let response = try? JSONDecoder().decode(LoginResponseBody.self, from: data) else {
-//                print("\nRefresh token failed: 'Unable to decode response JSON'")
-//                completion(false)
-//                return
-//            }
-//            let keychain = Keychain(service: "com.podcast")
-//            do {
-//                try keychain.set(response.payload.access_token, key: "accessToken")
-//                try keychain.set(response.payload.refresh_token, key: "refreshToken")
-//            }
-//            catch let error {
-//                print("Couldn't save access/refresh tokens: \(error)")
-//            }
-//            completion(true)
-//
-//        }.resume()
-        
     }
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
@@ -170,42 +135,28 @@ class AccessTokenInterceprot: RequestInterceptor{
         guard let token = self.getToken() else { return }
         let bearerToken = "Bearer \(token)"
         request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
-        print("\nadapted; token added to the header field is: \(bearerToken)\n")
+        print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
         completion(.success(request))
     }
     
         
     func retry(_ request: Request, for session: Session, dueTo error: Error,
                   completion: @escaping (RetryResult) -> Void) {
-        print("Retry starts")
+
+        print("\n======== Found API error! ======= ")
+        print("StatusCode: \(String(describing: request.response?.statusCode)) | error \(error)\n")
+        debugPrint(request.response ?? "[empty response]")
+
         guard request.retryCount < retryLimit else {
             print("Too many retries skip retry actions.")
             completion(.doNotRetry)
             return
         }
-        print("\nFound API error! | statusCode \(String(describing: request.response?.statusCode)) | error \(error)\n")
-        debugPrint(request.response ?? "[empty response]")
-//        print(request.response?.statusCode)
-//        if let httpStatusCode = request.response?.statusCode {
-//            switch(httpStatusCode) {
-//                case 401:
-//                    print("Unauth status code 401")
-//            default:
-//                print("Unknown status code \(httpStatusCode)")
-//            }
-//        } else {
-//            print("NO status code \(request.response?.statusCode)")
-//        }
-//
-    
+
         if (request.response?.statusCode == 401){
-            print("RETRY: flow (step 1)")
             let lastRequestURL = request.lastRequest?.url?.absoluteString
             guard let request = request as? DataRequest else { fatalError() }
-            print("RETRY: flow (step 2)")
-            print("response \(String(describing: request.data))")
-//                request.responseData { response in
-            print("RETRY: flow (step 3)")
+            print("RETRY: flow (step 1)")
             
             guard let data = request.data else {
                 print("RETRY: no data in response found! \(String(describing: request.data))")
@@ -223,15 +174,18 @@ class AccessTokenInterceprot: RequestInterceptor{
                 self.refreshToken { isSuccess in
                     isSuccess ? completion(.retry) : completion(.doNotRetry)
                 }
-//                    }
-                }
             }
-        else{
-            print("No auth problem. Skip to retry. statusCode \(String(describing: request.response?.statusCode))")
-            completion(.doNotRetry)
+            else{
+                print("RETRY: was not retried: \(errorResponse.status) != SIGNATURE_EXPIRED")
+                completion(.doNotRetry)
             }
         }
+        else{
+            print("RETRY: Non auth problem. Skip to retry. statusCode \(String(describing: request.response?.statusCode))")
+            completion(.doNotRetry)
+        }
     }
+}
 
 
 class WebService{
