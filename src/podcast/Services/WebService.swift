@@ -22,7 +22,7 @@ enum APIError: Error {
 
 struct ErrorResponsePayload: Codable{
     let error: String
-    let details: String
+    let details: String?
 }
 
 struct ErrorResponse: Codable{
@@ -208,12 +208,12 @@ class AccessTokenInterceprot: RequestInterceptor{
             print("RETRY: flow (step 3)")
             
             guard let data = request.data else {
-                print("RETRY: no data in response found!")
+                print("RETRY: no data in response found! \(String(describing: request.data))")
                 completion(.doNotRetry)
                 return
             }
             guard let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                print("RETRY: no valid response data!")
+                print("RETRY: no valid response data! \(data)")
                 completion(.doNotRetry)
                 return
             }
