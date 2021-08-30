@@ -10,7 +10,7 @@ import Alamofire
 import KeychainAccess
 
 
-class AccessTokenInterceprot: RequestInterceptor{
+class AccessTokenInterceptor: RequestInterceptor{
     private let retryLimit = 5;
     
     func getToken(tokenType: String = "accessToken") -> String?{
