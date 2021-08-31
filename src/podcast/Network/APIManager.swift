@@ -10,14 +10,24 @@ import Alamofire
 
 
 struct ResponseErrorDetails: Error, Decodable {
-    let invalidCredentials: String
-    let noData: String
-    let decodingError: String
-    let invalidStatusCode: String
+//    let invalidCredentials: String
+//    let noData: String
+//    let decodingError: String
+//    let invalidStatusCode: String
 //    let custom(errorMessage: String)
 //    let errorCode(code: String)
+    let code: String
+    let description: String
+    
+    var innerErrorDescription: String? = nil
+    var responseStatusCode: String? = nil
+    
+//    var unexpectedNetworkErrorReason: UnexpectedNetworkErrorReason? = nil
 }
 
+struct EmptyErrorPayload: Decodable {
+    
+}
 
 
 class ResponseBody<Payload: Decodable, ErrorPayload: Decodable>: Decodable {
@@ -104,15 +114,30 @@ class APIManager{
 //                TODO: implement validate method
                 return self.validate(data: data)
             })
+            .responseDecodable(of: ResponseBody<Payload, EmptyErrorPayload>.self, decoder: decoder, completionHandler: { response in
+                debugPrint(response)
+                switch response.result {
+                case .success(let data):
+                    switch data.status {
+                    case .ok:
+                        print("response data \(data)")
+                    case .error:
+                        print("got err response data \(data)")
+                    }
+                case .failure(let error):
+                    print("fail \(error)")
+                }
+            })
+
 //            TODO: implement responseDecodable
         
         return request
 
     }
     
-    
     private func validate(data: Data?) -> DataRequest.ValidationResult {
-        
+        print('validate....')
+        debugPrint(data)
     }
     
     
