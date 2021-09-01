@@ -2,8 +2,7 @@ import Foundation
 import KeychainAccess
 import Alamofire
 
-let API_URL: String = "https://podcast-service.devpython.ru/api"
-//let API_URL: String = "http://192.168.1.3:8001/api"
+let API_URL: String = "http://192.168.1.3:8001/api"
 
 
 enum AuthenticationError: Error {
@@ -82,6 +81,8 @@ struct Episode: Decodable, Hashable{
 
 
 class WebService{
+    private let apiManager = APIManager()
+    
     func getToken() -> String?{
         let keychain = Keychain(service: "com.podcast")
         guard let token = try? keychain.get("accessToken") else {
@@ -133,24 +134,38 @@ class WebService{
     }
     
     func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
-        let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
-        AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
-            switch response.result {
+        apiManager.request(
+            "/podcasts/", completion: { (result: Result<PodcastsListResponse, ResponseErrorDetails>) in
+                switch result {
                 case .success:
-                    guard let data = response.data else {
-                        completion(.failure(.noData))
-                        return
-                    }
-                    guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-                        completion(.failure(.decodingError))
-                        return
-                    }
-                    completion(.success(podcastResponse.payload))
+                    print("got result from request: \(result)")
+//                    completion(.success(result.payload))
                 case .failure(let err):
                     print("Found API problem here: \(err.localizedDescription)")
                     completion(.failure(.noData))
+                }
             }
-        }
+        )
+        
+        
+//        let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
+//        AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
+//            switch response.result {
+//                case .success:
+//                    guard let data = response.data else {
+//                        completion(.failure(.noData))
+//                        return
+//                    }
+//                    guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
+//                        completion(.failure(.decodingError))
+//                        return
+//                    }
+//                    completion(.success(podcastResponse.payload))
+//                case .failure(let err):
+//                    print("Found API problem here: \(err.localizedDescription)")
+//                    completion(.failure(.noData))
+//            }
+//        }
     }
     
     

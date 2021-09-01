@@ -1,28 +1,14 @@
-//
-//  APIManager.swift
-//  podcast
-//
-//  Created by Dmitry Burnaev on 29.08.2021.
-//
-
 import Foundation
 import Alamofire
 
 
 struct ResponseErrorDetails: Error, Decodable {
-//    let invalidCredentials: String
-//    let noData: String
-//    let decodingError: String
-//    let invalidStatusCode: String
-//    let custom(errorMessage: String)
-//    let errorCode(code: String)
     let code: String
     let description: String
     
     var innerErrorDescription: String? = nil
     var responseStatusCode: String? = nil
-    
-//    var unexpectedNetworkErrorReason: UnexpectedNetworkErrorReason? = nil
+    var unexpectedError: String? = nil
 }
 
 struct EmptyErrorPayload: Decodable {
@@ -96,7 +82,6 @@ class APIManager{
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = JSONEncoding.default,
-        headers: [HTTPHeader]? = nil,
         completion: @escaping (_ result: Result<Payload, ResponseErrorDetails>) -> Void) -> DataRequest?
     {
         let url = apiBaseUrl.appendingPathComponent(path)
@@ -109,35 +94,51 @@ class APIManager{
 
         let request = APIManager.session
             .request(url, method: method, parameters: parameters, encoding: encoding, headers: HTTPHeaders(headers), interceptor: interceptor)
-//            TODO: check on http status too
-            .validate({ (request, response, data) -> DataRequest.ValidationResult in
-//                TODO: implement validate method
-                return self.validate(data: data)
-            })
+            .validate(statusCode: 200..<300)
+//            .responseJSON { response in
+//                switch response.result {
+//                    case .success:
+//                        guard let data = response.data else {
+//                            print("NEW req: no response data \(String(describing: response.data))")
+//                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
+//                            return
+//                        }
+//                        guard let podcastResponse = try? JSONDecoder().decode(ResponseBody.self, from: data) else {
+//                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
+//                            completion(.failure(.decodingError))
+//                            return
+//                        }
+//                        completion(.success(podcastResponse.payload))
+//                    case .failure(let err):
+//                        print("Found API problem here: \(err.localizedDescription)")
+//                        completion(.failure(.noData))
+//                }
+//
             .responseDecodable(of: ResponseBody<Payload, EmptyErrorPayload>.self, decoder: decoder, completionHandler: { response in
                 debugPrint(response)
                 switch response.result {
                 case .success(let data):
                     switch data.status {
                     case .ok:
+                        if let payload = data.payload {
+                            completion(.success(payload))
+                        } else {
+                            print("NEW req: no response data \(String(describing: data.payload))")
+                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
+                        }
                         print("response data \(data)")
                     case .error:
-                        print("got err response data \(data)")
+                        print("got err response status \(data) STATUS: \(data.status)")
+                        completion(.failure(ResponseErrorDetails(code: "STATUS_NOT_OK", description: "NEW req: status problem \(data.status)")))
                     }
                 case .failure(let error):
-                    print("fail \(error)")
+                    print("NEW req: got err \(error)")
+                    completion(.failure(ResponseErrorDetails(code: "STATUS_NOT_OK", description: "NEW req: status problem \(error)")))
                 }
             })
-
-//            TODO: implement responseDecodable
         
         return request
 
-    }
-    
-    private func validate(data: Data?) -> DataRequest.ValidationResult {
-        print('validate....')
-        debugPrint(data)
     }
     
     
