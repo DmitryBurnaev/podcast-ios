@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A6D866F26CF7DF00070231F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6D866E26CF7DF00070231F /* Alamofire */; };
 		0A7D0E8A26B2B0780029068C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8926B2B0780029068C /* LoginView.swift */; };
 		0A7D0E8D26B2B21B0029068C /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8C26B2B21B0029068C /* WebService.swift */; };
 		0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */; };
@@ -15,6 +16,7 @@
 		0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2C2681B672007E3063 /* HomeView.swift */; };
 		0AAFBD2F2681B6CE007E3063 /* PlayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */; };
 		0AAFBD312681B701007E3063 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD302681B701007E3063 /* ProfileView.swift */; };
+		0AAFBD4B26C1A21F002C228E /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0AAFBD4A26C1A21F002C228E /* KeychainAccess */; };
 		0AB10D122674B5A500EC4B51 /* podcastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB10D112674B5A500EC4B51 /* podcastApp.swift */; };
 		0AB10D142674B5A500EC4B51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB10D132674B5A500EC4B51 /* ContentView.swift */; };
 		0AB10D162674B5A600EC4B51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AB10D152674B5A600EC4B51 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 		0AB10D242674B5A600EC4B51 /* podcastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB10D232674B5A600EC4B51 /* podcastTests.swift */; };
 		0AB10D2F2674B5A600EC4B51 /* podcastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB10D2E2674B5A600EC4B51 /* podcastUITests.swift */; };
 		0AB2BF3F26A8405D00C2F1A3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0AB2BF3E26A8405D00C2F1A3 /* Kingfisher */; };
+		0ABD2A9626DBD76600A5DFC8 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */; };
+		0ABD2A9826DBD78A00A5DFC8 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */; };
 		0AD415A426B44B69003AA857 /* PodcastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD415A326B44B69003AA857 /* PodcastViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +67,8 @@
 		0AB10D2A2674B5A600EC4B51 /* podcastUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = podcastUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AB10D2E2674B5A600EC4B51 /* podcastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = podcastUITests.swift; sourceTree = "<group>"; };
 		0AB10D302674B5A600EC4B51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
+		0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0AD415A326B44B69003AA857 /* PodcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A6D866F26CF7DF00070231F /* Alamofire in Frameworks */,
+				0AAFBD4B26C1A21F002C228E /* KeychainAccess in Frameworks */,
 				0AB2BF3F26A8405D00C2F1A3 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +152,7 @@
 		0AB10D102674B5A500EC4B51 /* podcast */ = {
 			isa = PBXGroup;
 			children = (
+				0ABD2A9426DBD73F00A5DFC8 /* Network */,
 				0A7D0E8826B2ACFA0029068C /* Views */,
 				0A7D0E8B26B2B19C0029068C /* Services */,
 				0A7D0E8E26B2B8DD0029068C /* ViewModels */,
@@ -183,6 +192,15 @@
 			path = podcastUITests;
 			sourceTree = "<group>";
 		};
+		0ABD2A9426DBD73F00A5DFC8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */,
+				0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,6 +219,8 @@
 			name = podcast;
 			packageProductDependencies = (
 				0AB2BF3E26A8405D00C2F1A3 /* Kingfisher */,
+				0AAFBD4A26C1A21F002C228E /* KeychainAccess */,
+				0A6D866E26CF7DF00070231F /* Alamofire */,
 			);
 			productName = podcast;
 			productReference = 0AB10D0E2674B5A500EC4B51 /* podcast.app */;
@@ -275,6 +295,8 @@
 			mainGroup = 0AB10D052674B5A500EC4B51;
 			packageReferences = (
 				0AB2BF3D26A8405D00C2F1A3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0AAFBD4926C1A21F002C228E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				0A6D866D26CF7DF00070231F /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 0AB10D0F2674B5A500EC4B51 /* Products */;
 			projectDirPath = "";
@@ -325,8 +347,10 @@
 				0AAFBD292681B0A5007E3063 /* TabBarView.swift in Sources */,
 				0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */,
 				0AAFBD312681B701007E3063 /* ProfileView.swift in Sources */,
+				0ABD2A9626DBD76600A5DFC8 /* Interceptor.swift in Sources */,
 				0A7D0E8A26B2B0780029068C /* LoginView.swift in Sources */,
 				0AD415A426B44B69003AA857 /* PodcastViewModel.swift in Sources */,
+				0ABD2A9826DBD78A00A5DFC8 /* APIManager.swift in Sources */,
 				0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */,
 				0AB10D122674B5A500EC4B51 /* podcastApp.swift in Sources */,
 			);
@@ -646,6 +670,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A6D866D26CF7DF00070231F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+		0AAFBD4926C1A21F002C228E /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
 		0AB2BF3D26A8405D00C2F1A3 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -657,6 +697,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A6D866E26CF7DF00070231F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A6D866D26CF7DF00070231F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		0AAFBD4A26C1A21F002C228E /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AAFBD4926C1A21F002C228E /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		0AB2BF3E26A8405D00C2F1A3 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0AB2BF3D26A8405D00C2F1A3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
