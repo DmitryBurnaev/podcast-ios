@@ -135,10 +135,14 @@ class WebService{
     
     func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
         apiManager.request(
-            "/podcasts/", completion: { (result: Result<PodcastsListResponse, ResponseErrorDetails>) in
+            "/podcasts/", completion: { (result: Result<[PodcastItem], ResponseErrorDetails>) in
                 switch result {
                 case .success:
                     print("got result from request: \(result)")
+//                    let result = result as? [PodcastItem] else { fatalError() }
+
+//                    TODO: solve this problem
+//                    completion(.success(result))
 //                    completion(.success(result.payload))
                 case .failure(let err):
                     print("Found API problem here: \(err.localizedDescription)")
