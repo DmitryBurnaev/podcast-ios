@@ -135,72 +135,43 @@ class WebService{
     
     func getPodcasts(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
         apiManager.request(
-            "/podcasts/", completion: { (result: Result<[PodcastItem], ResponseErrorDetails>) in
+            "/podcasts/",
+            completion: { (result: Result<[PodcastItem], ResponseErrorDetails>) in
                 switch result {
-                case .success:
-                    print("got result from request: \(result)")
-//                    let result = result as? [PodcastItem] else { fatalError() }
-
-//                    TODO: solve this problem
-//                    completion(.success(result))
-//                    completion(.success(result.payload))
+                case .success(let podcasts):
+                    print("got result from request: \(podcasts)")
+                    completion(.success(podcasts))
                 case .failure(let err):
                     print("Found API problem here: \(err.localizedDescription)")
                     completion(.failure(.noData))
                 }
             }
         )
-        
-        
-//        let interceptor: AccessTokenInterceprot = AccessTokenInterceprot()
-//        AF.request("\(API_URL)/podcasts/", interceptor: interceptor).validate(statusCode: 200..<300).responseJSON { response in
-//            switch response.result {
-//                case .success:
-//                    guard let data = response.data else {
-//                        completion(.failure(.noData))
-//                        return
-//                    }
-//                    guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-//                        completion(.failure(.decodingError))
-//                        return
-//                    }
-//                    completion(.success(podcastResponse.payload))
-//                case .failure(let err):
-//                    print("Found API problem here: \(err.localizedDescription)")
-//                    completion(.failure(.noData))
-//            }
-//        }
     }
     
-    
-    func getPodcastsOld(limit: Int = 20, completion: @escaping (Result<[PodcastItem], NetworkError>) -> Void){
-        guard let url = URL(string: "\(API_URL)/podcasts/") else {
-            completion(.failure(.invalidURL))
-            return
-        }
-        var request = URLRequest(url: url)
-        guard let token = self.getToken() else { return }
-        
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        URLSession.shared.dataTask(with: request){ (data, resp, error) in
-            guard let data = data, error == nil else {
-                completion(.failure(.noData))
-                return
+    func getEpisodes(limit: Int = 20, podcastID: Int? = nil, completion: @escaping (Result<EpisodesList, NetworkError>) -> Void){
+        let url: String = (podcastID != nil) ? "/podcasts/\(podcastID ?? 0)/episodes/" : "/episodes/"
+        apiManager.request(
+            url,
+            parameters: ["limit": limit],
+            encoding: URLEncoding.default,
+            completion: { (result: Result<EpisodesList, ResponseErrorDetails>) in
+                switch result {
+                case .success(let episodes):
+                    print("API: got episodes from response: \(episodes)")
+                    completion(.success(episodes))
+                case .failure(let err):
+                    print("Found API problem here: \(err.localizedDescription)")
+                    completion(.failure(.noData))
+                }
             }
-            guard let podcastResponse = try? JSONDecoder().decode(PodcastsListResponse.self, from: data) else {
-                completion(.failure(.decodingError))
-                return
-            }
-            let podcasts = podcastResponse.payload
-            completion(.success(podcasts))
-        }.resume()
-        
+        )
     }
+    
 
-    func getEpisodes(limit: Int = 20, podcastID: Int? = nil, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
+    
+    
+    func getEpisodesOld(limit: Int = 20, podcastID: Int? = nil, completion: @escaping (Result<[Episode], NetworkError>) -> Void){
         var url: String = ""
         if (podcastID != nil){
             url = "\(API_URL)/podcasts/\(podcastID ?? 0)/episodes/?limit=\(limit)"

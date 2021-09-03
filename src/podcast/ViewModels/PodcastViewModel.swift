@@ -30,7 +30,7 @@ class PodcastListViewModel: ObservableObject {
             switch result{
                 case .success(let episodes):
                     DispatchQueue.main.async {
-                        self.episodes = episodes
+                        self.episodes = episodes.items
                         print("Found episodes \(self.episodes)")
                     }
                 case .failure(let error):
