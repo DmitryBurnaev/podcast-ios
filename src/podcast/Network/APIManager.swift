@@ -1,6 +1,13 @@
 import Foundation
 import Alamofire
 
+let API_URL: String = "http://192.168.1.3:8001/api"
+
+
+enum AuthenticationError: Error {
+    case invalidCredentials
+    case custom(errorMessage: String)
+}
 
 struct ResponseErrorDetails: Error, Decodable {
     let code: String
@@ -15,6 +22,30 @@ struct EmptyErrorPayload: Decodable {
     
 }
 
+enum APIError: Error {
+    case invalidCredentials
+    case noData
+    case decodingError
+    case invalidStatusCode
+    case custom(errorMessage: String)
+    case errorCode(code: String)
+}
+
+struct ErrorResponsePayload: Codable{
+    let error: String
+    let details: String?
+}
+
+struct ErrorResponse: Codable{
+    let status: String
+    let payload: ErrorResponsePayload
+}
+
+enum NetworkError: Error{
+    case invalidURL
+    case noData
+    case decodingError
+}
 
 class ResponseBody<Payload: Decodable, ErrorPayload: Decodable>: Decodable {
 

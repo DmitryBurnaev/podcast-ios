@@ -24,7 +24,7 @@ struct PodcastListView_Previews: PreviewProvider {
 
 
 struct PodcastRow: View {
-    let podcast: PodcastItem
+    let podcast: PodcastInList
     
     var body: some View{
         HStack{
