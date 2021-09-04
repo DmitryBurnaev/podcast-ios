@@ -3,8 +3,8 @@ import KeychainAccess
 
 
 class PodcastListViewModel: ObservableObject {
-    @Published var podcasts: [PodcastItem] = []
-    @Published var episodes: [Episode] = []
+    @Published var podcasts: [PodcastInList] = []
+    @Published var episodes: [EpisodeInList] = []
 
     init() {
         self.getPodcasts()
@@ -12,7 +12,7 @@ class PodcastListViewModel: ObservableObject {
     }
     
     func getPodcasts(){
-        WebService().getPodcasts(){ result in
+        PodcastService().getPodcasts(){ result in
             switch result{
                 case .success(let podcasts):
                     DispatchQueue.main.async {
@@ -26,7 +26,7 @@ class PodcastListViewModel: ObservableObject {
     }
 
     func getAllEpisodes(limit: Int = 5){
-        WebService().getEpisodes(limit: limit){ result in
+        EpisodeService().getEpisodes(limit: limit){ result in
             switch result{
                 case .success(let episodes):
                     DispatchQueue.main.async {

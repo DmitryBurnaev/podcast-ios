@@ -1,0 +1,97 @@
+//
+//  AuthService.swift
+//  podcast
+//
+//  Created by Dmitry Burnaev on 04.09.2021.
+//
+
+import Foundation
+import KeychainAccess
+import Alamofire
+
+
+struct ResponstWithTokens: Codable{
+    let status: String
+    let payload: TokenPayload
+}
+
+
+struct TokenPayload: Codable {
+    let access_token, refresh_token: String
+}
+
+
+
+class AuthService{
+    private let apiManager = APIManager()
+
+    func getToken(tokenType: String = "accessToken") -> String?{
+        let keychain = Keychain(service: "com.podcast")
+        guard let token = try? keychain.get(tokenType) else {
+            print("No access token found")
+            return nil
+        }
+        return token
+    }
+    
+    func setTokens(accessToken: String, refreshToken: String) -> Void{
+        let keychain = Keychain(service: "com.podcast")
+        do {
+            try keychain.set(accessToken, key: "accessToken")
+            try keychain.set(refreshToken, key: "refreshToken")
+        }
+        catch let error {
+            print("Couldn't save access/refresh tokens: \(error)")
+        }
+    }
+    
+    func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
+        apiManager.request(
+            "/auth/sign-in/",
+            parameters: ["email": email, "password": password],
+            completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
+                switch result {
+                case .success(let tokenPayload):
+                    let accessToken = tokenPayload.access_token
+                    let refreshToken = tokenPayload.refresh_token
+                    let keychain = Keychain(service: "com.podcast")
+                    do {
+                        try keychain.set(accessToken, key: "accessToken")
+                        try keychain.set(refreshToken, key: "refreshToken")
+                    }
+                    catch let error {
+                        print("Couldn't save access/refresh tokens: \(error)")
+                    }
+                    completion(.success(accessToken))
+                case .failure(let err):
+                    print("Found API problem here: \(err.localizedDescription)")
+                    completion(.failure(.custom(errorMessage: err.description)))
+                }
+            }
+        )
+    }
+    
+
+    func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
+        guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
+        print("Token refreshing ... \(API_URL)/auth/refresh-token/")
+
+        apiManager.request(
+            "/auth/refresh-token/",
+            parameters: ["refresh_token": refreshToken],
+            completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
+                switch result {
+                case .success(let tokenPayload):
+                    self.setTokens(accessToken: tokenPayload.access_token, refreshToken: tokenPayload.refresh_token)
+                    completion(true)
+                case .failure(let err):
+                    print("Found API problem here: \(err.localizedDescription)")
+                    completion(false)
+                }
+            }
+        )
+
+    }
+
+    
+}

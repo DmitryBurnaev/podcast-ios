@@ -1,6 +1,13 @@
 import Foundation
 import Alamofire
 
+let API_URL: String = "http://192.168.1.3:8001/api"
+
+
+enum AuthenticationError: Error {
+    case invalidCredentials
+    case custom(errorMessage: String)
+}
 
 struct ResponseErrorDetails: Error, Decodable {
     let code: String
@@ -15,6 +22,30 @@ struct EmptyErrorPayload: Decodable {
     
 }
 
+enum APIError: Error {
+    case invalidCredentials
+    case noData
+    case decodingError
+    case invalidStatusCode
+    case custom(errorMessage: String)
+    case errorCode(code: String)
+}
+
+struct ErrorResponsePayload: Codable{
+    let error: String
+    let details: String?
+}
+
+struct ErrorResponse: Codable{
+    let status: String
+    let payload: ErrorResponsePayload
+}
+
+enum NetworkError: Error{
+    case invalidURL
+    case noData
+    case decodingError
+}
 
 class ResponseBody<Payload: Decodable, ErrorPayload: Decodable>: Decodable {
 
@@ -90,30 +121,11 @@ class APIManager{
         ]
         let interceptor = AccessTokenInterceptor()
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+//        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         let request = APIManager.session
             .request(url, method: method, parameters: parameters, encoding: encoding, headers: HTTPHeaders(headers), interceptor: interceptor)
             .validate(statusCode: 200..<300)
-//            .responseJSON { response in
-//                switch response.result {
-//                    case .success:
-//                        guard let data = response.data else {
-//                            print("NEW req: no response data \(String(describing: response.data))")
-//                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
-//                            return
-//                        }
-//                        guard let podcastResponse = try? JSONDecoder().decode(ResponseBody.self, from: data) else {
-//                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
-//                            completion(.failure(.decodingError))
-//                            return
-//                        }
-//                        completion(.success(podcastResponse.payload))
-//                    case .failure(let err):
-//                        print("Found API problem here: \(err.localizedDescription)")
-//                        completion(.failure(.noData))
-//                }
-//
             .responseDecodable(of: ResponseBody<Payload, EmptyErrorPayload>.self, decoder: decoder, completionHandler: { response in
                 debugPrint(response)
                 switch response.result {
@@ -123,6 +135,8 @@ class APIManager{
                         if let payload = data.payload {
                             completion(.success(payload))
                         } else {
+                            print("----")
+                            debugPrint(data)
                             print("NEW req: no response data \(String(describing: data.payload))")
                             completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
                         }
