@@ -74,12 +74,13 @@ class AuthService{
 
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
-        print("Token refreshing ... \(API_URL)/auth/refresh-token/")
+        let parameters = ["refresh_token": refreshToken]
+        print("Token refreshing ... \(API_URL)/auth/refresh-token/ | params: \(parameters)")
 
         apiManager.request(
             "/auth/refresh-token/",
             method: .post,
-            parameters: ["refresh_token": refreshToken],
+            parameters: parameters,
             completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
                 switch result {
                 case .success(let tokenPayload):
