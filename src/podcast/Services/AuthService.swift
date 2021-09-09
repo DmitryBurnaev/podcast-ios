@@ -48,6 +48,7 @@ class AuthService{
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         apiManager.request(
             "/auth/sign-in/",
+            method: .post,
             parameters: ["email": email, "password": password],
             completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
                 switch result {
