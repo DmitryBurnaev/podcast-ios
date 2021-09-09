@@ -6,9 +6,9 @@ struct PodcastsListResponse: Decodable{
 }
 
 struct PodcastInList: Decodable, Hashable {
-    let id, episodes_count: Int
+    let id, episodesCount: Int
     let name, description: String
-    let image_url: String?
+    let imageUrl: String?
 }
 
 

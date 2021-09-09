@@ -3,7 +3,6 @@ import Alamofire
 
 let API_URL: String = "http://192.168.1.3:8001/api"
 
-
 enum AuthenticationError: Error {
     case invalidCredentials
     case custom(errorMessage: String)
@@ -121,7 +120,7 @@ class APIManager{
         ]
         let interceptor = AccessTokenInterceptor()
         let decoder = JSONDecoder()
-//        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         let request = APIManager.session
             .request(url, method: method, parameters: parameters, encoding: encoding, headers: HTTPHeaders(headers), interceptor: interceptor)

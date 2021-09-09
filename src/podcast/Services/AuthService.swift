@@ -17,7 +17,7 @@ struct ResponstWithTokens: Codable{
 
 
 struct TokenPayload: Codable {
-    let access_token, refresh_token: String
+    let accessToken, refreshToken: String
 }
 
 
@@ -48,12 +48,13 @@ class AuthService{
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         apiManager.request(
             "/auth/sign-in/",
+            method: .post,
             parameters: ["email": email, "password": password],
             completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
                 switch result {
                 case .success(let tokenPayload):
-                    let accessToken = tokenPayload.access_token
-                    let refreshToken = tokenPayload.refresh_token
+                    let accessToken = tokenPayload.accessToken
+                    let refreshToken = tokenPayload.refreshToken
                     let keychain = Keychain(service: "com.podcast")
                     do {
                         try keychain.set(accessToken, key: "accessToken")
@@ -74,15 +75,17 @@ class AuthService{
 
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
-        print("Token refreshing ... \(API_URL)/auth/refresh-token/")
+        let parameters = ["refresh_token": refreshToken]
+        print("Token refreshing ... \(API_URL)/auth/refresh-token/ | params: \(parameters)")
 
         apiManager.request(
             "/auth/refresh-token/",
-            parameters: ["refresh_token": refreshToken],
+            method: .post,
+            parameters: parameters,
             completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
                 switch result {
                 case .success(let tokenPayload):
-                    self.setTokens(accessToken: tokenPayload.access_token, refreshToken: tokenPayload.refresh_token)
+                    self.setTokens(accessToken: tokenPayload.accessToken, refreshToken: tokenPayload.refreshToken)
                     completion(true)
                 case .failure(let err):
                     print("Found API problem here: \(err.localizedDescription)")

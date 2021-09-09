@@ -28,7 +28,7 @@ struct PodcastRow: View {
     
     var body: some View{
         HStack{
-            KFImage(URL(string: podcast.image_url ?? ""))
+            KFImage(URL(string: podcast.imageUrl ?? ""))
                 .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(Color.black, lineWidth: 1))
