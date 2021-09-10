@@ -9,10 +9,8 @@ class LoginViewModel: ObservableObject {
 
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
-
-    
+       
     func login(){
-        
         AuthService().login(email: self.email, password: self.password){ result in
             switch result{
                 case .success(let token):
@@ -34,7 +32,6 @@ class LoginViewModel: ObservableObject {
                 case .failure(let error):
                     print("Auth problems: \(error.localizedDescription)")
             }
-            
         }
     }
     

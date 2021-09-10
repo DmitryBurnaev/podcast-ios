@@ -1,10 +1,25 @@
 import SwiftUI
 
-struct LoginView: View {
+struct ProfileView: View {
     
-    @StateObject private var loginVM = LoginViewModel()
-    @StateObject private var podcastVM = PodcastListViewModel()
+    @StateObject var loginVM = LoginViewModel()
+    
+    var body: some View {
+        if !loginVM.isAuthenticated{
+            LoginView(loginVM: loginVM)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .transition(.move(edge: .leading))
+        } else{
+            LoggedInView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .transition(.move(edge: .leading))
+        }
+    }
+}
 
+
+struct LoginView : View {
+    @ObservedObject var loginVM: LoginViewModel
     
     var body: some View {
         VStack(alignment: .leading){
@@ -30,29 +45,26 @@ struct LoginView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            
-            VStack{
-                Spacer()
-                if podcastVM.podcasts.count > 0{
-                    List(podcastVM.podcasts, id:\.id){ podcast in
-                        HStack{
-                            Text("\(podcast.name)")
-                        }
-                    }
-                } else {
-                    Text("No podcasts found")
-                }
-            }
-            Button("Get podcasts"){
-                podcastVM.getPodcasts()
-            }.padding().background(Color.blue)
-            
         }
+    }
+}
+
+
+
+struct LoggedInView : View {
+    var body: some View {
+        Text("User profile")
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        ProfileView()
+    }
+}
+
+struct LoggedInView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoggedInView()
     }
 }
