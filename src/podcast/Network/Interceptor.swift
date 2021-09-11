@@ -21,11 +21,11 @@ class AccessTokenInterceptor: RequestInterceptor{
                   completion: @escaping (RetryResult) -> Void) {
 
         print("\n======== Found API error! ======= ")
-        print("StatusCode: \(String(describing: request.response?.statusCode)) | error \(error)\n")
+        print("RETRY: StatusCode: \(String(describing: request.response?.statusCode)) | error \(error)\n")
         debugPrint(request.response ?? "[empty response]")
 
         guard request.retryCount < retryLimit else {
-            print("Too many retries skip retry actions.")
+            print("RETRY: Too many retries skip retry actions.")
             completion(.doNotRetry)
             return
         }
@@ -54,7 +54,7 @@ class AccessTokenInterceptor: RequestInterceptor{
                 }
             }
             else{
-                print("RETRY: was not retried: \(errorResponse.status) != SIGNATURE_EXPIRED")
+                print("RETRY: was not retried: \(errorResponse.status) != SIGNATURE_EXPIRED")                
                 completion(.doNotRetry)
             }
         }

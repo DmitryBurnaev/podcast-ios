@@ -40,6 +40,14 @@ struct ContentView: View {
             TabBarView(selectedTab: $selectedTab, shouldShowModal: $shouldShowModal)
 
         }
+//        TODO: add alert for unauth requests
+//        .alert(isPresented: $loginVM.notifyUserIsAuthenticated) {
+//            Alert(
+//                title: Text("Got access token"),
+//                message: Text("Access token: \(loginVM.token)"),
+//                dismissButton: .default(Text("Got it!"))
+//            )
+//        }
 
     }
 }
