@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var shouldShowModal = false
     @State private var selectedTab = "home"
+    @ObservedObject var loginVM: LoginViewModel
     
     var body: some View {
         VStack(spacing: 0){
@@ -13,26 +14,31 @@ struct ContentView: View {
                             Text("Fillscreen cover")
                         })
                     })
+                // TODO: perform custom actions here
+                if loginVM.isAuthenticated{
+                    switch selectedTab{
 
-                switch selectedTab{
+                    case "home":
+                        HomeView()
 
-                case "home":
-                    HomeView()
+                    case "podcasts":
+                        PodcastListView()
 
-                case "podcasts":
-                    PodcastListView()
+                    case "playlist":
+                        PlayListView()
 
-                case "playlist":
-                    PlayListView()
+                    case "profile":
+                        ProfileView()
 
-                case "profile":
-                    ProfileView()
-
-                default:
-                    NavigationView{
-                        Text("Remining tabs")
+                    default:
+                        NavigationView{
+                            Text("Remining tabs")
+                        }
                     }
+                } else {
+                    ProfileView()
                 }
+                
             }
 
             Divider().padding(.bottom, 8)

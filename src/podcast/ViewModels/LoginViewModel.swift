@@ -6,6 +6,7 @@ class LoginViewModel: ObservableObject {
     var email: String = ""
     var password: String = ""
     var token: String = ""
+    var me: MePayload? = nil
 
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
@@ -31,6 +32,21 @@ class LoginViewModel: ObservableObject {
                     }
                 case .failure(let error):
                     print("Auth problems: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func checkMe(){
+        AuthService().me{ result in
+            switch result{
+            case .success(let mePayload):
+                print("CHECK ME: Got ME payload (checkMe) \(mePayload)")
+                DispatchQueue.main.async {
+                    self.isAuthenticated = true
+                    self.me = mePayload
+                }
+            case .failure(let err):
+                print("CHECK ME: failed: \(err)")
             }
         }
     }
