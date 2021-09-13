@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var shouldShowModal = false
     @State private var selectedTab = "home"
-    @ObservedObject var loginVM: LoginViewModel
+    @ObservedObject var loginVM: LoginViewModel = LoginViewModel()
     
     var body: some View {
         VStack(spacing: 0){

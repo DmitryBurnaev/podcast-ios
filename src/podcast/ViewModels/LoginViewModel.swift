@@ -10,7 +10,11 @@ class LoginViewModel: ObservableObject {
 
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
-       
+    
+    init() {
+        self.checkMe()
+    }
+    
     func login(){
         AuthService().login(email: self.email, password: self.password){ result in
             switch result{
