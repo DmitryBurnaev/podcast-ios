@@ -2,7 +2,11 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @StateObject var loginVM = LoginViewModel()
+    @ObservedObject var loginVM: LoginViewModel
+    
+    init(loginVM: LoginViewModel = LoginViewModel()) {
+        self.loginVM = loginVM
+    }
     
     var body: some View {
         if !loginVM.isAuthenticated{

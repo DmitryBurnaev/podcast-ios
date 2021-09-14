@@ -14,7 +14,8 @@ struct ContentView: View {
                             Text("Fillscreen cover")
                         })
                     })
-                // TODO: perform custom actions here
+                // TODO: toggle isAuthenticated if we have got 401 status code
+//                Toggle()
                 if loginVM.isAuthenticated{
                     switch selectedTab{
 
@@ -28,7 +29,7 @@ struct ContentView: View {
                         PlayListView()
 
                     case "profile":
-                        ProfileView()
+                        ProfileView(loginVM: loginVM)
 
                     default:
                         NavigationView{
@@ -36,7 +37,7 @@ struct ContentView: View {
                         }
                     }
                 } else {
-                    ProfileView()
+                    ProfileView(loginVM: loginVM)
                 }
                 
             }
