@@ -11,7 +11,15 @@ class LoginViewModel: ObservableObject {
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
     
+    @Published var hasLoggedIn: Bool {
+        didSet {
+            UserDefaults.standard.set(hasLoggedIn, forKey: "hasLoggedIn")
+        }
+    }
+    
+    
     init() {
+        self.hasLoggedIn = UserDefaults.standard.object(forKey: "hasLoggedIn") as? Bool ?? false
         self.checkMe()
     }
     
@@ -48,6 +56,7 @@ class LoginViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.isAuthenticated = true
                     self.me = mePayload
+                    self.hasLoggedIn = true
                 }
             case .failure(let err):
                 print("CHECK ME: failed: \(err)")

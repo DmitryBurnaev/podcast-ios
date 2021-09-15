@@ -16,7 +16,7 @@ struct ContentView: View {
                     })
                 // TODO: toggle isAuthenticated if we have got 401 status code
 //                Toggle()
-                if loginVM.isAuthenticated{
+                if loginVM.hasLoggedIn{
                     switch selectedTab{
 
                     case "home":

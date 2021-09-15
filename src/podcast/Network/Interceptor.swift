@@ -54,7 +54,8 @@ class AccessTokenInterceptor: RequestInterceptor{
                 }
             }
             else{
-                print("RETRY: was not retried: \(errorResponse.status) != SIGNATURE_EXPIRED")                
+                print("RETRY: was not retried: \(errorResponse.status) != SIGNATURE_EXPIRED")
+                UserDefaults.standard.set(false, forKey: "hasLoggedIn")
                 completion(.doNotRetry)
             }
         }
