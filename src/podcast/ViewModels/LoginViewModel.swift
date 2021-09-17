@@ -2,11 +2,19 @@ import Foundation
 import KeychainAccess
 
 
+extension UserDefaults {
+    @objc dynamic var hasLoggedIn: Bool {
+        return bool(forKey: "greetingsCount")
+    }
+}
+
+
 class LoginViewModel: ObservableObject {
     var email: String = ""
     var password: String = ""
     var token: String = ""
     var me: MePayload? = nil
+    var observer: NSKeyValueObservation?
 
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
@@ -19,6 +27,13 @@ class LoginViewModel: ObservableObject {
     
     
     init() {
+//        TODO: how to use observer??
+//        observer = UserDefaults.standard.observe(.hasLoggedIn, options: [.initial, .new], changeHandler: { (defaults, change) in {
+//            return true
+//        })
+//        observer = UserDefaults.standard.observe(.hasLoggedIn, options: [.initial, .new], changeHandler: { (defaults, change) in
+//            // your change logic here
+//        })
         self.hasLoggedIn = UserDefaults.standard.object(forKey: "hasLoggedIn") as? Bool ?? false
         self.checkMe()
     }

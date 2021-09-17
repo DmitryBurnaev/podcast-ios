@@ -95,7 +95,7 @@ class AuthService{
 
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
-        let parameters = ["refresh_token": refreshToken]
+        let parameters = ["refresh_token": refreshToken + "2"]
         print("Token refreshing ... \(API_URL)/auth/refresh-token/ | params: \(parameters)")
 
         apiManager.request(
