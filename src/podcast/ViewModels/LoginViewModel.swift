@@ -2,13 +2,6 @@ import Foundation
 import KeychainAccess
 
 
-extension UserDefaults {
-    @objc dynamic var hasLoggedIn: Bool {
-        return bool(forKey: "greetingsCount")
-    }
-}
-
-
 class LoginViewModel: ObservableObject {
     var email: String = ""
     var password: String = ""
@@ -27,17 +20,17 @@ class LoginViewModel: ObservableObject {
     
     
     init() {
-//        TODO: how to use observer??
-//        observer = UserDefaults.standard.observe(.hasLoggedIn, options: [.initial, .new], changeHandler: { (defaults, change) in {
-//            return true
-//        })
-//        observer = UserDefaults.standard.observe(.hasLoggedIn, options: [.initial, .new], changeHandler: { (defaults, change) in
-//            // your change logic here
-//        })
-        self.hasLoggedIn = UserDefaults.standard.object(forKey: "hasLoggedIn") as? Bool ?? false
+        self.hasLoggedIn = false
+        self.observer = UserDefaults.standard.observe(\.hasLoggedIn, options: [.initial, .new]) { (observed, change) in
+            self.hasLoggedIn = change.newValue ?? false
+            print("something changed change: \(change) | observed: \(observed)")
+        }
         self.checkMe()
     }
     
+    deinit {
+        observer?.invalidate()
+    }
     func login(){
         AuthService().login(email: self.email, password: self.password){ result in
             switch result{
@@ -69,9 +62,10 @@ class LoginViewModel: ObservableObject {
             case .success(let mePayload):
                 print("CHECK ME: Got ME payload (checkMe) \(mePayload)")
                 DispatchQueue.main.async {
+                    //todo: remove redundant
                     self.isAuthenticated = true
                     self.me = mePayload
-                    self.hasLoggedIn = true
+                    UserDefaults.standard.set(true, forKey: "hasLoggedIn")
                 }
             case .failure(let err):
                 print("CHECK ME: failed: \(err)")
