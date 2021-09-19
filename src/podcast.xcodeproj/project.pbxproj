@@ -29,6 +29,7 @@
 		0ABD2A9626DBD76600A5DFC8 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */; };
 		0ABD2A9826DBD78A00A5DFC8 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */; };
 		0AD415A426B44B69003AA857 /* PodcastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD415A326B44B69003AA857 /* PodcastViewModel.swift */; };
+		0AF5009C26F7981D00F8A71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5009B26F7981D00F8A71C /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0AD415A326B44B69003AA857 /* PodcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewModel.swift; sourceTree = "<group>"; };
+		0AF5009B26F7981D00F8A71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				0AAFBD2C2681B672007E3063 /* HomeView.swift */,
 				0AAFBD2E2681B6CE007E3063 /* PlayListView.swift */,
 				0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */,
+				0AF5009B26F7981D00F8A71C /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */,
 				0AB10D122674B5A500EC4B51 /* podcastApp.swift in Sources */,
 				0AB609C326F5E45A00DAC94C /* UserDefaults+Extensions.swift in Sources */,
+				0AF5009C26F7981D00F8A71C /* LoginView.swift in Sources */,
 				0A8A069C26E3C84600F8D44A /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

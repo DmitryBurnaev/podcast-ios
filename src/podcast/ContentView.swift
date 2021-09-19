@@ -14,8 +14,7 @@ struct ContentView: View {
                             Text("Fillscreen cover")
                         })
                     })
-                // TODO: toggle isAuthenticated if we have got 401 status code
-//                Toggle()
+
                 if loginVM.hasLoggedIn{
                     switch selectedTab{
 
@@ -29,7 +28,7 @@ struct ContentView: View {
                         PlayListView()
 
                     case "profile":
-                        ProfileView(loginVM: loginVM)
+                        ProfileView()
 
                     default:
                         NavigationView{
@@ -37,25 +36,15 @@ struct ContentView: View {
                         }
                     }
                 } else {
-                    ProfileView(loginVM: loginVM)
+                    LoginView(loginVM: loginVM)
                 }
                 
             }
-
             Divider().padding(.bottom, 8)
-
-            TabBarView(selectedTab: $selectedTab, shouldShowModal: $shouldShowModal)
-
+            if loginVM.hasLoggedIn{
+                TabBarView(selectedTab: $selectedTab, shouldShowModal: $shouldShowModal)
+            }
         }
-//        TODO: add alert for unauth requests
-//        .alert(isPresented: $loginVM.notifyUserIsAuthenticated) {
-//            Alert(
-//                title: Text("Got access token"),
-//                message: Text("Access token: \(loginVM.token)"),
-//                dismissButton: .default(Text("Got it!"))
-//            )
-//        }
-
     }
 }
 

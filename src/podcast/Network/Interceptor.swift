@@ -15,8 +15,7 @@ class AccessTokenInterceptor: RequestInterceptor{
         print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
         completion(.success(request))
     }
-    
-        
+
     func retry(_ request: Request, for session: Session, dueTo error: Error,
                   completion: @escaping (RetryResult) -> Void) {
 

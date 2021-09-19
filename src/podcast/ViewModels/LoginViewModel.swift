@@ -11,19 +11,21 @@ class LoginViewModel: ObservableObject {
 
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
-    
-    @Published var hasLoggedIn: Bool {
-        didSet {
-            UserDefaults.standard.set(hasLoggedIn, forKey: "hasLoggedIn")
-        }
-    }
-    
-    
+    @Published var hasLoggedIn: Bool  = false
+//    var hasLoggedIn
+//    @Published var hasLoggedIn: Bool {
+//        didSet {
+//            UserDefaults.standard.set(hasLoggedIn, forKey: "hasLoggedIn")
+//        }
+//    }
+        
     init() {
-        self.hasLoggedIn = false
+//        self.hasLoggedIn = false
         self.observer = UserDefaults.standard.observe(\.hasLoggedIn, options: [.initial, .new]) { (observed, change) in
-            self.hasLoggedIn = change.newValue ?? false
-            print("something changed change: \(change) | observed: \(observed)")
+            print("something changed change (new value): \(change.newValue) | observed: \(observed)")
+            DispatchQueue.main.async {
+                self.hasLoggedIn = change.newValue ?? false
+            }
         }
         self.checkMe()
     }
@@ -49,6 +51,7 @@ class LoginViewModel: ObservableObject {
                         self.isAuthenticated = true
                         self.notifyUserIsAuthenticated = true
                         self.token = token
+                        UserDefaults.standard.set(true, forKey: "hasLoggedIn")
                     }
                 case .failure(let error):
                     print("Auth problems: \(error.localizedDescription)")
@@ -62,7 +65,6 @@ class LoginViewModel: ObservableObject {
             case .success(let mePayload):
                 print("CHECK ME: Got ME payload (checkMe) \(mePayload)")
                 DispatchQueue.main.async {
-                    //todo: remove redundant
                     self.isAuthenticated = true
                     self.me = mePayload
                     UserDefaults.standard.set(true, forKey: "hasLoggedIn")
