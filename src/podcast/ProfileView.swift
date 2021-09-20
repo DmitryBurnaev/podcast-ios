@@ -2,7 +2,9 @@ import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        Text("User profile")
+        NavigationView{
+            Text("User profile")
+        }
     }
 }
 
