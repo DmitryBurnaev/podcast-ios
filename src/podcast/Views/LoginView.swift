@@ -1,11 +1,13 @@
 import SwiftUI
 
-struct LoginView: View {
-    
-    @StateObject private var loginVM = LoginViewModel()
-    @StateObject private var podcastVM = PodcastListViewModel()
 
-    
+struct LoginView : View {
+    @ObservedObject var loginVM: LoginViewModel
+
+    init(loginVM: LoginViewModel = LoginViewModel()) {
+        self.loginVM = loginVM
+    }
+
     var body: some View {
         VStack(alignment: .leading){
             Form{
@@ -30,23 +32,6 @@ struct LoginView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            
-            VStack{
-                Spacer()
-                if podcastVM.podcasts.count > 0{
-                    List(podcastVM.podcasts, id:\.id){ podcast in
-                        HStack{
-                            Text("\(podcast.name)")
-                        }
-                    }
-                } else {
-                    Text("No podcasts found")
-                }
-            }
-            Button("Get podcasts"){
-                podcastVM.getPodcasts()
-            }.padding().background(Color.blue)
-            
         }
     }
 }

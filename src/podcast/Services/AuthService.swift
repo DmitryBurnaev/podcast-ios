@@ -15,11 +15,14 @@ struct ResponstWithTokens: Codable{
     let payload: TokenPayload
 }
 
-
 struct TokenPayload: Codable {
     let accessToken, refreshToken: String
 }
 
+struct MePayload: Codable{
+    let id: Int
+    let email: String
+}
 
 
 class AuthService{
@@ -44,6 +47,23 @@ class AuthService{
             print("Couldn't save access/refresh tokens: \(error)")
         }
     }
+    
+    func me(completion: @escaping (Result<MePayload, NetworkError>) -> Void){
+        apiManager.request(
+            "/auth/me/",
+            completion: { (result: Result<MePayload, ResponseErrorDetails>) in
+                switch result {
+                case .success(let me):
+                    print("API: got me from response: \(me)")
+                    completion(.success(me))
+                case .failure(let err):
+                    print("Found API problem here: \(err.localizedDescription)")
+                    completion(.failure(.noData))
+                }
+            }
+        )
+    }
+    
     
     func login(email: String, password: String, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         apiManager.request(
@@ -75,7 +95,7 @@ class AuthService{
 
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
         guard let refreshToken = self.getToken(tokenType: "refreshToken") else { return }
-        let parameters = ["refresh_token": refreshToken]
+        let parameters = ["refresh_token": refreshToken + "2"]
         print("Token refreshing ... \(API_URL)/auth/refresh-token/ | params: \(parameters)")
 
         apiManager.request(

@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var shouldShowModal = false
     @State private var selectedTab = "home"
+    @ObservedObject var loginVM: LoginViewModel = LoginViewModel()
     
     var body: some View {
         VStack(spacing: 0){
@@ -14,34 +15,36 @@ struct ContentView: View {
                         })
                     })
 
-                switch selectedTab{
+                if loginVM.hasLoggedIn{
+                    switch selectedTab{
 
-                case "home":
-                    HomeView()
+                    case "home":
+                        HomeView()
 
-                case "podcasts":
-                    PodcastListView()
+                    case "podcasts":
+                        PodcastListView()
 
-                case "playlist":
-                    PlayListView()
+                    case "playlist":
+                        PlayListView()
 
-                case "profile":
-                    LoginView()
-//                    ProfileView()
+                    case "profile":
+                        ProfileView()
 
-                default:
-                    NavigationView{
-                        Text("Remining tabs")
+                    default:
+                        NavigationView{
+                            Text("Remining tabs")
+                        }
                     }
+                } else {
+                    LoginView(loginVM: loginVM)
                 }
+                
             }
-
             Divider().padding(.bottom, 8)
-
-            TabBarView(selectedTab: $selectedTab, shouldShowModal: $shouldShowModal)
-
+            if loginVM.hasLoggedIn{
+                TabBarView(selectedTab: $selectedTab, shouldShowModal: $shouldShowModal)
+            }
         }
-
     }
 }
 

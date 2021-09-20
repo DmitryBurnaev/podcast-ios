@@ -126,7 +126,7 @@ class APIManager{
             .request(url, method: method, parameters: parameters, encoding: encoding, headers: HTTPHeaders(headers), interceptor: interceptor)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseBody<Payload, EmptyErrorPayload>.self, decoder: decoder, completionHandler: { response in
-                debugPrint(response)
+//                debugPrint(response)
                 switch response.result {
                 case .success(let data):
                     switch data.status {
@@ -134,19 +134,19 @@ class APIManager{
                         if let payload = data.payload {
                             completion(.success(payload))
                         } else {
-                            print("----")
-                            debugPrint(data)
-                            print("NEW req: no response data \(String(describing: data.payload))")
-                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "NEW req: no response data")))
+//                            print("----")
+//                            debugPrint(data)
+                            print("API REQ: no response data \(String(describing: data.payload))")
+                            completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "API REQ: no response data")))
                         }
                         print("response data \(data)")
                     case .error:
-                        print("got err response status \(data) STATUS: \(data.status)")
-                        completion(.failure(ResponseErrorDetails(code: "STATUS_NOT_OK", description: "NEW req: status problem \(data.status)")))
+                        print("API REQ: response data \(data) STATUS: \(data.status)")
+                        completion(.failure(ResponseErrorDetails(code: "STATUS_NOT_OK", description: "API REQ: status problem \(data.status)")))
                     }
                 case .failure(let error):
-                    print("NEW req: got err \(error)")
-                    completion(.failure(ResponseErrorDetails(code: "STATUS_NOT_OK", description: "NEW req: status problem \(error)")))
+                    print("API REQ: got err \(error)")
+                    completion(.failure(ResponseErrorDetails(code: "STATUS_NOT_OK", description: "API REQ: status problem \(error)")))
                 }
             })
         
