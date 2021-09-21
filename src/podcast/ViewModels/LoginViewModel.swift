@@ -12,15 +12,8 @@ class LoginViewModel: ObservableObject {
     @Published var isAuthenticated: Bool = false
     @Published var notifyUserIsAuthenticated: Bool = false
     @Published var hasLoggedIn: Bool  = false
-//    var hasLoggedIn
-//    @Published var hasLoggedIn: Bool {
-//        didSet {
-//            UserDefaults.standard.set(hasLoggedIn, forKey: "hasLoggedIn")
-//        }
-//    }
         
     init() {
-//        self.hasLoggedIn = false
         self.observer = UserDefaults.standard.observe(\.hasLoggedIn, options: [.initial, .new]) { (observed, change) in
             print("something changed change (new value): \(change.newValue) | observed: \(observed)")
             DispatchQueue.main.async {
@@ -33,12 +26,13 @@ class LoginViewModel: ObservableObject {
     deinit {
         observer?.invalidate()
     }
+
     func login(){
         AuthService().login(email: self.email, password: self.password){ result in
             switch result{
                 case .success(let token):
                     print("Access token \(token)")
-                    
+
                     let keychain = Keychain(service: "com.podcast")
                     do {
                         try keychain.set(token, key: "accessToken")

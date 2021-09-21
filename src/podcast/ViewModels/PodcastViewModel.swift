@@ -8,6 +8,7 @@ class PodcastListViewModel: ObservableObject {
 
     init() {
         self.getPodcasts()
+        // todo: move to another model
         self.getAllEpisodes(limit: 5)
     }
     
