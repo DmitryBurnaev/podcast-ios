@@ -1,29 +1,17 @@
 import SwiftUI
-
 import Kingfisher
 
 struct PodcastDetailsView: View {
-    @StateObject private var podcastVM = PodcastListViewModel()
-    var podcast: PodcastDetails? = nil
+    @StateObject private var podcastVM = PodcastDetailsViewModel()
     
-    init(podcastID: Int = 0) {
-        // todo: fix escaping closure captures mutating self
-        PodcastService().getPodcastDetails(podcastID: podcastID){ result in
-            switch result{
-            case .success(let podcastDetails):
-                DispatchQueue.main.async {
-                    self.podcast = podcastDetails
-                }
-            case .failure(let err):
-                print("Podcast Details: failed: \(err)")
-            }
-        }
+    init(podcastID: Int) {
+        self.podcastVM.getPodcast(podcastID: podcastID)
     }
-    
+        
     var body: some View {
         NavigationView{
-            if (self.podcast != nil) {
-                Text("Podcast \(self.podcast!.name)")
+            if (self.podcastVM.podcast != nil) {
+                Text("Podcast \(self.podcastVM.podcast!.name)")
             }
             else {
                 Text("Unknown podcast")
@@ -34,7 +22,7 @@ struct PodcastDetailsView: View {
 
 struct PodcastDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PodcastDetailsView()
+        PodcastDetailsView(podcastID: TEST_PODCAST_ID)
             .previewLayout(.sizeThatFits)
     }
 }

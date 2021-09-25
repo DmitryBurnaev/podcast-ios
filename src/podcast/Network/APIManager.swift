@@ -1,8 +1,6 @@
 import Foundation
 import Alamofire
 
-let API_URL: String = "http://192.168.1.3:8001/api"
-
 enum AuthenticationError: Error {
     case invalidCredentials
     case custom(errorMessage: String)

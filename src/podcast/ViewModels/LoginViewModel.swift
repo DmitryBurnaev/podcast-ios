@@ -15,7 +15,7 @@ class LoginViewModel: ObservableObject {
         
     init() {
         self.observer = UserDefaults.standard.observe(\.hasLoggedIn, options: [.initial, .new]) { (observed, change) in
-            print("something changed change (new value): \(change.newValue) | observed: \(observed)")
+            print("something changed change (new value): \(String(describing: change.newValue)) | observed: \(observed)")
             DispatchQueue.main.async {
                 self.hasLoggedIn = change.newValue ?? false
             }

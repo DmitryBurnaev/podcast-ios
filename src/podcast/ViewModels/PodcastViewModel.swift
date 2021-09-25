@@ -2,6 +2,27 @@ import Foundation
 import KeychainAccess
 
 
+class PodcastDetailsViewModel: ObservableObject{
+    @Published var podcast: PodcastDetails? = nil
+        
+    func getPodcast(podcastID: Int){
+        PodcastService().getPodcastDetails(podcastID: podcastID){ result in
+            switch result{
+                case .success(let podcast):
+                    DispatchQueue.main.async {
+                        self.podcast = podcast
+                        print("Found podcast details \(podcast)")
+                    }
+                case .failure(let error):
+                    print("API problems: \(error.localizedDescription)")
+            }
+        }
+    }
+
+}
+
+
+
 class PodcastListViewModel: ObservableObject {
     @Published var podcasts: [PodcastInList] = []
     @Published var episodes: [EpisodeInList] = []

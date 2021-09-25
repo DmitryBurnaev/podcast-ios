@@ -23,6 +23,8 @@ struct HomeView: View {
                                         Text("Episodes: \(podcast.episodesCount)")
                                             .font(.system(size: 9, weight: .regular))
                                             .foregroundColor(.gray)
+                                    }.onTapGesture {
+                                        print("Open view with podcast #\(podcast.id)")
                                     }
                                 }
                             } else {
