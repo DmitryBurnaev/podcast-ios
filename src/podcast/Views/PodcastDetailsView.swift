@@ -2,7 +2,7 @@ import SwiftUI
 import Kingfisher
 
 struct PodcastDetailsView: View {
-    @StateObject private var podcastVM = PodcastDetailsViewModel()
+    @ObservedObject private var podcastVM = PodcastDetailsViewModel()
     
     init(podcastID: Int) {
         self.podcastVM.getPodcast(podcastID: podcastID)

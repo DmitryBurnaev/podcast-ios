@@ -3,6 +3,7 @@ import Kingfisher
 
 struct HomeView: View {
     @StateObject private var podcastVM = PodcastListViewModel()
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         NavigationView{
@@ -21,6 +22,7 @@ struct HomeView: View {
                                                 .frame(width: 100, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                             Text(podcast.name)
                                                 .font(.system(size: 10, weight: .semibold))
+                                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                             Text("Episodes: \(podcast.episodesCount)")
                                                 .font(.system(size: 9, weight: .regular))
                                                 .foregroundColor(.gray)

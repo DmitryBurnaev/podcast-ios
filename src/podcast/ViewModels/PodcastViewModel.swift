@@ -6,6 +6,19 @@ class PodcastDetailsViewModel: ObservableObject{
     @Published var podcast: PodcastDetails? = nil
         
     func getPodcast(podcastID: Int){
+        // TODO: remove after implementation
+        if (podcastID == TEST_PODCAST_ID){
+            DispatchQueue.main.async {
+                self.podcast = PodcastDetails(
+                    id: TEST_PODCAST_ID,
+                    name: "Test podcast",
+                    description: "Only for testing new features",
+                    imageUrl: "https://storage.yandexcloud.net/podcast-media/images/podcast-cax7j52Xha3f.jpg"
+                )
+            }
+            return
+        }
+        
         PodcastService().getPodcastDetails(podcastID: podcastID){ result in
             switch result{
                 case .success(let podcast):
