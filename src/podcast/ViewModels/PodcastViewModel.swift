@@ -15,6 +15,7 @@ class PodcastDetailsViewModel: ObservableObject{
                     description: "Only for testing new features",
                     imageUrl: "https://storage.yandexcloud.net/podcast-media/images/podcast-cax7j52Xha3f.jpg"
                 )
+                print("Set test podcast \(self.podcast)")
             }
             return
         }
