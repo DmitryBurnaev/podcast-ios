@@ -3,6 +3,7 @@ import KeychainAccess
 
 
 class PodcastDetailsViewModel: ObservableObject{
+    var sourceURL: String = ""
     @Published var podcast: PodcastDetails? = nil
         
     func getPodcast(podcastID: Int){
