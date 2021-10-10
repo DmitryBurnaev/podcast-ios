@@ -29,39 +29,31 @@ struct PodcastDetailsView: View {
                                 .frame(width: 190, height: 190, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
 
                         }
-                        VStack{
-                            Text("Copy RSS")
-                                .frame(width: 100)
-                                .padding(5)
-                                .background(Color(white: 0.9))
-                                .cornerRadius(10)
-                                .frame(width: 100)
-                                .onTapGesture {
-                                    print("RSS COPY button was tapped")
+                        List{
+                            Button(action: {
+                                print("RSS COPY button was tapped")
+                                self.podcastVM.copyRSSLink()
+                            }) {
+                                HStack(spacing: 7) {
+                                    Image(systemName: "square.and.arrow.up.on.square")
+                                        .frame(height: 20)
+                                    Text("Copy RSS")
                                 }
-                            HStack{
-                                Button(action: {
-                                    print("RSS COPY button was tapped")
-                                }) {
-                                    HStack(spacing: 5) {
-                                        Image(systemName: "filemenu.and.selection")
-                                            .frame(height: 20)
-                                        Text("Copy RSS")
-                                    }
-                                }.padding(.init(top: 5, leading: 5, bottom: 0, trailing: 5))
                             }
-                            HStack{
-                                Button(action: {
-                                    print("EDIT button was tapped")
-                                }) {
-                                    HStack(spacing: 5) {
-                                        Image(systemName: "pencil")
-                                            .frame(height: 20)
-                                        Text("Edit")
-                                    }
-                                    
-                                }.padding(.init(top: 5, leading: 5, bottom: 0, trailing: 5))
-                            }
+                            .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
+                            .listRowBackground(Color(UIColor.systemGroupedBackground))
+
+                            Button(action: {
+                                print("EDIT button was tapped")
+                            }) {
+                                HStack(spacing: 7) {
+                                    Image(systemName: "pencil")
+                                        .frame(height: 20)
+                                    Text("Edit").padding(.init(top: 0, leading: 3, bottom: 0, trailing: 0))
+                                }
+                                
+                            }.padding(.init(top: 0, leading: 5, bottom: 0, trailing: 5))
+                            .listRowBackground(Color(UIColor.systemGroupedBackground))
                         }
                     }.padding(.leading)
                     Form{
@@ -119,5 +111,16 @@ struct PodcastDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         PodcastDetailsView(podcastID: TEST_PODCAST_ID)
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }
+
+//                            Text("Copy RSS")
+//                                .frame(width: 100)
+//                                .padding(5)
+//                                .background(Color(white: 0.9))
+//                                .cornerRadius(10)
+//                                .frame(width: 100)
+//                                .onTapGesture {
+//                                    print("RSS COPY button was tapped")
+//                                }

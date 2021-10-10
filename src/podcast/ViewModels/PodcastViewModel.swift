@@ -1,5 +1,6 @@
 import Foundation
 import KeychainAccess
+import SwiftUI
 
 
 class PodcastDetailsViewModel: ObservableObject{
@@ -15,7 +16,8 @@ class PodcastDetailsViewModel: ObservableObject{
                     id: TEST_PODCAST_ID,
                     name: "Test podcast",
                     description: "Only for testing new features",
-                    imageUrl: "https://storage.yandexcloud.net/podcast-media/images/podcast-cax7j52Xha3f.jpg"
+                    imageUrl: "https://storage.yandexcloud.net/podcast-media/images/podcast-cax7j52Xha3f.jpg",
+                    rssLink: "https://storage.yandexcloud.net/podcast-media/rss/podcast-cax7j52Xha3f.rss"
                 )
                 print("Set test podcast \(self.podcast)")
             }
@@ -63,6 +65,15 @@ class PodcastDetailsViewModel: ObservableObject{
     
     func createEpisode(){
         print("===> Creating episode with URL \(self.sourceURL)")
+    }
+    
+    func copyRSSLink(){
+        if (self.podcast != nil){
+            UIPasteboard.general.string = podcast!.rssLink
+            print("Copied \(podcast!.rssLink)")
+        } else {
+            print("Nothing to copy (podcast is null)")
+        }
     }
     
 }

@@ -15,6 +15,7 @@ struct PodcastDetails: Decodable, Hashable {
     let id: Int
     let name, description: String
     let imageUrl: String?
+    let rssLink: String
 }
 
 
