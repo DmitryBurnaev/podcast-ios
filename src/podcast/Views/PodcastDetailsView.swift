@@ -42,7 +42,13 @@ struct PodcastDetailsView: View {
                             }
                             .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
                             .listRowBackground(Color(UIColor.systemGroupedBackground))
-
+                            .alert(isPresented: $podcastVM.notifyUserClipBoardCopied) {
+                                Alert(
+                                    title: Text(""),
+                                    message: Text("RSS link copied!"),
+                                    dismissButton: .default(Text("Got it!"))
+                                )
+                            }
                             Button(action: {
                                 print("EDIT button was tapped")
                             }) {

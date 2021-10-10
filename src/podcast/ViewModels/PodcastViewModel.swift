@@ -7,7 +7,8 @@ class PodcastDetailsViewModel: ObservableObject{
     var sourceURL: String = ""
     @Published var podcast: PodcastDetails? = nil
     @Published var episodes: [EpisodeInList] = []
-
+    @Published var notifyUserClipBoardCopied: Bool = false
+    
     func getPodcast(podcastID: Int){
         // TODO: remove after implementation
         if (podcastID == TEST_PODCAST_ID){
@@ -70,6 +71,7 @@ class PodcastDetailsViewModel: ObservableObject{
     func copyRSSLink(){
         if (self.podcast != nil){
             UIPasteboard.general.string = podcast!.rssLink
+            self.notifyUserClipBoardCopied = true
             print("Copied \(podcast!.rssLink)")
         } else {
             print("Nothing to copy (podcast is null)")
