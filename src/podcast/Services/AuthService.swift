@@ -106,6 +106,7 @@ class AuthService{
                 switch result {
                 case .success(let tokenPayload):
                     self.setTokens(accessToken: tokenPayload.accessToken, refreshToken: tokenPayload.refreshToken)
+                    UserDefaults.standard.set(true, forKey: "hasLoggedIn")
                     completion(true)
                 case .failure(let err):
                     print("Found API problem here: \(err.localizedDescription)")
