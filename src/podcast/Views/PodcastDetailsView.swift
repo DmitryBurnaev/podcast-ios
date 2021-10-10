@@ -30,7 +30,38 @@ struct PodcastDetailsView: View {
 
                         }
                         VStack{
-
+                            Text("Copy RSS")
+                                .frame(width: 100)
+                                .padding(5)
+                                .background(Color(white: 0.9))
+                                .cornerRadius(10)
+                                .frame(width: 100)
+                                .onTapGesture {
+                                    print("RSS COPY button was tapped")
+                                }
+                            HStack{
+                                Button(action: {
+                                    print("RSS COPY button was tapped")
+                                }) {
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "filemenu.and.selection")
+                                            .frame(height: 20)
+                                        Text("Copy RSS")
+                                    }
+                                }.padding(.init(top: 5, leading: 5, bottom: 0, trailing: 5))
+                            }
+                            HStack{
+                                Button(action: {
+                                    print("EDIT button was tapped")
+                                }) {
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "pencil")
+                                            .frame(height: 20)
+                                        Text("Edit")
+                                    }
+                                    
+                                }.padding(.init(top: 5, leading: 5, bottom: 0, trailing: 5))
+                            }
                         }
                     }.padding(.leading)
                     Form{
@@ -74,9 +105,9 @@ struct EpisodeRow: View {
                 .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             VStack (alignment: .leading){
                 Text(episode.title)
-                    .font(.system(size: 12, weight: .regular))
+                    .font(.system(size: 16, weight: .regular))
                     .foregroundColor(.gray)
-            }.padding(.leading, 8)
+            }.padding(.leading, 0)
         }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
     }
 }
