@@ -75,6 +75,10 @@ struct PodcastDetailsView: View {
                         }
 
                     }.frame(height: 150)
+                    ActivityIndicatorView(isPresented: $podcastVM.episodeCreating)
+                    if (podcastVM.createdEpisode != nil){
+                        EpisodeRow(episode: podcastVM.createdEpisode!)
+                    }
                     if podcastVM.episodes.count > 0 {
                         ForEach(podcastVM.episodes, id: \.id){ episode in
                             EpisodeRow(episode: episode)
@@ -110,8 +114,23 @@ struct EpisodeRow: View {
     }
 }
 
-
-
+struct ActivityIndicatorView: View {
+    @Binding var isPresented:Bool
+    var body: some View {
+        if isPresented{
+            ZStack{
+                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+                ProgressView {
+                    Text("Episode's creation...")
+                        .font(.title3)
+                }
+            }.frame(height: 100, alignment: .center)
+            .padding(.init(top: -10, leading: 15, bottom: 10, trailing: 15))
+//            .padding(.leading)
+//            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        }
+    }
+}
 
 struct PodcastDetailsView_Previews: PreviewProvider {
     static var previews: some View {

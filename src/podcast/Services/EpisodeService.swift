@@ -39,4 +39,26 @@ class EpisodeService{
             }
         )
     }
+    
+    func createEpisode(podcastID: Int, sourceURL: String, completion: @escaping (Result<EpisodeInList, NetworkError>) -> Void) {
+        apiManager.request(
+            "/podcasts/\(podcastID)/episodes/",
+            method: .post,
+            parameters: ["source_url": sourceURL],
+            completion: { (result: Result<EpisodeInList, ResponseErrorDetails>) in
+                switch result {
+                case .success(let episode):
+                    print("API: created episode with response: \(episode)")
+                    completion(.success(episode))
+                case .failure(let err):
+                    print("Found API problem here: \(err.localizedDescription)")
+                    completion(.failure(.noData))
+                }
+            }
+        )
+    }
+    
+    
+    
+    
 }
