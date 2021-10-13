@@ -8,7 +8,7 @@ struct EpisodesInListResponse: Decodable{
 
 struct EpisodeInList: Decodable, Hashable{
     var id: Int
-    let title, imageUrl: String
+    let title, imageUrl, status: String
 }
 
 struct EpisodeDetails: Decodable, Hashable{

@@ -99,7 +99,7 @@ struct EpisodeRow: View {
     let episode: EpisodeInList
     
     var body: some View{
-        HStack{
+        HStack(){
             KFImage(URL(string: episode.imageUrl))
                 .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -108,8 +108,28 @@ struct EpisodeRow: View {
             VStack (alignment: .leading){
                 Text(episode.title)
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.gray)
-            }.padding(.leading, 0)
+                    .truncationMode(.tail)
+                    .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 10))
+                    .frame(height: 60, alignment: .top)
+            }
+                .padding(.leading, 0)
+            Spacer()
+            if (episode.status == "downloading"){
+                ProgressView{}
+                    .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
+            }
+            else if (episode.status == "published"){
+                Image(systemName: "square.and.arrow.up.on.square")
+                    .frame(height: 20)
+                    .foregroundColor(Color(.green))
+            }
+            else if (episode.status == "error"){
+                Image(systemName: "square.and.arrow.up.on.square")
+                    .frame(height: 20)
+                    .foregroundColor(Color(.red))
+
+            }
+            
         }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
     }
 }
