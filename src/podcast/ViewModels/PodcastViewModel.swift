@@ -61,6 +61,12 @@ class PodcastDetailsViewModel: ObservableObject{
                         title: "My error episode with short title",
                         imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
                         status: "error"
+                    ),
+                    EpisodeInList(
+                        id: 4,
+                        title: "My last episode, whis wasn't downloaded",
+                        imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
+                        status: "new"
                     )
                 ]
             }

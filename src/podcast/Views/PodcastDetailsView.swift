@@ -73,7 +73,6 @@ struct PodcastDetailsView: View {
                             }
                             Spacer()
                         }
-
                     }.frame(height: 150)
                     ActivityIndicatorView(isPresented: $podcastVM.episodeCreating)
                     if (podcastVM.createdEpisode != nil){
@@ -114,22 +113,22 @@ struct EpisodeRow: View {
             }
                 .padding(.leading, 0)
             Spacer()
-            if (episode.status == "downloading"){
-                ProgressView{}
-                    .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
-            }
-            else if (episode.status == "published"){
-                Image(systemName: "square.and.arrow.up.on.square")
-                    .frame(height: 20)
-                    .foregroundColor(Color(.green))
-            }
-            else if (episode.status == "error"){
-                Image(systemName: "square.and.arrow.up.on.square")
-                    .frame(height: 20)
-                    .foregroundColor(Color(.red))
-
-            }
-            
+            switch episode.status{
+                case "downloading":
+                    ProgressView{}
+                        .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
+                case "published":
+                    Image(systemName: "checkmark")
+                        .frame(height: 20)
+                        .foregroundColor(Color(.green))
+                case "error":
+                    Image(systemName: "xmark.icloud")
+                        .frame(height: 20)
+                        .foregroundColor(Color(.red))
+                default:
+                    Image(systemName: "square.and.pencil")
+                        .frame(height: 20)
+            }            
         }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
     }
 }
