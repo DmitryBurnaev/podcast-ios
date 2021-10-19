@@ -73,8 +73,11 @@ struct PodcastDetailsView: View {
                             }
                             Spacer()
                         }
-
                     }.frame(height: 150)
+                    ActivityIndicatorView(isPresented: $podcastVM.episodeCreating)
+                    if (podcastVM.createdEpisode != nil){
+                        EpisodeRow(episode: podcastVM.createdEpisode!)
+                    }
                     if podcastVM.episodes.count > 0 {
                         ForEach(podcastVM.episodes, id: \.id){ episode in
                             EpisodeRow(episode: episode)
@@ -95,7 +98,7 @@ struct EpisodeRow: View {
     let episode: EpisodeInList
     
     var body: some View{
-        HStack{
+        HStack(){
             KFImage(URL(string: episode.imageUrl))
                 .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -104,14 +107,49 @@ struct EpisodeRow: View {
             VStack (alignment: .leading){
                 Text(episode.title)
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.gray)
-            }.padding(.leading, 0)
+                    .truncationMode(.tail)
+                    .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 10))
+                    .frame(height: 60, alignment: .top)
+            }
+                .padding(.leading, 0)
+            Spacer()
+            switch episode.status{
+                case "downloading":
+                    ProgressView{}
+                        .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
+                case "published":
+                    Image(systemName: "checkmark")
+                        .frame(height: 20)
+                        .foregroundColor(Color(.green))
+                case "error":
+                    Image(systemName: "xmark.icloud")
+                        .frame(height: 20)
+                        .foregroundColor(Color(.red))
+                default:
+                    Image(systemName: "square.and.pencil")
+                        .frame(height: 20)
+            }            
         }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
     }
 }
 
-
-
+struct ActivityIndicatorView: View {
+    @Binding var isPresented:Bool
+    var body: some View {
+        if isPresented{
+            ZStack{
+                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.1))
+                ProgressView {
+                    Text("Episode's creation...")
+                        .font(.title3)
+                }
+            }.frame(height: 100, alignment: .center)
+            .padding(.init(top: -10, leading: 15, bottom: 10, trailing: 15))
+//            .padding(.leading)
+//            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
+        }
+    }
+}
 
 struct PodcastDetailsView_Previews: PreviewProvider {
     static var previews: some View {

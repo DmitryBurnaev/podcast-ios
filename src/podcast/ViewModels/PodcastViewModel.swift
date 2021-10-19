@@ -8,6 +8,8 @@ class PodcastDetailsViewModel: ObservableObject{
     @Published var podcast: PodcastDetails? = nil
     @Published var episodes: [EpisodeInList] = []
     @Published var notifyUserClipBoardCopied: Bool = false
+    @Published var episodeCreating: Bool = false
+    @Published var createdEpisode: EpisodeInList? = nil
     
     func getPodcast(podcastID: Int){
         // TODO: remove after implementation
@@ -17,8 +19,8 @@ class PodcastDetailsViewModel: ObservableObject{
                     id: TEST_PODCAST_ID,
                     name: "Test podcast",
                     description: "Only for testing new features",
-                    imageUrl: "https://storage.yandexcloud.net/podcast-media/images/podcast-cax7j52Xha3f.jpg",
-                    rssLink: "https://storage.yandexcloud.net/podcast-media/rss/podcast-cax7j52Xha3f.rss"
+                    imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
+                    rssLink: "https://path/to/rss/podcast-cax7j52Xha3f.rss"
                 )
                 print("Set test podcast \(self.podcast)")
             }
@@ -44,8 +46,27 @@ class PodcastDetailsViewModel: ObservableObject{
                 self.episodes = [
                     EpisodeInList(
                         id: 1,
-                        title: "Test episode",
-                        imageUrl: "https://storage.yandexcloud.net/podcast-media/images/podcast-cax7j52Xha3f.jpg"
+                        title: "Environment Variables are a set of key value pairs that are passed on to the process from outside of the program.",
+                        imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
+                        status: "downloading"
+                    ),
+                    EpisodeInList(
+                        id: 2,
+                        title: "My published episode with short title",
+                        imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
+                        status: "published"
+                    ),
+                    EpisodeInList(
+                        id: 3,
+                        title: "My error episode with short title",
+                        imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
+                        status: "error"
+                    ),
+                    EpisodeInList(
+                        id: 4,
+                        title: "My last episode, whis wasn't downloaded",
+                        imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
+                        status: "new"
                     )
                 ]
             }
@@ -66,6 +87,26 @@ class PodcastDetailsViewModel: ObservableObject{
     
     func createEpisode(){
         print("===> Creating episode with URL \(self.sourceURL)")
+        self.episodeCreating = true
+        self.createdEpisode = nil
+        if (self.podcast == nil) || (self.sourceURL == ""){
+            print("Podcast and sourceURL are required here")
+            return
+        }
+        EpisodeService().createEpisode(podcastID: self.podcast!.id, sourceURL: self.sourceURL){ result in
+            switch result{
+                case .success(let episode):
+                    DispatchQueue.main.async {
+                        self.createdEpisode = episode
+                        self.episodeCreating = false
+                        self.sourceURL = ""
+                        print("Created episode \(episode) | in podcast \(self.podcast!)")
+                    }
+                case .failure(let error):
+                    self.episodeCreating = false
+                    print("API problems: \(error.localizedDescription)")
+            }
+        }
     }
     
     func copyRSSLink(){
