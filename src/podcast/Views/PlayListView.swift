@@ -33,14 +33,6 @@ struct PlayListView: View {
                 
             }
             Text("Playlist")
-
-
-//            ScrollView{
-//                Divider()
-//                ForEach(0..<100){ num in
-//                    Text("Episode #\(num)")
-//                }
-//            }
         }
     }
 }
