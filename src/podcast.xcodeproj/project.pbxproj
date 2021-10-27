@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0A32122E26FF63440018AECF /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A32122D26FF63440018AECF /* constants.swift */; };
+		0A6AB1182727CB5D0084310F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6AB1172727CB5D0084310F /* ShareViewController.swift */; };
+		0A6AB11B2727CB5D0084310F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6AB1192727CB5D0084310F /* MainInterface.storyboard */; };
+		0A6AB11F2727CB5D0084310F /* Podcast.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0A6AB1152727CB5D0084310F /* Podcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0A6D866F26CF7DF00070231F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6D866E26CF7DF00070231F /* Alamofire */; };
 		0A7D0E8A26B2B0780029068C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8926B2B0780029068C /* ProfileView.swift */; };
 		0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */; };
@@ -35,6 +38,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A6AB11D2727CB5D0084310F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A6AB1142727CB5D0084310F;
+			remoteInfo = Podcast;
+		};
 		0AB10D202674B5A600EC4B51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
@@ -51,8 +61,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0A6AB1202727CB5D0084310F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0A6AB11F2727CB5D0084310F /* Podcast.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0A32122D26FF63440018AECF /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		0A6AB1152727CB5D0084310F /* Podcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Podcast.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A6AB1172727CB5D0084310F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		0A6AB11A2727CB5D0084310F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		0A6AB11C2727CB5D0084310F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A7D0E8926B2B0780029068C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = podcast/ProfileView.swift; sourceTree = SOURCE_ROOT; };
 		0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0A8A069726E3C82100F8D44A /* PodcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastService.swift; sourceTree = "<group>"; };
@@ -83,6 +111,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A6AB1122727CB5D0084310F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AB10D0B2674B5A500EC4B51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -110,6 +145,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A6AB1162727CB5D0084310F /* Podcast */ = {
+			isa = PBXGroup;
+			children = (
+				0A6AB1172727CB5D0084310F /* ShareViewController.swift */,
+				0A6AB1192727CB5D0084310F /* MainInterface.storyboard */,
+				0A6AB11C2727CB5D0084310F /* Info.plist */,
+			);
+			path = Podcast;
+			sourceTree = "<group>";
+		};
 		0A7D0E8826B2ACFA0029068C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +193,7 @@
 				0AB10D102674B5A500EC4B51 /* podcast */,
 				0AB10D222674B5A600EC4B51 /* podcastTests */,
 				0AB10D2D2674B5A600EC4B51 /* podcastUITests */,
+				0A6AB1162727CB5D0084310F /* Podcast */,
 				0AB10D0F2674B5A500EC4B51 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -158,6 +204,7 @@
 				0AB10D0E2674B5A500EC4B51 /* podcast.app */,
 				0AB10D1F2674B5A600EC4B51 /* podcastTests.xctest */,
 				0AB10D2A2674B5A600EC4B51 /* podcastUITests.xctest */,
+				0A6AB1152727CB5D0084310F /* Podcast.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,6 +266,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0A6AB1142727CB5D0084310F /* Podcast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A6AB1232727CB5D0084310F /* Build configuration list for PBXNativeTarget "Podcast" */;
+			buildPhases = (
+				0A6AB1112727CB5D0084310F /* Sources */,
+				0A6AB1122727CB5D0084310F /* Frameworks */,
+				0A6AB1132727CB5D0084310F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Podcast;
+			productName = Podcast;
+			productReference = 0A6AB1152727CB5D0084310F /* Podcast.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0AB10D0D2674B5A500EC4B51 /* podcast */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AB10D332674B5A600EC4B51 /* Build configuration list for PBXNativeTarget "podcast" */;
@@ -226,10 +290,12 @@
 				0AB10D0A2674B5A500EC4B51 /* Sources */,
 				0AB10D0B2674B5A500EC4B51 /* Frameworks */,
 				0AB10D0C2674B5A500EC4B51 /* Resources */,
+				0A6AB1202727CB5D0084310F /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0A6AB11E2727CB5D0084310F /* PBXTargetDependency */,
 			);
 			name = podcast;
 			packageProductDependencies = (
@@ -286,6 +352,9 @@
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					0A6AB1142727CB5D0084310F = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					0AB10D0D2674B5A500EC4B51 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -320,11 +389,20 @@
 				0AB10D0D2674B5A500EC4B51 /* podcast */,
 				0AB10D1E2674B5A600EC4B51 /* podcastTests */,
 				0AB10D292674B5A600EC4B51 /* podcastUITests */,
+				0A6AB1142727CB5D0084310F /* Podcast */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0A6AB1132727CB5D0084310F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A6AB11B2727CB5D0084310F /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AB10D0C2674B5A500EC4B51 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -351,6 +429,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A6AB1112727CB5D0084310F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A6AB1182727CB5D0084310F /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AB10D0A2674B5A500EC4B51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -395,6 +481,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A6AB11E2727CB5D0084310F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A6AB1142727CB5D0084310F /* Podcast */;
+			targetProxy = 0A6AB11D2727CB5D0084310F /* PBXContainerItemProxy */;
+		};
 		0AB10D212674B5A600EC4B51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0AB10D0D2674B5A500EC4B51 /* podcast */;
@@ -407,7 +498,56 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		0A6AB1192727CB5D0084310F /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A6AB11A2727CB5D0084310F /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		0A6AB1212727CB5D0084310F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S59LX3P63N;
+				INFOPLIST_FILE = Podcast/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.Podcast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0A6AB1222727CB5D0084310F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S59LX3P63N;
+				INFOPLIST_FILE = Podcast/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.Podcast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		0AB10D312674B5A600EC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -527,6 +667,7 @@
 		0AB10D342674B5A600EC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -549,6 +690,7 @@
 		0AB10D352674B5A600EC4B51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -651,6 +793,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A6AB1232727CB5D0084310F /* Build configuration list for PBXNativeTarget "Podcast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A6AB1212727CB5D0084310F /* Debug */,
+				0A6AB1222727CB5D0084310F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0AB10D092674B5A500EC4B51 /* Build configuration list for PBXProject "podcast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

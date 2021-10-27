@@ -26,12 +26,6 @@ struct TabBarView: View {
             ForEach(tabs, id: \.id){ tab in
                 GeometryReader{ geometry in
                     VStack(spacing: 4){
-//                        if (selectedTab == tab.id && tab.id != "add"){
-//                            Color(.label)
-//                                .frame(height: 2)
-//                                .offset(y: -8)
-//                                .matchedGeometryEffect(id: "currentTab", in: currentTab)
-//                        }
                         if (tab.id == "add"){
                             Image(systemName: tab.icon)
                                 .frame(height: 44).font(.system(size: 34))
@@ -50,9 +44,6 @@ struct TabBarView: View {
                     .foregroundColor(selectedTab == tab.id ? Color(.label) : .secondary)
                     .onTapGesture{
                         selectedTab = tab.id
-//                        withAnimation{
-//                            selectedTab = tab.id
-//                        }
                     }
                 }.frame(height: 44, alignment: .bottom)
             }

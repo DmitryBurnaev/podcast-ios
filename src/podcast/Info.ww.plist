@@ -48,21 +48,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-
-	<key>NSExtension</key>
-	<dict>
-		<key>NSExtensionAttributes</key>
-		<dict>
-			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
-		</dict>
-		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface1</string>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.share-services</string>
-	</dict>
 </dict>
 </plist>
