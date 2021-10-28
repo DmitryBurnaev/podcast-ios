@@ -17,7 +17,11 @@ class ShareViewController: SLComposeServiceViewController {
 
     override func didSelectPost() {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-    
+        let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
+        print(attachments)
+//        let contentType = kUTTypeData as String
+        
+        
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
