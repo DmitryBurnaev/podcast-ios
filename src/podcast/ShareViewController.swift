@@ -1,10 +1,3 @@
-//
-//  ShareViewController.swift
-//  Podcast
-//
-//  Created by Dmitry Burnaev on 26.10.2021.
-//
-
 import UIKit
 import Social
 
@@ -13,14 +6,15 @@ class ShareViewController: SLComposeServiceViewController {
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true
+
     }
+
+    open var textView: UITextView! { get }
 
     override func didSelectPost() {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         print(attachments)
-//        let contentType = kUTTypeData as String
-        
         
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
