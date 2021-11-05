@@ -138,6 +138,7 @@ class PodcastListViewModel: ObservableObject {
                 case .success(let podcasts):
                     DispatchQueue.main.async {
                         self.podcasts = podcasts
+//                        UserDefaults.standard.set(podcasts, forKey: "podcasts")
                         print("Found podcasts \(self.podcasts)")
                     }
                 case .failure(let error):

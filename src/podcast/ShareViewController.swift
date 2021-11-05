@@ -1,6 +1,12 @@
 import UIKit
 import Social
 
+struct PodcastInList: Decodable, Hashable {
+    let id, episodesCount: Int
+    let name, description: String
+    let imageUrl: String?
+}
+
 class ShareViewController: SLComposeServiceViewController {
 
     override func isContentValid() -> Bool {
@@ -31,19 +37,13 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        // TODO: get all podcast's list
-//        var podcastVM = PodcastListViewModel()
         let defaults = UserDefaults.standard
-//        todo: fix iteration over podcasts here
-        var podcasts: [Podcast] = defaults.object(forKey: "podcasts")
-        podcasts = podcasts != nil ? podcasts : []
+        let podcasts: [PodcastInList] = defaults.object(forKey: "podcasts") as! [PodcastInList]
         var configurations: [SLComposeSheetConfigurationItem] = []
-        
-        for podcast in podcasts!{
+        for podcast in podcasts{
             let c = SLComposeSheetConfigurationItem()!
             c.title = podcast.name
-            c.value = str(podcast.id)
+            c.value = String(podcast.id)
             configurations.append(c)
         }
         return configurations
