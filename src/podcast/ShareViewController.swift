@@ -1,10 +1,10 @@
 import UIKit
 import Social
+import podcast
 
-struct PodcastInList: Decodable, Hashable {
-    let id, episodesCount: Int
-    let name, description: String
-    let imageUrl: String?
+struct PodcastInList: Codable, Hashable {
+    let id: Int
+    let name: String
 }
 
 class ShareViewController: SLComposeServiceViewController {
@@ -37,9 +37,15 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     override func configurationItems() -> [Any]! {
-        let defaults = UserDefaults.standard
-        let podcasts: [PodcastInList] = defaults.object(forKey: "podcasts") as! [PodcastInList]
         var configurations: [SLComposeSheetConfigurationItem] = []
+        var podcasts: [PodcastInList] = []
+        podcasts = try! self.getPodcasts()
+//        do{
+//
+//        } catch{
+//            podcasts = []
+//        }
+//
         for podcast in podcasts{
             let c = SLComposeSheetConfigurationItem()!
             c.title = podcast.name
@@ -48,6 +54,19 @@ class ShareViewController: SLComposeServiceViewController {
         }
         return configurations
     }
+    
+    
+    func getPodcasts() throws -> [PodcastInList]{
+        let defaults = UserDefaults.standard
+        let decoder = JSONDecoder()
+//        let srcData = String(data: defaults.object(forKey: "podcasts") as! Data, encoding: .utf8)
+        let srcData = defaults.object(forKey: "podcasts") as! Data
+        print("Defaults \(srcData)")
+//        let string = String(data: data, encoding: .utf8)!
+        let podcasts: [PodcastInList] = try decoder.decode([PodcastInList].self, from: srcData)
+        return podcasts
+    }
+    
 
 }
 //import UIKit

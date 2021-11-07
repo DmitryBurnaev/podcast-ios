@@ -138,7 +138,7 @@ class PodcastListViewModel: ObservableObject {
                 case .success(let podcasts):
                     DispatchQueue.main.async {
                         self.podcasts = podcasts
-//                        UserDefaults.standard.set(podcasts, forKey: "podcasts")
+                        try? self.setUserDefaults(data: podcasts)
                         print("Found podcasts \(self.podcasts)")
                     }
                 case .failure(let error):
@@ -146,7 +146,14 @@ class PodcastListViewModel: ObservableObject {
             }
         }
     }
-
+    
+    func setUserDefaults(data: [PodcastInList]) throws {
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(podcasts)
+        let string = String(data: data, encoding: .utf8)!
+        UserDefaults.standard.set(string, forKey: "podcasts")
+    }
+    
     func getAllEpisodes(limit: Int = 5){
         EpisodeService().getEpisodes(limit: limit){ result in
             switch result{
