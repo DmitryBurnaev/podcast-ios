@@ -22,7 +22,6 @@ class PodcastDetailsViewModel: ObservableObject{
                     imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
                     rssLink: "https://path/to/rss/podcast-cax7j52Xha3f.rss"
                 )
-                print("Set test podcast \(self.podcast)")
             }
             return
         }
@@ -139,6 +138,7 @@ class PodcastListViewModel: ObservableObject {
                 case .success(let podcasts):
                     DispatchQueue.main.async {
                         self.podcasts = podcasts
+                        try? self.setUserDefaults(data: podcasts)
                         print("Found podcasts \(self.podcasts)")
                     }
                 case .failure(let error):
@@ -146,7 +146,14 @@ class PodcastListViewModel: ObservableObject {
             }
         }
     }
-
+    
+    func setUserDefaults(data: [PodcastInList]) throws {
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(podcasts)
+        let string = String(data: data, encoding: .utf8)!
+        UserDefaults.standard.set(string, forKey: "podcasts")
+    }
+    
     func getAllEpisodes(limit: Int = 5){
         EpisodeService().getEpisodes(limit: limit){ result in
             switch result{
@@ -160,6 +167,4 @@ class PodcastListViewModel: ObservableObject {
             }
         }
     }
-    
-    
 }
