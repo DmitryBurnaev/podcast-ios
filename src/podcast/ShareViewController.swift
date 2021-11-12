@@ -12,7 +12,6 @@ class ShareViewController: SLComposeServiceViewController {
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true
-
     }
 
     override func viewDidLoad() {
@@ -23,7 +22,6 @@ class ShareViewController: SLComposeServiceViewController {
     
     private func handleSharedLink() {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
-        print(attachments)
     }
 
     override func didSelectPost() {
@@ -32,9 +30,7 @@ class ShareViewController: SLComposeServiceViewController {
                 if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
                     itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) -> Void in
                         if let shareURL = url as? NSURL {
-                            print(shareURL)
                             guard let url = URL(string: "PodcastAppURL://") else { return }
-//                            self.extensionContext?.open(url, completionHandler: nil)
                             self.extensionContext?.open(url)
                             // todo: open contaiting app https://habr.com/ru/company/mobileup/blog/441890/
                         }
@@ -44,36 +40,6 @@ class ShareViewController: SLComposeServiceViewController {
             }
         }
     }
-//
-//
-//    override func didSelectPost() {
-//        print("didSelectPost")
-//        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-//        let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
-//        print(attachments)
-//        var link: String = ""
-//        for attachment in attachments{
-//            print("attachment \(attachment)")
-//            link = attachment.description
-//        }
-//        //  TODO: copy link to clipboard -> open app
-//        // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-//        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-//    }
-
-//    override func configurationItems() -> [Any]! {
-//        var configurations: [SLComposeSheetConfigurationItem] = []
-//        var podcasts: [PodcastInList] = []
-//        podcasts = try! self.getPodcasts()
-//        for podcast in podcasts{
-//            let c = SLComposeSheetConfigurationItem()!
-//            c.title = podcast.name
-//            c.value = String(podcast.id)
-//            configurations.append(c)
-//        }
-//        return configurations
-//    }
-    
     
     func getPodcasts() throws -> [PodcastInList]{
         // TODO: get real podcasts here
