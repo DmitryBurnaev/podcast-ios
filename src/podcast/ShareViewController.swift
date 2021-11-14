@@ -30,8 +30,13 @@ class ShareViewController: SLComposeServiceViewController {
                 if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
                     itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) -> Void in
                         if let shareURL = url as? NSURL {
+//                            guard let url = URL(string: "PodcastAppURL://") else { return }
                             guard let url = URL(string: "PodcastAppURL://") else { return }
-                            self.extensionContext?.open(url)
+                            print(url)
+                            print(self.extensionContext)
+                            self.extensionContext?.open(url, completionHandler: {(_) -> Void in
+                                print("URL opened!")
+                            })
                             // todo: open contaiting app https://habr.com/ru/company/mobileup/blog/441890/
                         }
                         self.extensionContext?.completeRequest(returningItems: [], completionHandler:nil)

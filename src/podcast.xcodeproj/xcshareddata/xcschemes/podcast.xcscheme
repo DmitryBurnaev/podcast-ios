@@ -57,8 +57,12 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "1"
+         BundleIdentifier = "dmitry.podcast"
+         RemotePath = "/Users/dmitry/Library/Developer/CoreSimulator/Devices/926EAE74-BCCD-4E01-B696-89048558A36E/data/Containers/Bundle/Application/2CC41C99-F608-48FF-9E25-F43B2F868A54/podcast.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0AB10D0D2674B5A500EC4B51"
@@ -66,7 +70,7 @@
             BlueprintName = "podcast"
             ReferencedContainer = "container:podcast.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "API_URL"
@@ -81,6 +85,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
       launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
