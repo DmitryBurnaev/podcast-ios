@@ -1,6 +1,7 @@
 import UIKit
 import Social
 import podcast
+import SwiftUI
 
 struct PodcastInList: Codable, Hashable {
     let id: Int
@@ -14,36 +15,44 @@ class ShareViewController: SLComposeServiceViewController {
         return true
     }
 
-    override func viewDidLoad() {
-        print("viewDidLoad")
-        super.viewDidLoad()
-        self.handleSharedLink()
-    }
-    
-    private func handleSharedLink() {
-        let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
-    }
+//    override func viewDidLoad() {
+//        print("viewDidLoad")
+//        super.viewDidLoad()
+//        self.handleSharedLink()
+//    }
+//
+//    private func handleSharedLink() {
+//        let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
+//    }
 
     override func didSelectPost() {
-        if let item = extensionContext?.inputItems.first as? NSExtensionItem {
-            if let itemProvider = item.attachments?.first {
-                if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
-                    itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) -> Void in
-                        if let shareURL = url as? NSURL {
-//                            guard let url = URL(string: "PodcastAppURL://") else { return }
-                            guard let url = URL(string: "PodcastAppURL://") else { return }
-                            print(url)
-                            print(self.extensionContext)
-                            self.extensionContext?.open(url, completionHandler: {(_) -> Void in
-                                print("URL opened!")
-                            })
-                            // todo: open contaiting app https://habr.com/ru/company/mobileup/blog/441890/
-                        }
-                        self.extensionContext?.completeRequest(returningItems: [], completionHandler:nil)
-                    })
-                }
-            }
-        }
+        guard let url = URL(string: "podcast://") else { return }
+        print(url)
+        self.extensionContext?.open(url)
+        
+//        if let item = extensionContext?.inputItems.first as? NSExtensionItem {
+//            if let itemProvider = item.attachments?.first {
+//                if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
+//                    itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) -> Void in
+//                        if let shareURL = url as? NSURL {
+////                            guard let url = URL(string: "PodcastAppURL://") else { return }
+//                            guard let url = URL(string: "podcast://") else { return }
+//                            print(url)
+//                            
+//                            print(self.extensionContext)
+////                            UIApplication.open
+////                            UIApplication.shared.open(url)
+//                            self.extensionContext?.open(url)
+////                            self.extensionContext?.open(url, completionHandler: {(_) -> Void in
+////                                print("URL opened!")
+////                            })
+//                            // todo: open contaiting app https://habr.com/ru/company/mobileup/blog/441890/
+//                        }
+//                        self.extensionContext?.completeRequest(returningItems: [], completionHandler:nil)
+//                    })
+//                }
+//            }
+//        }
     }
     
     func getPodcasts() throws -> [PodcastInList]{
