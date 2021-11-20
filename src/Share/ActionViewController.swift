@@ -1,16 +1,14 @@
-//
-//  ActionViewController.swift
-//  Share
-//
-//  Created by Dmitry Burnaev on 18.11.2021.
-//
-
 import UIKit
 import MobileCoreServices
 
 class ActionViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+
+//    override func isContentValid() -> Bool {
+//        // Do validation of contentText and/or NSExtensionContext attachments here
+//        return true
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,5 +50,10 @@ class ActionViewController: UIViewController {
         // This template doesn't do anything, so we just echo the passed in items.
         self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
     }
-
+    
+//    override func didSelectPost() {
+//        guard let url = URL(string: "podcast://") else { return }
+//        print(url)
+//        self.extensionContext?.open(url)
+//    }
 }
