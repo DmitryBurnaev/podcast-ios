@@ -32,6 +32,9 @@
 		0ABD2A9626DBD76600A5DFC8 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */; };
 		0ABD2A9826DBD78A00A5DFC8 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */; };
 		0ACC59DC26F9AFB20034D8B9 /* PodcastDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC59DB26F9AFB20034D8B9 /* PodcastDetailsView.swift */; };
+		0ACE2AEC274A728300F05E5F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE2AEB274A728300F05E5F /* ShareViewController.swift */; };
+		0ACE2AEF274A728300F05E5F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE2AED274A728300F05E5F /* MainInterface.storyboard */; };
+		0ACE2AF3274A728300F05E5F /* ShareToEpisode.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0ACE2AE9274A728300F05E5F /* ShareToEpisode.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AD415A426B44B69003AA857 /* PodcastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD415A326B44B69003AA857 /* PodcastViewModel.swift */; };
 		0AF5009C26F7981D00F8A71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF5009B26F7981D00F8A71C /* LoginView.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +47,13 @@
 			remoteGlobalIDString = 0A78D6A72746B4B100C6D4E2;
 			remoteInfo = Share;
 		};
+		0ACE2AF1274A728300F05E5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0ACE2AE8274A728300F05E5F;
+			remoteInfo = ShareToEpisode;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +64,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				0A78D6B42746B4B100C6D4E2 /* Share.appex in Embed App Extensions */,
+				0ACE2AF3274A728300F05E5F /* ShareToEpisode.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +105,10 @@
 		0ABD2A9526DBD76600A5DFC8 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		0ABD2A9726DBD78A00A5DFC8 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0ACC59DB26F9AFB20034D8B9 /* PodcastDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDetailsView.swift; sourceTree = "<group>"; };
+		0ACE2AE9274A728300F05E5F /* ShareToEpisode.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareToEpisode.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ACE2AEB274A728300F05E5F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		0ACE2AEE274A728300F05E5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		0ACE2AF0274A728300F05E5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AD415A326B44B69003AA857 /* PodcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewModel.swift; sourceTree = "<group>"; };
 		0AF5009B26F7981D00F8A71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +128,13 @@
 				0A6D866F26CF7DF00070231F /* Alamofire in Frameworks */,
 				0AAFBD4B26C1A21F002C228E /* KeychainAccess in Frameworks */,
 				0AB2BF3F26A8405D00C2F1A3 /* Kingfisher in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0ACE2AE6274A728300F05E5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +202,7 @@
 				0AB10D2D2674B5A600EC4B51 /* podcastUITests */,
 				0A6AB1162727CB5D0084310F /* Podcast */,
 				0A78D6A92746B4B100C6D4E2 /* Share */,
+				0ACE2AEA274A728300F05E5F /* ShareToEpisode */,
 				0AB10D0F2674B5A500EC4B51 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -189,6 +212,7 @@
 			children = (
 				0AB10D0E2674B5A500EC4B51 /* podcast.app */,
 				0A78D6A82746B4B100C6D4E2 /* Share.appex */,
+				0ACE2AE9274A728300F05E5F /* ShareToEpisode.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,6 +272,16 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		0ACE2AEA274A728300F05E5F /* ShareToEpisode */ = {
+			isa = PBXGroup;
+			children = (
+				0ACE2AEB274A728300F05E5F /* ShareViewController.swift */,
+				0ACE2AED274A728300F05E5F /* MainInterface.storyboard */,
+				0ACE2AF0274A728300F05E5F /* Info.plist */,
+			);
+			path = ShareToEpisode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,6 +315,7 @@
 			);
 			dependencies = (
 				0A78D6B32746B4B100C6D4E2 /* PBXTargetDependency */,
+				0ACE2AF2274A728300F05E5F /* PBXTargetDependency */,
 			);
 			name = podcast;
 			packageProductDependencies = (
@@ -292,13 +327,30 @@
 			productReference = 0AB10D0E2674B5A500EC4B51 /* podcast.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0ACE2AE8274A728300F05E5F /* ShareToEpisode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0ACE2AF4274A728300F05E5F /* Build configuration list for PBXNativeTarget "ShareToEpisode" */;
+			buildPhases = (
+				0ACE2AE5274A728300F05E5F /* Sources */,
+				0ACE2AE6274A728300F05E5F /* Frameworks */,
+				0ACE2AE7274A728300F05E5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareToEpisode;
+			productName = ShareToEpisode;
+			productReference = 0ACE2AE9274A728300F05E5F /* ShareToEpisode.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0AB10D062674B5A500EC4B51 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					0A78D6A72746B4B100C6D4E2 = {
@@ -306,6 +358,9 @@
 					};
 					0AB10D0D2674B5A500EC4B51 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					0ACE2AE8274A728300F05E5F = {
+						CreatedOnToolsVersion = 13.0;
 					};
 				};
 			};
@@ -329,6 +384,7 @@
 			targets = (
 				0AB10D0D2674B5A500EC4B51 /* podcast */,
 				0A78D6A72746B4B100C6D4E2 /* Share */,
+				0ACE2AE8274A728300F05E5F /* ShareToEpisode */,
 			);
 		};
 /* End PBXProject section */
@@ -349,6 +405,14 @@
 			files = (
 				0AB10D192674B5A600EC4B51 /* Preview Assets.xcassets in Resources */,
 				0AB10D162674B5A600EC4B51 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0ACE2AE7274A728300F05E5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ACE2AEF274A728300F05E5F /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +452,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0ACE2AE5274A728300F05E5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ACE2AEC274A728300F05E5F /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -395,6 +467,11 @@
 			isa = PBXTargetDependency;
 			target = 0A78D6A72746B4B100C6D4E2 /* Share */;
 			targetProxy = 0A78D6B22746B4B100C6D4E2 /* PBXContainerItemProxy */;
+		};
+		0ACE2AF2274A728300F05E5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0ACE2AE8274A728300F05E5F /* ShareToEpisode */;
+			targetProxy = 0ACE2AF1274A728300F05E5F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -411,6 +488,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				0A78D6AF2746B4B100C6D4E2 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		0ACE2AED274A728300F05E5F /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0ACE2AEE274A728300F05E5F /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -620,6 +705,60 @@
 			};
 			name = Release;
 		};
+		0ACE2AF5274A728300F05E5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S59LX3P63N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareToEpisode/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareToEpisode;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.ShareToEpisode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0ACE2AF6274A728300F05E5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S59LX3P63N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareToEpisode/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareToEpisode;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.ShareToEpisode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -646,6 +785,15 @@
 			buildConfigurations = (
 				0AB10D342674B5A600EC4B51 /* Debug */,
 				0AB10D352674B5A600EC4B51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0ACE2AF4274A728300F05E5F /* Build configuration list for PBXNativeTarget "ShareToEpisode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0ACE2AF5274A728300F05E5F /* Debug */,
+				0ACE2AF6274A728300F05E5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

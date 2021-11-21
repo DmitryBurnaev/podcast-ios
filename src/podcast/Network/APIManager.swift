@@ -119,7 +119,7 @@ class APIManager{
         let interceptor = AccessTokenInterceptor()
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-
+        print(url)
         let request = APIManager.session
             .request(url, method: method, parameters: parameters, encoding: encoding, headers: HTTPHeaders(headers), interceptor: interceptor)
             .validate(statusCode: 200..<300)
