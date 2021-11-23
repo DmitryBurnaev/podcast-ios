@@ -1,10 +1,3 @@
-//
-//  ShareViewController.swift
-//  ShareToEpisode
-//
-//  Created by Dmitry Burnaev on 21.11.2021.
-//
-//
 import UIKit
 import Social
 import CoreServices

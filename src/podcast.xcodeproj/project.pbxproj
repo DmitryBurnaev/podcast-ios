@@ -110,6 +110,7 @@
 		0ACE2AEE274A728300F05E5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0ACE2AF0274A728300F05E5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AD415A326B44B69003AA857 /* PodcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastViewModel.swift; sourceTree = "<group>"; };
+		0AF4CE35274CD19200FF9344 /* ShareToEpisode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareToEpisode.entitlements; sourceTree = "<group>"; };
 		0AF5009B26F7981D00F8A71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +276,7 @@
 		0ACE2AEA274A728300F05E5F /* ShareToEpisode */ = {
 			isa = PBXGroup;
 			children = (
+				0AF4CE35274CD19200FF9344 /* ShareToEpisode.entitlements */,
 				0ACE2AEB274A728300F05E5F /* ShareViewController.swift */,
 				0ACE2AED274A728300F05E5F /* MainInterface.storyboard */,
 				0ACE2AF0274A728300F05E5F /* Info.plist */,
@@ -709,6 +711,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareToEpisode/ShareToEpisode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S59LX3P63N;
@@ -736,6 +739,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = ShareToEpisode/ShareToEpisode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S59LX3P63N;
