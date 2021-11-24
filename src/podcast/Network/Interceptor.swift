@@ -3,7 +3,6 @@ import Alamofire
 import KeychainAccess
 
 
-
 class AccessTokenInterceptor: RequestInterceptor{
     private let retryLimit = 5;
 
