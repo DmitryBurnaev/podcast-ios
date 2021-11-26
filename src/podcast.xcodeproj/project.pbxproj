@@ -590,7 +590,7 @@
 				DEVELOPMENT_TEAM = S59LX3P63N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareToEpisode/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareToEpisode;
+				INFOPLIST_KEY_CFBundleDisplayName = ToPodcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -618,7 +618,7 @@
 				DEVELOPMENT_TEAM = S59LX3P63N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareToEpisode/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareToEpisode;
+				INFOPLIST_KEY_CFBundleDisplayName = ToPodcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
