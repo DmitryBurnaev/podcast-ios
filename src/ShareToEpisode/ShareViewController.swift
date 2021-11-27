@@ -6,6 +6,7 @@ import CoreServices
 class ShareViewController: SLComposeServiceViewController {
 
     override func isContentValid() -> Bool {
+        print("isContentValid")
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true
     }
@@ -14,21 +15,21 @@ class ShareViewController: SLComposeServiceViewController {
         self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
     }
 
-    override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return []
-    }
+//    override func configurationItems() -> [Any]! {
+//        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
+//        return []
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let inputItem = extensionContext?.inputItems.first as? NSExtensionItem {
-            if let itemProvider = inputItem.attachments?.first {
-                itemProvider.loadItem(forTypeIdentifier: kUTTypePropertyList as String) { [weak self] (dict, error) in
-                    // do stuff!
-                }
-            }
-        }
+//        if let inputItem = extensionContext?.inputItems.first as? NSExtensionItem {
+//            if let itemProvider = inputItem.attachments?.first {
+//                itemProvider.loadItem(forTypeIdentifier: kUTTypePropertyList as String) { [weak self] (dict, error) in
+//                    // do stuff!
+//                }
+//            }
+//        }
     }
 }
 
