@@ -7,14 +7,15 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
-			<dict>
+			<string>TRUEPREDICATE</string>
+			<!-- <dict>
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
 				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
 				<integer>1</integer>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
 				<integer>1</integer>
-			</dict>
+			</dict> -->
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

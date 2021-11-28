@@ -61,9 +61,6 @@
 
 /* Begin PBXFileReference section */
 		0A32122D26FF63440018AECF /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
-		0A6AB1172727CB5D0084310F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		0A6AB11A2727CB5D0084310F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		0A6AB11C2727CB5D0084310F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A7D0E8926B2B0780029068C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = podcast/ProfileView.swift; sourceTree = SOURCE_ROOT; };
 		0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0A8A069726E3C82100F8D44A /* PodcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastService.swift; sourceTree = "<group>"; };
@@ -118,16 +115,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A6AB1162727CB5D0084310F /* Podcast */ = {
-			isa = PBXGroup;
-			children = (
-				0A6AB1172727CB5D0084310F /* ShareViewController.swift */,
-				0A6AB1192727CB5D0084310F /* MainInterface.storyboard */,
-				0A6AB11C2727CB5D0084310F /* Info.plist */,
-			);
-			path = Podcast;
-			sourceTree = "<group>";
-		};
 		0A7D0E8826B2ACFA0029068C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +153,6 @@
 				0AB10D102674B5A500EC4B51 /* podcast */,
 				0AB10D222674B5A600EC4B51 /* podcastTests */,
 				0AB10D2D2674B5A600EC4B51 /* podcastUITests */,
-				0A6AB1162727CB5D0084310F /* Podcast */,
 				0ACE2AEA274A728300F05E5F /* ShareToEpisode */,
 				0AB10D0F2674B5A500EC4B51 /* Products */,
 			);
@@ -397,14 +383,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0A6AB1192727CB5D0084310F /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A6AB11A2727CB5D0084310F /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		0ACE2AED274A728300F05E5F /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -590,7 +568,7 @@
 				DEVELOPMENT_TEAM = S59LX3P63N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareToEpisode/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ToPodcast;
+				INFOPLIST_KEY_CFBundleDisplayName = Podcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -618,7 +596,7 @@
 				DEVELOPMENT_TEAM = S59LX3P63N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareToEpisode/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ToPodcast;
+				INFOPLIST_KEY_CFBundleDisplayName = Podcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
