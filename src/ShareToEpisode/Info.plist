@@ -24,5 +24,7 @@
 <!-- 		<key>NSExtensionPrincipalClass</key>
 		<string>ShareToEpisode.ShareViewController</string> -->
 	</dict>
+    <key>CFBundleDisplayName</key>
+    <string>Podcast</string>
 </dict>
 </plist>

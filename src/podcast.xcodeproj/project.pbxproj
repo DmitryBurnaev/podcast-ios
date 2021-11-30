@@ -14,9 +14,6 @@
 		0A8A069826E3C82100F8D44A /* PodcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8A069726E3C82100F8D44A /* PodcastService.swift */; };
 		0A8A069A26E3C83500F8D44A /* EpisodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8A069926E3C83500F8D44A /* EpisodeService.swift */; };
 		0A8A069C26E3C84600F8D44A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8A069B26E3C84600F8D44A /* AuthService.swift */; };
-		0A8C34852754B233001D3984 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C34842754B233001D3984 /* ShareViewController.swift */; };
-		0A8C34882754B233001D3984 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A8C34862754B233001D3984 /* MainInterface.storyboard */; };
-		0A8C348C2754B233001D3984 /* Podcast.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0A8C34822754B233001D3984 /* Podcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AAFBD292681B0A5007E3063 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD282681B0A5007E3063 /* TabBarView.swift */; };
 		0AAFBD2B2681B5A1007E3063 /* PodcastListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */; };
 		0AAFBD2D2681B672007E3063 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAFBD2C2681B672007E3063 /* HomeView.swift */; };
@@ -39,13 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0A8C348A2754B233001D3984 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0A8C34812754B233001D3984;
-			remoteInfo = Podcast;
-		};
 		0ACE2AF1274A728300F05E5F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
@@ -63,7 +53,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				0ACE2AF3274A728300F05E5F /* ShareToEpisode.appex in Embed App Extensions */,
-				0A8C348C2754B233001D3984 /* Podcast.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,10 +66,6 @@
 		0A8A069726E3C82100F8D44A /* PodcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastService.swift; sourceTree = "<group>"; };
 		0A8A069926E3C83500F8D44A /* EpisodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeService.swift; sourceTree = "<group>"; };
 		0A8A069B26E3C84600F8D44A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		0A8C34822754B233001D3984 /* Podcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Podcast.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A8C34842754B233001D3984 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		0A8C34872754B233001D3984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		0A8C34892754B233001D3984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AA32488272A84990095C8A0 /* podcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = podcast.entitlements; sourceTree = "<group>"; };
 		0AAFBD282681B0A5007E3063 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0AAFBD2A2681B5A1007E3063 /* PodcastListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastListView.swift; sourceTree = "<group>"; };
@@ -110,13 +95,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0A8C347F2754B233001D3984 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0AB10D0B2674B5A500EC4B51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,16 +147,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		0A8C34832754B233001D3984 /* Podcast */ = {
-			isa = PBXGroup;
-			children = (
-				0A8C34842754B233001D3984 /* ShareViewController.swift */,
-				0A8C34862754B233001D3984 /* MainInterface.storyboard */,
-				0A8C34892754B233001D3984 /* Info.plist */,
-			);
-			path = Podcast;
-			sourceTree = "<group>";
-		};
 		0AB10D052674B5A500EC4B51 = {
 			isa = PBXGroup;
 			children = (
@@ -186,7 +154,6 @@
 				0AB10D222674B5A600EC4B51 /* podcastTests */,
 				0AB10D2D2674B5A600EC4B51 /* podcastUITests */,
 				0ACE2AEA274A728300F05E5F /* ShareToEpisode */,
-				0A8C34832754B233001D3984 /* Podcast */,
 				0AB10D0F2674B5A500EC4B51 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -196,7 +163,6 @@
 			children = (
 				0AB10D0E2674B5A500EC4B51 /* podcast.app */,
 				0ACE2AE9274A728300F05E5F /* ShareToEpisode.appex */,
-				0A8C34822754B233001D3984 /* Podcast.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -270,23 +236,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0A8C34812754B233001D3984 /* Podcast */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0A8C348F2754B233001D3984 /* Build configuration list for PBXNativeTarget "Podcast" */;
-			buildPhases = (
-				0A8C347E2754B233001D3984 /* Sources */,
-				0A8C347F2754B233001D3984 /* Frameworks */,
-				0A8C34802754B233001D3984 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Podcast;
-			productName = Podcast;
-			productReference = 0A8C34822754B233001D3984 /* Podcast.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		0AB10D0D2674B5A500EC4B51 /* podcast */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AB10D332674B5A600EC4B51 /* Build configuration list for PBXNativeTarget "podcast" */;
@@ -300,7 +249,6 @@
 			);
 			dependencies = (
 				0ACE2AF2274A728300F05E5F /* PBXTargetDependency */,
-				0A8C348B2754B233001D3984 /* PBXTargetDependency */,
 			);
 			name = podcast;
 			packageProductDependencies = (
@@ -338,9 +286,6 @@
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
-					0A8C34812754B233001D3984 = {
-						CreatedOnToolsVersion = 12.5;
-					};
 					0AB10D0D2674B5A500EC4B51 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -369,20 +314,11 @@
 			targets = (
 				0AB10D0D2674B5A500EC4B51 /* podcast */,
 				0ACE2AE8274A728300F05E5F /* ShareToEpisode */,
-				0A8C34812754B233001D3984 /* Podcast */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0A8C34802754B233001D3984 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A8C34882754B233001D3984 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0AB10D0C2674B5A500EC4B51 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -403,14 +339,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0A8C347E2754B233001D3984 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A8C34852754B233001D3984 /* ShareViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0AB10D0A2674B5A500EC4B51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,11 +375,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0A8C348B2754B233001D3984 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0A8C34812754B233001D3984 /* Podcast */;
-			targetProxy = 0A8C348A2754B233001D3984 /* PBXContainerItemProxy */;
-		};
 		0ACE2AF2274A728300F05E5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0ACE2AE8274A728300F05E5F /* ShareToEpisode */;
@@ -460,14 +383,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0A8C34862754B233001D3984 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A8C34872754B233001D3984 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		0ACE2AED274A728300F05E5F /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -479,44 +394,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0A8C348D2754B233001D3984 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S59LX3P63N;
-				INFOPLIST_FILE = Podcast/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.Podcast;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0A8C348E2754B233001D3984 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S59LX3P63N;
-				INFOPLIST_FILE = Podcast/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.Podcast;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		0AB10D312674B5A600EC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -693,7 +570,7 @@
 				INFOPLIST_FILE = ShareToEpisode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Podcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -721,7 +598,7 @@
 				INFOPLIST_FILE = ShareToEpisode/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Podcast;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -740,15 +617,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0A8C348F2754B233001D3984 /* Build configuration list for PBXNativeTarget "Podcast" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0A8C348D2754B233001D3984 /* Debug */,
-				0A8C348E2754B233001D3984 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		0AB10D092674B5A500EC4B51 /* Build configuration list for PBXProject "podcast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
