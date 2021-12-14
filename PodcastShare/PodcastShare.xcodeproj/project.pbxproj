@@ -50,6 +50,7 @@
 		0A4178FB276630D700023DE1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		0A4178FE276630D700023DE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0A417900276630D700023DE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A417908276875DF00023DE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +92,7 @@
 		0A4178E62766305E00023DE1 /* PodcastShare */ = {
 			isa = PBXGroup;
 			children = (
+				0A417908276875DF00023DE1 /* Info.plist */,
 				0A4178E72766305E00023DE1 /* PodcastShareApp.swift */,
 				0A4178E92766305E00023DE1 /* ContentView.swift */,
 				0A4178EB2766306000023DE1 /* Assets.xcassets */,
@@ -381,6 +383,7 @@
 				DEVELOPMENT_TEAM = S59LX3P63N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PodcastShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -412,6 +415,7 @@
 				DEVELOPMENT_TEAM = S59LX3P63N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PodcastShare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
