@@ -29,9 +29,6 @@ class ShareViewController: UIViewController {
     private let typeText = String(kUTTypeText)
     private let typeURL = String(kUTTypeURL)
 
-    // Courtesy: https://stackoverflow.com/a/44499222/13363449 👇🏾
-    // Function must be named exactly like this so a selector can be found by the compiler!
-    // Anyway - it's another selector in another instance that would be "performed" instead.
     @objc func openURL(_ url: URL) -> Bool {
         var responder: UIResponder? = self
         while responder != nil {
@@ -43,7 +40,6 @@ class ShareViewController: UIViewController {
         return false
     }
 
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -53,43 +49,11 @@ class ShareViewController: UIViewController {
                 self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                 return
         }
-
-        // Check if object is of type text
-        if itemProvider.hasItemConformingToTypeIdentifier(typeText) {
-            handleIncomingText(itemProvider: itemProvider)
         // Check if object is of type URL
-        } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL) {
+        if itemProvider.hasItemConformingToTypeIdentifier(typeURL) {
             handleIncomingURL(itemProvider: itemProvider)
         } else {
             print("Error: No url or text found")
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-        }
-    }
-
-    private func handleIncomingText(itemProvider: NSItemProvider) {
-        itemProvider.loadItem(forTypeIdentifier: typeText, options: nil) { (item, error) in
-            if let error = error {
-                print("Text-Error: \(error.localizedDescription)")
-            }
-
-            if let text = item as? String {
-                do {
-                    // Detect URLs in String
-                    let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-                    let matches = detector.matches(
-                        in: text,
-                        options: [],
-                        range: NSRange(location: 0, length: text.utf16.count)
-                    )
-                    // Get first URL found
-                    if let firstMatch = matches.first, let range = Range(firstMatch.range, in: text) {
-                        print(text[range])
-                    }
-                } catch let error {
-                    print("Do-Try Error: \(error.localizedDescription)")
-                }
-            }
-
             self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
     }
