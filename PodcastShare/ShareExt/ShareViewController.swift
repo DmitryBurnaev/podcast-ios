@@ -22,13 +22,14 @@ import CoreServices
 //    }
 //
 //}
-
-
+//
+//
 class ShareViewController: UIViewController {
-    
-    private let typeText = String(kUTTypeText)
+    private var appURLString = "PodcastShare://"
     private let typeURL = String(kUTTypeURL)
-
+    private let userDefaultsName = "podcastShareUserDefaults"
+    private let urlDefaultName = "incomingURL"
+    
     @objc func openURL(_ url: URL) -> Bool {
         var responder: UIResponder? = self
         while responder != nil {
@@ -53,7 +54,7 @@ class ShareViewController: UIViewController {
         if itemProvider.hasItemConformingToTypeIdentifier(typeURL) {
             handleIncomingURL(itemProvider: itemProvider)
         } else {
-            print("Error: No url or text found")
+            print("Error: No url found")
             self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
     }
@@ -66,12 +67,22 @@ class ShareViewController: UIViewController {
 
             if let url = item as? NSURL, let urlString = url.absoluteString {
                 print(urlString)
+                self.saveURLString(urlString)
+                self.openMainApp()
             }
-
+            
             self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
         }
     }
-    
-    
+    private func openMainApp() {
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: { _ in
+            guard let url = URL(string: self.appURLString) else { return }
+            _ = self.openURL(url)
+        })
+    }
+    private func saveURLString(_ urlString: String) {
+        UserDefaults(suiteName: self.userDefaultsName)?.set(urlString, forKey: self.urlDefaultName)
+    }
+
 }
 

@@ -4,8 +4,6 @@
 <dict>
 	<key>NSExtension</key>
 	<dict>
-
-        
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
@@ -16,9 +14,8 @@
                 <true/>
             </dict>
 		</dict>
-
-        <key>NSExtensionPrincipalClass</key>
-        <string>ShareExt.ShareViewController</string>
+<!--        <key>NSExtensionPrincipalClass</key>-->
+<!--        <string>ShareExt.ShareViewController</string>-->
         <key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>
 		<key>NSExtensionPointIdentifier</key>
