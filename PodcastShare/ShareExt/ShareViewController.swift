@@ -81,7 +81,8 @@ class ShareViewController: UIViewController {
         })
     }
     private func saveURLString(_ urlString: String) {
-        UserDefaults(suiteName: self.userDefaultsName)?.set(urlString, forKey: self.urlDefaultName)
+//        UserDefaults(suiteName: self.userDefaultsName)?.set(urlString, forKey: self.urlDefaultName)
+        UserDefaults().set(urlString, forKey: self.urlDefaultName)
     }
 
 }

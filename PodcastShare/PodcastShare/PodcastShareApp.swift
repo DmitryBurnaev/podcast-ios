@@ -8,6 +8,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 //    }
 //
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        print("url", url)
         if let scheme = url.scheme,
             scheme.caseInsensitiveCompare("PodcastShare") == .orderedSame,
             let page = url.host {
