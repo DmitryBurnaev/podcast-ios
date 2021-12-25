@@ -3,23 +3,23 @@ import SwiftUI
 
 
 class LoginViewModel: ObservableObject {
-    var observer: NSKeyValueObservation?
-
     @Published var incomingURL: String  = ""
-        
+    var allowedDomains: [String] = [
+        "youtube.com",
+        "youtu.be"
+    ]
+    
+    
     init() {
-        self.observer = UserDefaults.standard.observe(\.incomingURL, options: [.initial, .new]) { (observed, change) in
-            print("something changed change (new value): \(String(describing: change.newValue)) | observed: \(observed)")
-            DispatchQueue.main.async {
-                self.incomingURL = change.newValue ?? ""
+        if let incomingURL = UIPasteboard.general.string {
+            for domain in self.allowedDomains {
+                if incomingURL.contains(domain){
+                    self.incomingURL = incomingURL
+                    break
+                }
             }
         }
     }
-    
-    deinit {
-        observer?.invalidate()
-    }
-    
 }
 
 

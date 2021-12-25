@@ -82,7 +82,8 @@ class ShareViewController: UIViewController {
     }
     private func saveURLString(_ urlString: String) {
 //        UserDefaults(suiteName: self.userDefaultsName)?.set(urlString, forKey: self.urlDefaultName)
-        UserDefaults().set(urlString, forKey: self.urlDefaultName)
+        UIPasteboard.general.string = urlString
+//        UserDefaults(suiteName: "podcastShareUserDefaults")?.set(urlString, forKey: "incomingURL")
     }
 
 }
