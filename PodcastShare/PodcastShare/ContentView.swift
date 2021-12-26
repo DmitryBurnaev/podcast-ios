@@ -1,7 +1,6 @@
 import SwiftUI
 
 
-
 class LoginViewModel: ObservableObject {
     @Published var incomingURL: String  = ""
     var allowedDomains: [String] = [
@@ -21,7 +20,6 @@ class LoginViewModel: ObservableObject {
         }
     }
 }
-
 
 
 struct ContentView: View {
