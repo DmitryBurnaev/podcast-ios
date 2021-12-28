@@ -119,11 +119,12 @@ class APIManager{
         let interceptor = AccessTokenInterceptor()
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        print("REQUEST:\n url: \(url)\n params: \(String(describing: parameters))")
+
         let request = APIManager.session
             .request(url, method: method, parameters: parameters, encoding: encoding, headers: HTTPHeaders(headers), interceptor: interceptor)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseBody<Payload, EmptyErrorPayload>.self, decoder: decoder, completionHandler: { response in
+//                debugPrint(response)
                 switch response.result {
                 case .success(let data):
                     switch data.status {
@@ -131,6 +132,8 @@ class APIManager{
                         if let payload = data.payload {
                             completion(.success(payload))
                         } else {
+//                            print("----")
+//                            debugPrint(data)
                             print("API REQ: no response data \(String(describing: data.payload))")
                             completion(.failure(ResponseErrorDetails(code: "NO_DATA", description: "API REQ: no response data")))
                         }

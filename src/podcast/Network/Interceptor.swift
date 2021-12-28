@@ -3,19 +3,16 @@ import Alamofire
 import KeychainAccess
 
 
+
 class AccessTokenInterceptor: RequestInterceptor{
     private let retryLimit = 5;
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var request = urlRequest
-        let accessToken = AuthService().getToken()
-        if (accessToken != nil){
-            let bearerToken = "Bearer \(accessToken!)"
-            request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
-            print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
-        } else {
-            print("\nINTERCEPTOR: No access token found (skip header adding)\n")
-        }
+        guard let accessToken = AuthService().getToken() else { return }
+        let bearerToken = "Bearer \(accessToken)"
+        request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
+        print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
         completion(.success(request))
     }
 
