@@ -9,11 +9,20 @@ class AccessTokenInterceptor: RequestInterceptor{
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var request = urlRequest
+        let accessToken = AuthService().getToken()
+        if accessToken != nil {
+            let bearerToken = "Bearer \(accessToken ?? "")"
+            request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
+            print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
+        }else{
+            print("\nINTERCEPTOR: request NOT adapted (token not found);")
+        }
+        
         // TODO: fix adapting for missing accessToken
-        guard let accessToken = AuthService().getToken() else { return }
-        let bearerToken = "Bearer \(accessToken)"
-        request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
-        print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
+//        guard let accessToken = AuthService().getToken() else { return }
+//        let bearerToken = "Bearer \(accessToken)"
+//        request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
+//        print("\nINTERCEPTOR: request adapted; token added to the header field is: \(bearerToken)\n")
         completion(.success(request))
     }
 
