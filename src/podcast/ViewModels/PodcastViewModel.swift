@@ -22,7 +22,6 @@ class PodcastDetailsViewModel: ObservableObject{
                     imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
                     rssLink: "https://path/to/rss/podcast-cax7j52Xha3f.rss"
                 )
-                print("Set test podcast \(self.podcast)")
             }
             return
         }

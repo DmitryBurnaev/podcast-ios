@@ -9,6 +9,7 @@ class AccessTokenInterceptor: RequestInterceptor{
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var request = urlRequest
+        // TODO: fix adapting for missing accessToken
         guard let accessToken = AuthService().getToken() else { return }
         let bearerToken = "Bearer \(accessToken)"
         request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
