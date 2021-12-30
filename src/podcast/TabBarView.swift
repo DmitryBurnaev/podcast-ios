@@ -51,13 +51,6 @@ struct TabBarView: View {
                     .padding(.horizontal)
                     .foregroundColor(selectedTab == tab.id ? Color(.label) : .secondary)
                     .onTapGesture{
-//                        if !shareScreenOpened && shareVM.incomingURL != ""{
-                        if shareVM.incomingURL != ""{
-                            selectedTab = "podcasts"
-//                            shareScreenOpened = true
-                        } else {
-                            selectedTab = tab.id
-                        }
                         selectedTab = tab.id
 //                        withAnimation{
 //                            selectedTab = tab.id

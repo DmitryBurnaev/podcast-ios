@@ -16,40 +16,27 @@ struct ContentView: View {
                         })
                     })
                 
-//                if  shareVM.incomingURL != "") {
-//                    selectedTab = "podcasts"
-//                } else {
-//
-//                }
-//                if loginVM.hasLoggedIn && shareVM.incomingURL != ""{
-//                    PodcastListView()
-//                } else
-                
                 if loginVM.hasLoggedIn{
-//                    if shareVM.incomingURL != ""{
-//                        PodcastListView()
-//                    } else {
-                        switch selectedTab{
+//                    TODO: open "podcasts" view for sharing mode
+                    switch selectedTab{
 
-                        case "home":
-                            HomeView()
+                    case "home":
+                        HomeView()
 
-                        case "podcasts":
-                            PodcastListView()
+                    case "podcasts":
+                        PodcastListView()
 
-                        case "playlist":
-                            PlayListView()
+                    case "playlist":
+                        PlayListView()
 
-                        case "profile":
-                            ProfileView()
+                    case "profile":
+                        ProfileView()
 
-                        default:
-                            NavigationView{
-                                Text("Remining tabs")
-                            }
+                    default:
+                        NavigationView{
+                            Text("Remining tabs")
                         }
-//                    }
-                    
+                    }
                 } else {
                     LoginView(loginVM: loginVM)
                 }
