@@ -19,8 +19,10 @@ let tabs: [Tab] = [
 struct TabBarView: View {
     @Binding var selectedTab: String
     @Binding var shouldShowModal: Bool
+//    @Binding private var shareScreenOpened: Bool
     @Namespace private var currentTab
-    
+    @ObservedObject var shareVM: ShareViewModel = ShareViewModel()
+
     var body: some View {
         HStack(alignment: .bottom){
             ForEach(tabs, id: \.id){ tab in
@@ -49,6 +51,13 @@ struct TabBarView: View {
                     .padding(.horizontal)
                     .foregroundColor(selectedTab == tab.id ? Color(.label) : .secondary)
                     .onTapGesture{
+//                        if !shareScreenOpened && shareVM.incomingURL != ""{
+                        if shareVM.incomingURL != ""{
+                            selectedTab = "podcasts"
+//                            shareScreenOpened = true
+                        } else {
+                            selectedTab = tab.id
+                        }
                         selectedTab = tab.id
 //                        withAnimation{
 //                            selectedTab = tab.id

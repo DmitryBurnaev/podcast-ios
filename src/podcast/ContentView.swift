@@ -4,7 +4,8 @@ struct ContentView: View {
     @State private var shouldShowModal = false
     @State private var selectedTab = "home"
     @ObservedObject var loginVM: LoginViewModel = LoginViewModel()
-    
+    @ObservedObject var shareVM: ShareViewModel = ShareViewModel()
+
     var body: some View {
         VStack(spacing: 0){
             ZStack{
@@ -14,27 +15,41 @@ struct ContentView: View {
                             Text("Fillscreen cover")
                         })
                     })
-
+                
+//                if  shareVM.incomingURL != "") {
+//                    selectedTab = "podcasts"
+//                } else {
+//
+//                }
+//                if loginVM.hasLoggedIn && shareVM.incomingURL != ""{
+//                    PodcastListView()
+//                } else
+                
                 if loginVM.hasLoggedIn{
-                    switch selectedTab{
+//                    if shareVM.incomingURL != ""{
+//                        PodcastListView()
+//                    } else {
+                        switch selectedTab{
 
-                    case "home":
-                        HomeView()
+                        case "home":
+                            HomeView()
 
-                    case "podcasts":
-                        PodcastListView()
+                        case "podcasts":
+                            PodcastListView()
 
-                    case "playlist":
-                        PlayListView()
+                        case "playlist":
+                            PlayListView()
 
-                    case "profile":
-                        ProfileView()
+                        case "profile":
+                            ProfileView()
 
-                    default:
-                        NavigationView{
-                            Text("Remining tabs")
+                        default:
+                            NavigationView{
+                                Text("Remining tabs")
+                            }
                         }
-                    }
+//                    }
+                    
                 } else {
                     LoginView(loginVM: loginVM)
                 }
