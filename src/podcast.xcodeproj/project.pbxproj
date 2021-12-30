@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0A32122E26FF63440018AECF /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A32122D26FF63440018AECF /* constants.swift */; };
+		0A523E20277CBBA5002608F8 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A523E1F277CBBA5002608F8 /* ShareViewController.swift */; };
+		0A523E23277CBBA5002608F8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A523E21277CBBA5002608F8 /* MainInterface.storyboard */; };
+		0A523E27277CBBA5002608F8 /* shareExt.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0A523E1D277CBBA5002608F8 /* shareExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0A6D866F26CF7DF00070231F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6D866E26CF7DF00070231F /* Alamofire */; };
 		0A7D0E8A26B2B0780029068C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8926B2B0780029068C /* ProfileView.swift */; };
 		0A7D0E9026B2B9020029068C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */; };
@@ -35,6 +38,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A523E25277CBBA5002608F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A523E1C277CBBA5002608F8;
+			remoteInfo = shareExt;
+		};
 		0AB10D202674B5A600EC4B51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0AB10D062674B5A500EC4B51 /* Project object */;
@@ -51,8 +61,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0A523E2B277CBBA5002608F8 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0A523E27277CBBA5002608F8 /* shareExt.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0A32122D26FF63440018AECF /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		0A523E1D277CBBA5002608F8 /* shareExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = shareExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A523E1F277CBBA5002608F8 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		0A523E22277CBBA5002608F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		0A523E24277CBBA5002608F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A523E2C277CBC95002608F8 /* podcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = podcast.entitlements; sourceTree = "<group>"; };
+		0A523E2D277CBCB4002608F8 /* shareExt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = shareExt.entitlements; sourceTree = "<group>"; };
 		0A7D0E8926B2B0780029068C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = podcast/ProfileView.swift; sourceTree = SOURCE_ROOT; };
 		0A7D0E8F26B2B9020029068C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0A8A069726E3C82100F8D44A /* PodcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastService.swift; sourceTree = "<group>"; };
@@ -83,6 +113,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A523E1A277CBBA5002608F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AB10D0B2674B5A500EC4B51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -110,6 +147,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A523E1E277CBBA5002608F8 /* shareExt */ = {
+			isa = PBXGroup;
+			children = (
+				0A523E2D277CBCB4002608F8 /* shareExt.entitlements */,
+				0A523E1F277CBBA5002608F8 /* ShareViewController.swift */,
+				0A523E21277CBBA5002608F8 /* MainInterface.storyboard */,
+				0A523E24277CBBA5002608F8 /* Info.plist */,
+			);
+			path = shareExt;
+			sourceTree = "<group>";
+		};
 		0A7D0E8826B2ACFA0029068C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +196,7 @@
 				0AB10D102674B5A500EC4B51 /* podcast */,
 				0AB10D222674B5A600EC4B51 /* podcastTests */,
 				0AB10D2D2674B5A600EC4B51 /* podcastUITests */,
+				0A523E1E277CBBA5002608F8 /* shareExt */,
 				0AB10D0F2674B5A500EC4B51 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -158,6 +207,7 @@
 				0AB10D0E2674B5A500EC4B51 /* podcast.app */,
 				0AB10D1F2674B5A600EC4B51 /* podcastTests.xctest */,
 				0AB10D2A2674B5A600EC4B51 /* podcastUITests.xctest */,
+				0A523E1D277CBBA5002608F8 /* shareExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,6 +215,7 @@
 		0AB10D102674B5A500EC4B51 /* podcast */ = {
 			isa = PBXGroup;
 			children = (
+				0A523E2C277CBC95002608F8 /* podcast.entitlements */,
 				0ABD2A9426DBD73F00A5DFC8 /* Network */,
 				0A7D0E8826B2ACFA0029068C /* Views */,
 				0A7D0E8B26B2B19C0029068C /* Services */,
@@ -219,6 +270,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0A523E1C277CBBA5002608F8 /* shareExt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A523E28277CBBA5002608F8 /* Build configuration list for PBXNativeTarget "shareExt" */;
+			buildPhases = (
+				0A523E19277CBBA5002608F8 /* Sources */,
+				0A523E1A277CBBA5002608F8 /* Frameworks */,
+				0A523E1B277CBBA5002608F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = shareExt;
+			productName = shareExt;
+			productReference = 0A523E1D277CBBA5002608F8 /* shareExt.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0AB10D0D2674B5A500EC4B51 /* podcast */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AB10D332674B5A600EC4B51 /* Build configuration list for PBXNativeTarget "podcast" */;
@@ -226,10 +294,12 @@
 				0AB10D0A2674B5A500EC4B51 /* Sources */,
 				0AB10D0B2674B5A500EC4B51 /* Frameworks */,
 				0AB10D0C2674B5A500EC4B51 /* Resources */,
+				0A523E2B277CBBA5002608F8 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0A523E26277CBBA5002608F8 /* PBXTargetDependency */,
 			);
 			name = podcast;
 			packageProductDependencies = (
@@ -283,9 +353,12 @@
 		0AB10D062674B5A500EC4B51 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					0A523E1C277CBBA5002608F8 = {
+						CreatedOnToolsVersion = 13.0;
+					};
 					0AB10D0D2674B5A500EC4B51 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -320,11 +393,20 @@
 				0AB10D0D2674B5A500EC4B51 /* podcast */,
 				0AB10D1E2674B5A600EC4B51 /* podcastTests */,
 				0AB10D292674B5A600EC4B51 /* podcastUITests */,
+				0A523E1C277CBBA5002608F8 /* shareExt */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0A523E1B277CBBA5002608F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A523E23277CBBA5002608F8 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AB10D0C2674B5A500EC4B51 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -351,6 +433,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A523E19277CBBA5002608F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A523E20277CBBA5002608F8 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AB10D0A2674B5A500EC4B51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -395,6 +485,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0A523E26277CBBA5002608F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A523E1C277CBBA5002608F8 /* shareExt */;
+			targetProxy = 0A523E25277CBBA5002608F8 /* PBXContainerItemProxy */;
+		};
 		0AB10D212674B5A600EC4B51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0AB10D0D2674B5A500EC4B51 /* podcast */;
@@ -407,7 +502,72 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		0A523E21277CBBA5002608F8 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A523E22277CBBA5002608F8 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		0A523E29277CBBA5002608F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = shareExt/shareExt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S59LX3P63N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = shareExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = shareExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.shareExt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0A523E2A277CBBA5002608F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = shareExt/shareExt.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S59LX3P63N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = shareExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = shareExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dmitry.podcast.shareExt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		0AB10D312674B5A600EC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -527,8 +687,10 @@
 		0AB10D342674B5A600EC4B51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = podcast/podcast.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"podcast/Preview Content\"";
 				DEVELOPMENT_TEAM = S59LX3P63N;
@@ -549,8 +711,10 @@
 		0AB10D352674B5A600EC4B51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = podcast/podcast.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"podcast/Preview Content\"";
 				DEVELOPMENT_TEAM = S59LX3P63N;
@@ -651,6 +815,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A523E28277CBBA5002608F8 /* Build configuration list for PBXNativeTarget "shareExt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A523E29277CBBA5002608F8 /* Debug */,
+				0A523E2A277CBBA5002608F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0AB10D092674B5A500EC4B51 /* Build configuration list for PBXProject "podcast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
