@@ -1,3 +1,10 @@
+//
+//  AuthService.swift
+//  podcast
+//
+//  Created by Dmitry Burnaev on 04.09.2021.
+//
+
 import Foundation
 import KeychainAccess
 import Alamofire
@@ -62,10 +69,7 @@ class AuthService{
         apiManager.request(
             "/auth/sign-in/",
             method: .post,
-            parameters: [
-                "email": email.trimmingCharacters(in: .whitespacesAndNewlines),
-                "password": password.trimmingCharacters(in: .whitespacesAndNewlines)
-            ],
+            parameters: ["email": email, "password": password],
             completion: { (result: Result<TokenPayload, ResponseErrorDetails>) in
                 switch result {
                 case .success(let tokenPayload):

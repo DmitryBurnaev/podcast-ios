@@ -37,7 +37,7 @@ struct PodcastDetailsView: View {
                                 HStack(spacing: 7) {
                                     Image(systemName: "square.and.arrow.up.on.square")
                                         .frame(height: 20)
-                                    Text("Copy RSS")
+                                    Text("RSS")
                                 }
                             }
                             .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
@@ -145,6 +145,8 @@ struct ActivityIndicatorView: View {
                 }
             }.frame(height: 100, alignment: .center)
             .padding(.init(top: -10, leading: 15, bottom: 10, trailing: 15))
+//            .padding(.leading)
+//            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 2))
         }
     }
 }
@@ -156,3 +158,13 @@ struct PodcastDetailsView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+//                            Text("Copy RSS")
+//                                .frame(width: 100)
+//                                .padding(5)
+//                                .background(Color(white: 0.9))
+//                                .cornerRadius(10)
+//                                .frame(width: 100)
+//                                .onTapGesture {
+//                                    print("RSS COPY button was tapped")
+//                                }

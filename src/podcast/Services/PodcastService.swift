@@ -5,7 +5,7 @@ struct PodcastsListResponse: Decodable{
     let payload: [PodcastInList]
 }
 
-struct PodcastInList: Codable, Hashable {
+struct PodcastInList: Decodable, Hashable {
     let id, episodesCount: Int
     let name, description: String
     let imageUrl: String?

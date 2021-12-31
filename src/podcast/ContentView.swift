@@ -4,7 +4,8 @@ struct ContentView: View {
     @State private var shouldShowModal = false
     @State private var selectedTab = "home"
     @ObservedObject var loginVM: LoginViewModel = LoginViewModel()
-    
+    @ObservedObject var shareVM: ShareViewModel = ShareViewModel()
+
     var body: some View {
         VStack(spacing: 0){
             ZStack{
@@ -14,8 +15,9 @@ struct ContentView: View {
                             Text("Fillscreen cover")
                         })
                     })
-
+                
                 if loginVM.hasLoggedIn{
+//                    TODO: open "podcasts" view for sharing mode
                     switch selectedTab{
 
                     case "home":

@@ -19,13 +19,21 @@ let tabs: [Tab] = [
 struct TabBarView: View {
     @Binding var selectedTab: String
     @Binding var shouldShowModal: Bool
+//    @Binding private var shareScreenOpened: Bool
     @Namespace private var currentTab
-    
+    @ObservedObject var shareVM: ShareViewModel = ShareViewModel()
+
     var body: some View {
         HStack(alignment: .bottom){
             ForEach(tabs, id: \.id){ tab in
                 GeometryReader{ geometry in
                     VStack(spacing: 4){
+//                        if (selectedTab == tab.id && tab.id != "add"){
+//                            Color(.label)
+//                                .frame(height: 2)
+//                                .offset(y: -8)
+//                                .matchedGeometryEffect(id: "currentTab", in: currentTab)
+//                        }
                         if (tab.id == "add"){
                             Image(systemName: tab.icon)
                                 .frame(height: 44).font(.system(size: 34))
@@ -44,6 +52,9 @@ struct TabBarView: View {
                     .foregroundColor(selectedTab == tab.id ? Color(.label) : .secondary)
                     .onTapGesture{
                         selectedTab = tab.id
+//                        withAnimation{
+//                            selectedTab = tab.id
+//                        }
                     }
                 }.frame(height: 44, alignment: .bottom)
             }
