@@ -37,7 +37,7 @@ struct PodcastDetailsView: View {
                                 HStack(spacing: 7) {
                                     Image(systemName: "square.and.arrow.up.on.square")
                                         .frame(height: 20)
-                                    Text("Copy RSS")
+                                    Text("RSS")
                                 }
                             }
                             .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 5))
