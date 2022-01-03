@@ -25,7 +25,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>podcast</string>
+				<string>podcast.dev</string>
 			</array>
 		</dict>
 	</array>
