@@ -20,7 +20,7 @@ class PodcastDetailsViewModel: ObservableObject{
                     name: "Test podcast",
                     description: "Only for testing new features",
                     imageUrl: "https://miro.medium.com/max/1400/1*Fx2xt6abjoAE_SbrX6s2Vg.jpeg",
-                    rssLink: "https://path/to/rss/podcast-cax7j52Xha3f.rss"
+                    rssUrl: "https://path/to/rss/podcast-cax7j52Xha3f.rss"
                 )
             }
             return
@@ -110,9 +110,9 @@ class PodcastDetailsViewModel: ObservableObject{
     
     func copyRSSLink(){
         if (self.podcast != nil){
-            UIPasteboard.general.string = podcast!.rssLink
+            UIPasteboard.general.string = podcast!.rssUrl
             self.notifyUserClipBoardCopied = true
-            print("Copied \(podcast!.rssLink)")
+            print("Copied \(podcast!.rssUrl)")
         } else {
             print("Nothing to copy (podcast is null)")
         }
